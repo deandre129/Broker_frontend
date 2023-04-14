@@ -1,0 +1,68 @@
+import { Card, CardHeader, Grid } from '@mui/material';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import brokerComparableSelectors from '@/modules/broker/comparable/brokerComparableSelectors';
+import MaterialLink from '@mui/material/Link';
+import MDBox from '@/mui/components/MDBox';
+import MDTypography from '@/mui/components/MDTypography';
+import { selectMuiSettings } from '@/modules/mui/muiSelectors';
+
+function ComparableBrokers({ record }) {
+  const { sidenavColor } = selectMuiSettings();
+  const loading = useSelector(
+    brokerComparableSelectors.selectLoading,
+  );
+  const hasRows = useSelector(
+    brokerComparableSelectors.selectHasRows,
+  );
+  const rows = useSelector(
+    brokerComparableSelectors.selectRows,
+  );
+  if (loading || !hasRows || !rows) {
+    return null;
+  }
+  return (
+    <Grid xs={12} item>
+      <Card>
+        <CardHeader
+          title={
+            <MDTypography
+              variant="body1"
+              fontWeight="bold"
+              lineHeight={1.35}
+            >
+              {`${record.name
+                .replace(/\([\w\d\s]+\)/g, '')
+                .trim()} vergleichen mit`}
+            </MDTypography>
+          }
+          sx={{ pb: 1, px: 3, pt: 2 }}
+        />
+        <MDBox sx={{ pt: 0, px: 3, pb: 2 }}>
+          {rows
+            .filter(({ id }) => id !== record.id)
+            .map((row, idx) => (
+              <MDTypography
+                key={idx}
+                variant="body2"
+                fontWeight="regular"
+                color={'info'}
+              >
+                <MaterialLink
+                  component={Link}
+                  href={`/forex-cfd-broker-vergleich/${record.name_normalized}-versus-${row.name_normalized}`}
+                  underline="hover"
+                >
+                  {row.name}
+                </MaterialLink>
+              </MDTypography>
+            ))}
+        </MDBox>
+      </Card>
+    </Grid>
+  );
+}
+
+ComparableBrokers.propTypes = {};
+
+export default ComparableBrokers;
