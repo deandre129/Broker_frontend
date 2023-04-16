@@ -42,8 +42,6 @@ import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
 import OutOf from './shared/components/OutOf';
 
-import actions from '@/modules/brokerPost/home/brokerPostHomeActions';
-import selectors from '@/modules/brokerPost/home/brokerPostHomeSelectors';
 
 const BrokerPostPage = (props) => {
 
