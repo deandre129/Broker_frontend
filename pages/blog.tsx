@@ -22,7 +22,9 @@ import config from '@/config';
 const BlogListPage = ({pagination, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
-  const [rows, setRows] = useState(pagination.rows);
+  const [rows, setRows] = useState([]);
+  const [count, setCount] = useState(0);
+
 
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -30,7 +32,7 @@ const BlogListPage = ({pagination, author, topBroker, category, mostRead, featur
   const paginationChange = {
     current: current ,
     pageSize: pageSize,
-    total: pagination.count
+    total: count,
   }
 
   const doChangePagination = async (paginationChange) => {
@@ -41,10 +43,29 @@ const BlogListPage = ({pagination, author, topBroker, category, mostRead, featur
       limit: paginationChange.pageSize,
       offset: (paginationChange.current-1)*paginationChange.pageSize,
     }
-    const paginationRes = await axios.get(`${config.backendUrl}/blog`, {params});
-    const paginationData = paginationRes.data;
-    setRows(paginationData.rows)
+    const blogRes = await axios.get(`${config.backendUrl}/blog`, {params});
+    const blogData = blogRes.data;
+    setRows(blogData.rows)
   };
+
+  useEffect(()=>{
+    setCurrent(1);
+    setPageSize(10);
+    const params = {
+      limit: 10,
+      offset: 0,
+    }
+    const blogRes = axios.get(
+      `${config.backendUrl}/blog`, { params }
+    ).then(res => {
+      const blogData = res.data;
+      console.log(blogData);
+      setRows(blogData.rows);
+      setCount(blogData.count);
+    }).catch(error => {
+      console.log(error);
+    })
+  },[]);
 
   return (
     <Layout 
@@ -139,16 +160,6 @@ const BlogListPage = ({pagination, author, topBroker, category, mostRead, featur
 
 export async function getServerSideProps({ query }) {
 
-  const current = 1;
-  const pageSize = 10;
-  
-    const params = {
-      offset: current-1,
-      limit: pageSize,
-    }
-    const paginationRes = await axios.get(`${config.backendUrl}/blog`, {params});
-    const pagination = paginationRes.data;
-
     const topBrokerRes = await axios.get(`${config.backendUrl}/broker/top`);
     const topBroker = topBrokerRes.data;
   
@@ -179,7 +190,7 @@ export async function getServerSideProps({ query }) {
     const authorRes = await axios.get(`${config.backendUrl}/author`);
     const author = authorRes.data;
 
-    return { props: { pagination, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+    return { props: { author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
   } ;
 
 export default BlogListPage;

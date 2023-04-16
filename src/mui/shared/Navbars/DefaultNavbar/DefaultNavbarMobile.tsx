@@ -44,8 +44,6 @@ function DefaultNavbarMobile({
     string | boolean
   >('');
 
-  console.log(routes);
-
   const handleSetCollapse = (name: string) =>
     collapse === name
       ? setCollapse(false)
@@ -65,9 +63,7 @@ function DefaultNavbarMobile({
         name={name}
         icon={icon}
         collapseStatus={name === collapse}
-        onClick={() => {handleSetCollapse(name);console.log(Boolean(
-          navCollapse && navCollapse.length,
-        ))}}
+        onClick={() => {handleSetCollapse(name);}}
         href={href}
         route={route}
         collapse={Boolean(

@@ -22,7 +22,7 @@ import config from '@/config';
 import authAxios from '@/modules/shared/axios/authAxios';
 import Message from '@/components/shared/message';
 import MDButton from '@/mui/components/MDButton';
-import { Alert, Grid, Snackbar, TextField } from '@mui/material';
+import { Alert, Grid, Snackbar, TextField, useStepContext } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import moment from 'moment';
 import Pagination from '@/components/shared/table/Pagination';
@@ -34,7 +34,9 @@ import { connect } from 'http2';
 
 const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
-  const [rows, setRows] = useState(commentList.rows);
+  const [rows, setRows] = useState([]);
+  const [count, setCount] = useState(0);
+
 
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -65,6 +67,32 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
     const commentList = commentListRes.data;
     setRows(commentList.rows);
   };
+
+  useEffect(()=>{
+    setCurrent(1);
+    setPageSize(10);
+    const params = {
+      filter: {
+        spam: false,
+        review_required: false,
+        deleted: false,
+        blog_entry_id: blog.id
+      },
+      orderBy: "id_desc",
+      offset: 0,
+      limit: 10,
+    }
+    const commentListRes = axios.get(
+      `${config.backendUrl}/comment-list`, { params }
+    ).then(res => {
+      const commentList = res.data;
+      console.log(commentList);
+      setRows(commentList.rows);
+      setCount(commentList.count);
+    }).catch(error => {
+      console.log(error);
+    })
+  },[slug]);
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({
@@ -525,24 +553,6 @@ export async function getServerSideProps(context) {
 
   const blogRes = await axios.post(`${config.backendUrl}/individual-blog`, {url});
   const blog = blogRes.data;
-
-  const current = query.current? query.current : 1;
-  const pageSize = query.pageSize? query.pageSize : 10;
-
-  const params = {
-    filter: {
-      spam: false,
-      review_required: false,
-      deleted: false,
-      blog_entry_id: blog.id
-    },
-    orderBy: "id_desc",
-    offset: current - 1,
-    limit: pageSize,
-  }
-
-  const commentListRes = await axios.get(`${config.backendUrl}/comment-list`, {params});
-  const commentList = commentListRes.data;
   
   const topBrokerRes = await axios.get(`${config.backendUrl}/broker/top`);
   const topBroker = topBrokerRes.data;
@@ -574,7 +584,7 @@ export async function getServerSideProps(context) {
   const authorRes = await axios.get(`${config.backendUrl}/author`);
   const author = authorRes.data;
 
-  return { props: { slug, author, commentList, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BlogDetailPage;

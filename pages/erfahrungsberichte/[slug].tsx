@@ -55,9 +55,9 @@ const schema = yup.object().shape({
   ),
 });
 
-const BrokerViewPage = ({ slug, current, pageSize, brokerPost, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
-  
+
   const record = page;
 
   let title = '';
@@ -135,13 +135,6 @@ const BrokerViewPage = ({ slug, current, pageSize, brokerPost, author, page, top
     }
     setTabValue(newValue);
   };
-
-  // const doChangePagination = (paginationChange) => {
-  //   router.push({
-  //     pathname: "/erfahrungsberichte/"+slug,
-  //     query: { current: paginationChange.current, pageSize: paginationChange.pageSize}
-  //   })
-  // };
 
   return (
     <Layout
@@ -271,7 +264,6 @@ const BrokerViewPage = ({ slug, current, pageSize, brokerPost, author, page, top
                 <BrokerHomepageUrls record={record} />
               }
               topBrokers = {topBroker}
-              brokerPost = {brokerPost}
               slug={slug}
             />
           </PageContent>
@@ -343,27 +335,7 @@ export async function getServerSideProps(context) {
   const authorRes = await axios.get(`${config.backendUrl}/author`);
   const author = authorRes.data;
 
-  console.log(author);
-
-  const current = query.current? query.current : 1;
-  const pageSize = query.pageSize? query.pageSize : 10;
-
-  const params = {
-    filter: {
-      spam: false,
-      review_required: false,
-      deleted: false,
-      broker: page.id,
-    },
-    orderBy: "id_desc",
-    offset: current - 1,
-    limit: pageSize,
-  }
-
-  const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
-  const brokerPost = brokerPostRes.data;
-
-  return { props: { slug, current, pageSize, brokerPost, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BrokerViewPage;

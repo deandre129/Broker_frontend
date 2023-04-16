@@ -51,7 +51,6 @@ function DefaultNavbarDropdown({
   ...rest
 }: Props): JSX.Element {
 
-  console.log(collapse);
   return (
     <>
       <MDBox

@@ -42,9 +42,17 @@ import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
 import OutOf from './shared/components/OutOf';
 
+import actions from '@/modules/brokerPost/home/brokerPostHomeActions';
+import selectors from '@/modules/brokerPost/home/brokerPostHomeSelectors';
+
 const BrokerPostPage = (props) => {
-  const [rows, setRows] = useState(props.brokerPost.rows);
+
+  const [rows, setRows] = useState([]);
+  const [count, setCount] =useState(0);
   const router = useRouter();
+  const colors = lColors;
+
+  const recaptchaRef = useRef(null);
 
   const token = AuthToken.get();
 
@@ -82,7 +90,6 @@ const BrokerPostPage = (props) => {
   ];
 
   ckeditorConfig.toolbarGroups = toolbars;
-
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({
@@ -144,7 +151,6 @@ const BrokerPostPage = (props) => {
         rating: rating,
         recaptcha: recaptcha
       }
-      console.log(editor)
       const response = axios.post(
         `${config.backendUrl}/tenant/${tenantId}/broker-post`, { data }
       ).then(res => {
@@ -169,17 +175,13 @@ const BrokerPostPage = (props) => {
     }
   };
 
-  const colors = lColors;
-
-  const recaptchaRef = useRef(null);
-
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const pagination = {
     current: current,
     pageSize: pageSize,
-    total: props.brokerPost.count
+    total: count
   }
 
   const doChangePagination = async (pagination) => {
@@ -198,11 +200,44 @@ const BrokerPostPage = (props) => {
       offset: (pagination.current - 1)*pagination.pageSize,
       limit: pagination.pageSize,
     }
-  
-    const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
-    const brokerPost = brokerPostRes.data;
-    setRows(brokerPost.rows)
+    console.log(params);
+    const brokerPostRes = axios.get(
+      `${config.backendUrl}/brokerPost-list`, { params }
+    ).then(res => {
+      console.log(res);
+      const brokerPost = res.data;
+      setRows(brokerPost.rows);
+    }).catch(error => {
+      console.log(error);
+    })
+
   };
+
+  useEffect(()=>{
+    setCurrent(1);
+    setPageSize(10);
+    const params = {
+      filter: {
+        spam: false,
+        review_required: false,
+        deleted: false,
+        broker: props.brokerId,
+      },
+      orderBy: "id_desc",
+      offset: 0,
+      limit: 10,
+    }
+    const brokerPostRes = axios.get(
+      `${config.backendUrl}/brokerPost-list`, { params }
+    ).then(res => {
+      const brokerPost = res.data;
+      console.log(brokerPost);
+      setRows(brokerPost.rows);
+      setCount(brokerPost.count);
+    }).catch(error => {
+      console.log(error);
+    })
+  },[props.slug]);
 
   return (
     <>
@@ -336,7 +371,7 @@ const BrokerPostPage = (props) => {
             </MDBox>
             // </LazyLoad>
           ))}
-        {!props.record && (
+        {rows && (
           <MDTypography
             variant="body2"
             fontWeight="regular"
