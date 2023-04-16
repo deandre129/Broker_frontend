@@ -22,6 +22,9 @@ import MDBox from '@/mui/components/MDBox';
 import MDButton from '@/mui/components/MDButton';
 import MDTypography from '@/mui/components/MDTypography';
 import Popper from '@mui/material/Popper';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 // Declaring props types for DefaultNavbar
 interface Props {
@@ -825,7 +828,9 @@ function DefaultNavbar({
               sx={{ cursor: 'pointer' }}
               onClick={openMobileNavbar}
             >
-              <Icon>{mobileNavbar ? 'close' : 'menu'}</Icon>
+            {!mobileNavbar?
+              <MenuIcon/>
+            :<CloseIcon/>}
             </MDBox>
           </MDBox>
         </MDBox>

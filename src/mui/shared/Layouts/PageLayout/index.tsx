@@ -36,12 +36,14 @@ interface Props {
   hideFooter?: boolean;
   navigation?: any;
   categoryFooter?: any;
+  topBroker?: any;
 }
 
 function PageLayout({
   background,
   children,
   navigation,
+  topBroker,
   categoryFooter,
   fixedNavBar = true,
   hideNavbar,
@@ -66,7 +68,7 @@ function PageLayout({
         />
       )}
       {children}
-      {!hideFooter && <Footer categoryFooter = { categoryFooter }/>}
+      {!hideFooter && <Footer categoryFooter = { categoryFooter } topBroker={topBroker}/>}
     </MDBox>
   );
 }

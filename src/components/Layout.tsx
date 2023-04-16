@@ -35,7 +35,7 @@ function Layout({
   
 }) {
   return (
-    <PageLayout fixedNavBar={false} navigation={navigation} categoryFooter={ categoryFooter }>
+    <PageLayout fixedNavBar={false} navigation={navigation} categoryFooter={ categoryFooter } topBroker={topBroker}>
       <Meta
         author={author}
         title={title}

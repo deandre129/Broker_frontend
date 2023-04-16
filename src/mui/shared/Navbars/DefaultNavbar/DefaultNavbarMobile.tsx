@@ -19,6 +19,7 @@ import Link from 'next/link';
 
 // @mui material components
 import Collapse from '@mui/material/Collapse';
+import MuiLink from '@mui/material/Link';
 import { Theme } from '@mui/material/styles';
 
 // Material Dashboard 2 PRO React TS components
@@ -43,6 +44,8 @@ function DefaultNavbarMobile({
     string | boolean
   >('');
 
+  console.log(routes);
+
   const handleSetCollapse = (name: string) =>
     collapse === name
       ? setCollapse(false)
@@ -62,7 +65,9 @@ function DefaultNavbarMobile({
         name={name}
         icon={icon}
         collapseStatus={name === collapse}
-        onClick={() => handleSetCollapse(name)}
+        onClick={() => {handleSetCollapse(name);console.log(Boolean(
+          navCollapse && navCollapse.length,
+        ))}}
         href={href}
         route={route}
         collapse={Boolean(
@@ -95,11 +100,11 @@ function DefaultNavbarMobile({
                     {item.collapse.map((el: any) => (
                       <MDTypography
                         key={el.name}
-                        component={Link}
-                        href={el.href ? el.href : ''}
+                        component={ Link }
+                        href={el.route ? el.route : ''}
                         target={el.href ? '_blank' : ''}
                         rel={
-                          el.href
+                          el.route
                             ? 'noreferrer'
                             : 'noreferrer'
                         }
@@ -134,7 +139,7 @@ function DefaultNavbarMobile({
                     key={item.key}
                     display="block"
                     component={Link}
-                    href={item.href ? item.href : ''}
+                    href={item.route ? item.route : ''}
                     target={item.href ? '_blank' : ''}
                     rel={
                       item.href

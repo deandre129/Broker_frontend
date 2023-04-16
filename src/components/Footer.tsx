@@ -12,7 +12,7 @@ import TopBrokersView from './broker/components/TopBrokersView';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import { useTranslation } from 'next-i18next';
 
-function Footer({categoryFooter}) {
+function Footer({categoryFooter, topBroker}) {
   return (
     <Container>
       <MDBox
@@ -30,7 +30,7 @@ function Footer({categoryFooter}) {
           <MDTypography display="block" variant="h3" mb={2}>
             {i18n.entities.home.top_brokers}
           </MDTypography>
-          {/* <TopBrokersView /> */}
+          <TopBrokersView topBrokers={topBroker}/>
         </PageContent>
         <MDBox py={5}>
           <MDTypography

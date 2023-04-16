@@ -51,7 +51,7 @@ function DefaultNavbarDropdown({
   ...rest
 }: Props): JSX.Element {
 
-
+  console.log(collapse);
   return (
     <>
       <MDBox
@@ -108,7 +108,7 @@ function DefaultNavbarDropdown({
           </MDTypography>
         )}
       </MDBox>
-      {children && (
+      {collapse && children && (
         <Collapse
           in={Boolean(collapseStatus)}
           timeout={400}
