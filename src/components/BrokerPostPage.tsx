@@ -46,8 +46,6 @@ const BrokerPostPage = (props) => {
   const [rows, setRows] = useState(props.brokerPost.rows);
   const router = useRouter();
 
-  
-
   const token = AuthToken.get();
 
   const ckeditorConfig: any = {
@@ -349,7 +347,7 @@ const BrokerPostPage = (props) => {
         )}
       </MDBox>
 
-      {props.brokerPost && (
+      {rows && (
         <MDBox
           borderTop={`1px dashed ${colors.inputBorderColor}`}
           py={2}
