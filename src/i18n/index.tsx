@@ -25,8 +25,8 @@ const i18n = {
     noCommit: 'Keine Kommentare. Sei der Erste!',
     noDataToExport: 'No data to export',
     noRecord: 'No Record',
-    noReviews:
-      'Für {0} wurden noch keine Bewertungen oder Erfahrungen erfasst. Seien Sie der Erste, der seine Erfahrungen über {0} schreibt und bewerten Sie {0} damit andere Benutzer sich ein besseres Bild über {0} machen können.',
+    noReviews: (x) =>
+      `Für ${x} wurden noch keine Bewertungen oder Erfahrungen erfasst. Seien Sie der Erste, der seine Erfahrungen über ${x} schreibt und bewerten Sie ${x} damit andere Benutzer sich ein besseres Bild über ${x} machen können.`,
     or: 'or',
     pause: 'Pause',
     rating: 'Bewertung',
@@ -352,12 +352,11 @@ const i18n = {
         title: 'Posts',
       },
       create: {
-        success: (x) => [
-          `Vielen Dank für deine Bewertung von ${x}. Mit deiner Hilfe können so viele Trader die guten Broker schnell von den schlechteren unterscheiden und sich im besten Fall teures Lehrgeld sparen.`,
-          'Um sicherzugehen, dass es sich bei deiner Bewertung nicht um eine Fake Bewertung oder Eigenwerbung eines Brokers handelt und das Bewertungsbild so objektiv wie möglich bleibt, prüfen wir jede Bewertung erst, bevor wir diese veröffentlichen.',
-          'Vielen Dank für deine Mithilfe!',
-          'Dein Team von broker-bewertungen.de',
-        ].join('<br/><br/>'),
+        success: (x) =>
+          `Vielen Dank für deine Bewertung von ${x}. Mit deiner Hilfe können so viele Trader die guten Broker schnell von den schlechteren unterscheiden und sich im besten Fall teures Lehrgeld sparen.\n
+          Um sicherzugehen, dass es sich bei deiner Bewertung nicht um eine Fake Bewertung oder Eigenwerbung eines Brokers handelt und das Bewertungsbild so objektiv wie möglich bleibt, prüfen wir jede Bewertung erst, bevor wir diese veröffentlichen.\n
+          Vielen Dank für deine Mithilfe!\n
+          Dein Team von broker-bewertungen.de`,
         comment: 'Post successfully saved',
       },
       update: {
@@ -647,7 +646,7 @@ const i18n = {
         cfd_trading_at_activTrades: (x) => `CFD Trading bei ${x}`,
       },
       platform: {
-        title: (x) => `Handelsplattformen von {$x}`,
+        title: (x) => `Handelsplattformen von ${x}`,
         order_options: 'order options',
         order_types: 'Ordertypen',
       },

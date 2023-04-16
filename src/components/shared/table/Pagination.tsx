@@ -19,7 +19,6 @@ function Pagination(props) {
     props;
   const { current, pageSize, total } = pagination;
 
-
   if (!pageSize) {
     return null;
   }
@@ -148,27 +147,12 @@ function Pagination(props) {
         item
         key={option}
         onClick={() => onChangePage(Number(option))}
-        active={current === option}
+        active={current == option}
       >
         {option}
       </MDPagination>
     ),
   );
-
-  // Handler for the input to set the pagination index
-  const handleInputPagination = ({
-    target: { value },
-  }: any) =>
-    value < 1
-      ? onChangePage(1)
-      : value > last
-      ? onChangePage(last)
-      : onChangePage(Number(value));
-
-  // Setting value for the pagination input
-  const handleInputPaginationValue = ({
-    target: value,
-  }: any) => onChangePage(Number(value));
 
   return (
     <>

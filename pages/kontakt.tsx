@@ -128,7 +128,7 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
       console.log(data);
 
       const response = axios.post(
-        `/auth/send-contact`, data
+        `${config.backendUrl}/auth/send-contact`, { data }
       ).then(res => {
         console.log(res);
       
@@ -140,6 +140,7 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
         setRecaptcha('');
         setContent('');
         setSubject('');
+        
 
       }).catch(error => {
         setMessage({type:"error", content: error });
@@ -149,30 +150,6 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
       recaptchaRef?.current?.reset();
     }
   };
-
-  // const onSubmit = (values) => {
-  //   dispatch(
-  //     authActions.doSendContact(
-  //       values.name,
-  //       values.email,
-  //       values.subject,
-  //       values.content,
-  //       values.recaptcha,
-  //       () => {
-  //         Object.keys(initialValues).forEach((key: string) => {
-  //           form.register(key);
-  //           form.setValue(key, initialValues[key]);
-  //         });
-  //         dispatch(formActions.doRefresh());
-  //       },
-  //     ),
-  //   );
-  //   recaptchaRef?.current?.reset();
-  //   form.setValue('recaptcha', '', {
-  //     shouldDirty: true,
-  //     shouldValidate: false,
-  //   });
-  // };
 
   const token = AuthToken.get();
 
@@ -362,7 +339,7 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
               position="relative"
             >
               <CKEditor
-                initData={email}
+                initData={content}
                 config={ckeditorConfig}
                 onChange={(evt) => { setEditor(evt.editor); setContent(evt.editor?.getData());}}
               />

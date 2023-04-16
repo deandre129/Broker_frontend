@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import i18n from '@/i18n';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -33,6 +34,7 @@ import config from '@/config';
 import yupFormSchemas from '@/modules/shared/yup/yupFormSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import BrokerPostPage from '@/components/BrokerPostPage';
 
 const schema = yup.object().shape({
   name: yupFormSchemas.string(i18n.common.name, {
@@ -53,7 +55,9 @@ const schema = yup.object().shape({
   ),
 });
 
-const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+const BrokerViewPage = ({ slug, current, pageSize, brokerPost, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+  const router = useRouter();
+  
   const record = page;
 
   let title = '';
@@ -135,6 +139,13 @@ const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, fea
       setGotoPosts(!gotoPosts);
     }
     setTabValue(newValue);
+  };
+
+  const doChangePagination = (paginationChange) => {
+    router.push({
+      pathname: "/erfahrungsberichte/"+slug,
+      query: { current: paginationChange.current, pageSize: paginationChange.pageSize}
+    })
   };
 
   return (
@@ -257,6 +268,21 @@ const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, fea
               </>
             )}
           </PageContent>
+          <PageContent pt={4}>
+            <BrokerPostPage
+              brokerId={record.id}
+              name={record.name}
+              middle={
+                <BrokerHomepageUrls record={record} />
+              }
+              doChangePagination = {doChangePagination}
+              topBrokers = {topBroker}
+              brokerPost = {brokerPost}
+              paginationCurrent = {current}
+              paginationPageSize = {pageSize}
+              slug={slug}
+            />
+          </PageContent>
           {Boolean(record.creteria) &&
             Boolean(record.creteria.body) && (
               <PageContent>
@@ -288,8 +314,8 @@ const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, fea
 };
 
 export async function getServerSideProps(context) {
-  const { params } = context
-  const { slug } = params;
+  const { query } = context
+  const { slug } = query;
   const url = slug
 
 
@@ -326,7 +352,25 @@ export async function getServerSideProps(context) {
   const authorRes = await axios.get(`${config.backendUrl}/author`);
   const author = authorRes.data;
 
-  return { props: { slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  const current = query.current? query.current : 1;
+  const pageSize = query.pageSize? query.pageSize : 10;
+
+  const params = {
+    filter: {
+      spam: false,
+      review_required: false,
+      deleted: false,
+      broker: page.id,
+    },
+    orderBy: "id_desc",
+    offset: current - 1,
+    limit: pageSize,
+  }
+
+  const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
+  const brokerPost = brokerPostRes.data;
+
+  return { props: { slug, current, pageSize, brokerPost, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BrokerViewPage;

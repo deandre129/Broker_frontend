@@ -66,32 +66,27 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
   async function onSubmit() {
     if(name=='')
     {
-      console.log(1);
       setErrorName("Name is required");
     }else {
       setErrorName("");
     }
     if(email=='')
     {
-      console.log(2);
       setErrorEmail("Email is required");
     }else if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)==false )
     {
-      console.log(3);
       setErrorEmail("Email must be a valid email");
     }else {
       setErrorEmail("");
     }
     if(content=='')
     {
-      console.log(4);
       setErrorContent("Content is required");
     }else {
       setErrorContent('');
     }
     if(recaptcha=='')
     {
-      console.log(5);
       setErrorRecaptcha("ReCAPTCHA is required");
     }else {
       setErrorRecaptcha('');
@@ -109,10 +104,9 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
       console.log(data);
 
       const response = axios.post(
-        `/blog-comment`, data
+        `${config.backendUrl}/blog-comment`, {data}
       ).then(res => {
         console.log(res);
-      
         setOpen(true);
         setMessage({type:"success", content: i18n.entities.blogComment.create.success });
         setName('');
@@ -120,7 +114,6 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
         setEditor(null);
         setContent('');
         setRecaptcha('');
-
       }).catch(error => {
         setMessage({type:"error", content: error });
         setMessage(error);
@@ -414,7 +407,7 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
                     position="relative"
                   >
                     <CKEditor
-                      initData={email}
+                      initData={content}
                       config={ckeditorConfig}
                       onChange={(evt) => { setEditor(evt.editor); setContent(evt.editor?.getData());}}
                     />
@@ -533,8 +526,6 @@ export async function getServerSideProps(context) {
 
   const commentListRes = await axios.get(`${config.backendUrl}/comment-list`, {params});
   const commentList = commentListRes.data;
-
-  console.log(commentList);
   
   const topBrokerRes = await axios.get(`${config.backendUrl}/broker/top`);
   const topBroker = topBrokerRes.data;

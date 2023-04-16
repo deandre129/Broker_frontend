@@ -20,6 +20,9 @@ import authAxios from '@/modules/shared/axios/authAxios';
 const GeneralPage = ({slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
+  if(pageType == 'error'){
+    router.push('/404');
+  }
 
   useEffect(() => {
     const url = "/"+slug;
@@ -118,13 +121,10 @@ const GeneralPage = ({slug, author, allBroker, pageType, page, topBroker, catego
 export async function getServerSideProps(context) {
   const { query } = context
   const { slug } = query;
-
-  console.log(slug);
   let url ="";
   for(let i=0; slug[i] ;i++){
     url+="/"+slug[i];
   }
-  console.log(url);
   
   let page: any;
   let pageType : any;
@@ -157,7 +157,7 @@ export async function getServerSideProps(context) {
       }
       else{
         pageType= "error";
-        // window.open(config.frontendUrl.protocol+"://"+config.frontendUrl.host+"/404");
+        //window.open(config.frontendUrl.protocol+"://"+config.frontendUrl.host+"/404");
       }
     }
   }

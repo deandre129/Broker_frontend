@@ -1,12 +1,18 @@
 {
-  "name": "broker_frontend_new",
+  "name": "broker-bewertungen-de-frontend",
+  "description": "Broker-Bewertungen-de - Frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env REACT_APP_ENVIRONMENT=localhost next dev",
     "build": "next build",
     "export": "next export",
-    "start": "next start",
+    "start": "npm run start:localhost",
+    "start:localhost": "cross-env REACT_APP_ENVIRONMENT=localhost next start",
+    "start:production": "cross-env REACT_APP_ENVIRONMENT=production next start",
+    "build:production": "cross-env REACT_APP_ENVIRONMENT=production next build",
+    "start:staging": "cross-env REACT_APP_ENVIRONMENT=staging next start",
+    "build:staging": "cross-env REACT_APP_ENVIRONMENT=build next start",
     "lint": "next lint"
   },
   "dependencies": {

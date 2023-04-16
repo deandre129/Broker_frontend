@@ -3,6 +3,7 @@ import i18n from '@/i18n';
 import MDButton from '@/mui/components/MDButton';
 import PropTypes from 'prop-types';
 import SendIcon from '@mui/icons-material/Send';
+import MDTypography from '@/mui/components/MDTypography';
 
 function BrokerHomepageUrls({ record }) {
   return (
@@ -15,12 +16,16 @@ function BrokerHomepageUrls({ record }) {
               href={record.meta?.homepage}
               target="_blank"
               color="warning"
-              startIcon={<SendIcon />}
+              startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
               fullWidth
             >
-              {i18n.entities.broker.text.nowTo(
-                record.name,
-              )}
+              <MDTypography
+                  variant="h3"
+                  fontSize="inherit"
+                  color="inherit"
+                >
+                {i18n.entities.broker.text.nowTo(record.name)}
+              </MDTypography>
             </MDButton>
           </Grid>
         ) : (
@@ -31,12 +36,18 @@ function BrokerHomepageUrls({ record }) {
                 href={record.meta?.homepage}
                 target="_blank"
                 color="warning"
-                startIcon={<SendIcon />}
+                startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
                 fullWidth
               >
-                {i18n.entities.broker.text.nowTo(
-                record.name,
-              )}
+                <MDTypography
+                  variant="h3"
+                  fontSize="inherit"
+                  color="inherit"
+                >
+                  {i18n.entities.broker.text.nowTo(
+                  record.name,
+                  )}
+                </MDTypography>
               </MDButton>
             </Grid>
             <Grid md={6} xs={12} item>
@@ -45,10 +56,16 @@ function BrokerHomepageUrls({ record }) {
                 target="_blank"
                 href={record.meta?.demo_url}
                 color="info"
-                startIcon={<SendIcon />}
+                startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
                 fullWidth
               >
-                {i18n.entities.broker.text.freeDemoAccount}
+                <MDTypography
+                  variant="h3"
+                  fontSize="inherit"
+                  color="inherit"
+                >
+                  {i18n.entities.broker.text.freeDemoAccount}
+                </MDTypography>
               </MDButton>
             </Grid>
           </>
