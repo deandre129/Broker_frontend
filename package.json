@@ -8,7 +8,7 @@
     "build": "next build",
     "export": "next export",
     "start": "npm run start:localhost",
-    "start:localhost": "cross-env REACT_APP_ENVIRONMENT=localhost next start",
+    "start:localhost": "cross-env REACT_APP_ENVIRONMENT=localhost next start -p 8000",
     "start:production": "cross-env REACT_APP_ENVIRONMENT=production next start",
     "build:production": "cross-env REACT_APP_ENVIRONMENT=production next build",
     "start:staging": "cross-env REACT_APP_ENVIRONMENT=staging next start",
