@@ -136,6 +136,7 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
         setMessage({type:"success", content: i18n.auth.contactSuccess });
         setName('');
         setEmail('');
+        editor.setData('');
         setEditor(null);
         setRecaptcha('');
         setContent('');

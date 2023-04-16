@@ -22,26 +22,28 @@ import config from '@/config';
 const BlogListPage = ({pagination, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
+  const [rows, setRows] = useState(pagination.rows);
 
+  const [current, setCurrent] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const paginationChange = {
-    current: router.query.current ,
-    pageSize: router.query.pageSize,
+    current: current ,
+    pageSize: pageSize,
     total: pagination.count
   }
 
-  useEffect(() => {
-    router.push({
-      pathname: router.pathname,
-      query: { current: 1, pageSize: 10}
-    })
-  }, [])
+  const doChangePagination = async (paginationChange) => {
+    setCurrent(paginationChange.current);
+    setPageSize(paginationChange.pageSize);
 
-  const doChangePagination = (paginationChange) => {
-    router.push({
-      pathname: router.pathname,
-      query: { current: paginationChange.current, pageSize: paginationChange.pageSize}
-    })
+    const params = {
+      limit: paginationChange.pageSize,
+      offset: (paginationChange.current-1)*paginationChange.pageSize,
+    }
+    const paginationRes = await axios.get(`${config.backendUrl}/blog`, {params});
+    const paginationData = paginationRes.data;
+    setRows(paginationData.rows)
   };
 
   return (
@@ -73,14 +75,14 @@ const BlogListPage = ({pagination, author, topBroker, category, mostRead, featur
         <MDTypography variant="h1" pb={5}>
           {i18n.entities.blog.title}
         </MDTypography>
-        {pagination && (
+        {rows && (
           <>
             <MDBox
               display="flex"
               flexDirection="column"
               gap={5}
             >
-              {pagination.rows.map((record) => (
+              {rows.map((record) => (
                 // <LazyLoad key={record.id}>
                 <MDBox
                   key={record.id}
@@ -137,8 +139,8 @@ const BlogListPage = ({pagination, author, topBroker, category, mostRead, featur
 
 export async function getServerSideProps({ query }) {
 
-  const current = query.current? query.current : 1;
-  const pageSize = query.pageSize? query.pageSize : 10;
+  const current = 1;
+  const pageSize = 10;
   
     const params = {
       offset: current-1,

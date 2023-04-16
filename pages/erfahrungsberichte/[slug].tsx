@@ -126,27 +126,22 @@ const BrokerViewPage = ({ slug, current, pageSize, brokerPost, author, page, top
       window.removeEventListener('click', handleOnClickA);
   }, [slug]);
 
-  useEffect(() => {
-    if (tabValue === 0) {
-      ScrollTo('list-top-4-pagination');
-    }
-  }, [gotoPosts]);
-
   const handleSetTabValue = (event: any, newValue: any) => {
     if (newValue === 1) {
       newValue = 0;
       setTabValue(newValue);
       setGotoPosts(!gotoPosts);
+      ScrollTo('list-top-4-pagination');
     }
     setTabValue(newValue);
   };
 
-  const doChangePagination = (paginationChange) => {
-    router.push({
-      pathname: "/erfahrungsberichte/"+slug,
-      query: { current: paginationChange.current, pageSize: paginationChange.pageSize}
-    })
-  };
+  // const doChangePagination = (paginationChange) => {
+  //   router.push({
+  //     pathname: "/erfahrungsberichte/"+slug,
+  //     query: { current: paginationChange.current, pageSize: paginationChange.pageSize}
+  //   })
+  // };
 
   return (
     <Layout
@@ -275,11 +270,8 @@ const BrokerViewPage = ({ slug, current, pageSize, brokerPost, author, page, top
               middle={
                 <BrokerHomepageUrls record={record} />
               }
-              doChangePagination = {doChangePagination}
               topBrokers = {topBroker}
               brokerPost = {brokerPost}
-              paginationCurrent = {current}
-              paginationPageSize = {pageSize}
               slug={slug}
             />
           </PageContent>
@@ -318,7 +310,6 @@ export async function getServerSideProps(context) {
   const { slug } = query;
   const url = slug
 
-
   const pageRes = await axios.post(`${config.backendUrl}/broker`,{url});
   const page = pageRes.data;
   
@@ -351,6 +342,8 @@ export async function getServerSideProps(context) {
 
   const authorRes = await axios.get(`${config.backendUrl}/author`);
   const author = authorRes.data;
+
+  console.log(author);
 
   const current = query.current? query.current : 1;
   const pageSize = query.pageSize? query.pageSize : 10;

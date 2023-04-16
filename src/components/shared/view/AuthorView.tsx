@@ -7,7 +7,7 @@ import MDTypography from '@/mui/components/MDTypography';
 import PageContent from './PageContent';
 
 function AuthorView({author}) {
-  const { value } = author;
+  const value = author;
   if (!value) {
     return null;
   }

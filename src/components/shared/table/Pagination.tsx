@@ -45,7 +45,7 @@ function Pagination(props) {
   };
 
   const onChangePage = (pageNum) => {
-    // ScrollTo('list-top-4-pagination');
+    ScrollTo('list-top-4-pagination');
     if (pageNum === current) {
       return;
     }
@@ -80,8 +80,7 @@ function Pagination(props) {
   const canPreviousPage = current > 1;
   const canNextPage = current < last;
 
-  const [pageOptionsCount, setPageOptionsCount] =
-    useState(5);
+  const [pageOptionsCount, setPageOptionsCount] = useState(5);
 
   useEffect(() => {
     const handlePageOptionsCount = () => {

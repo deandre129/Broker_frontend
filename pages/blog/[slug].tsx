@@ -34,12 +34,37 @@ import { connect } from 'http2';
 
 const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
+  const [rows, setRows] = useState(commentList.rows);
+
+  const [current, setCurrent] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const pagination = {
-    current: router.query.current ,
-    pageSize: router.query.pageSize,
+    current: current ,
+    pageSize: pageSize,
     total: commentList.count
   }
+
+  const doChangePagination = async (paginationChange) => {
+    setCurrent(pagination.current);
+    setPageSize(pagination.pageSize);
+
+    const params = {
+      filter: {
+        spam: false,
+        review_required: false,
+        deleted: false,
+        blog_entry_id: blog.id
+      },
+      orderBy: "id_desc",
+      offset: (paginationChange.current - 1)*paginationChange.pageSize,
+      limit: paginationChange.pageSize,
+    }
+
+    const commentListRes = await axios.get(`${config.backendUrl}/comment-list`, {params});
+    const commentList = commentListRes.data;
+    setRows(commentList.rows);
+  };
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({
@@ -48,8 +73,6 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
   });
 
   const record = blog;
-
-  const rows = commentList.rows;
 
   const [name, setName ] = useState('');
   const [editor, setEditor] = useState(null);
@@ -111,6 +134,7 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
         setMessage({type:"success", content: i18n.entities.blogComment.create.success });
         setName('');
         setEmail('');
+        editor.setData('');
         setEditor(null);
         setContent('');
         setRecaptcha('');
@@ -122,13 +146,6 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
       recaptchaRef?.current?.reset();
 
     }
-  };
-
-  const doChangePagination = (paginationChange) => {
-    router.push({
-      pathname: router.pathname,
-      query: { current: paginationChange.current, pageSize: paginationChange.pageSize}
-    })
   };
 
   const token = AuthToken.get();

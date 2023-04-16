@@ -43,8 +43,10 @@ import StyledRating from './shared/styles/StyledRating';
 import OutOf from './shared/components/OutOf';
 
 const BrokerPostPage = (props) => {
-    const rows = props.brokerPost.rows;
-    const router = useRouter();
+  const [rows, setRows] = useState(props.brokerPost.rows);
+  const router = useRouter();
+
+  
 
   const token = AuthToken.get();
 
@@ -173,14 +175,35 @@ const BrokerPostPage = (props) => {
 
   const recaptchaRef = useRef(null);
 
+  const [current, setCurrent] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
   const pagination = {
-    current: props.paginationCurrent ,
-    pageSize: props.paginationPageSize,
+    current: current,
+    pageSize: pageSize,
     total: props.brokerPost.count
   }
 
-  const doChangePagination = (pagination) => {
-    props.doChangePagination(pagination);
+  const doChangePagination = async (pagination) => {
+
+    setCurrent(pagination.current);
+    setPageSize(pagination.pageSize);
+
+    const params = {
+      filter: {
+        spam: false,
+        review_required: false,
+        deleted: false,
+        broker: props.brokerId,
+      },
+      orderBy: "id_desc",
+      offset: (pagination.current - 1)*pagination.pageSize,
+      limit: pagination.pageSize,
+    }
+  
+    const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
+    const brokerPost = brokerPostRes.data;
+    setRows(brokerPost.rows)
   };
 
   return (
