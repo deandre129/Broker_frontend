@@ -1,16 +1,8 @@
 import { Autocomplete, Box, Grid, TextField } from '@mui/material';
-
-import { FormProvider, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
 import i18n from '@/i18n';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import brokerComparisonActions from '@/modules/broker/comparison/brokerComparisonActions';
-import brokerComparisonSelectors from '@/modules/broker/comparison/brokerComparisonSelectors';
 import CompareDetail from '@/components/broker/comparisons/CompareDetail';
 import CompareOverview from '@/components/broker/comparisons/CompareOverview';
 import CompareProfile from '@/components/broker/comparisons/CompareProfile';
@@ -23,39 +15,16 @@ import CompareTradingPlatforms from '@/components/broker/comparisons/CompareTrad
 import MDButton from '@/mui/components/MDButton';
 import MDTypography from '@/mui/components/MDTypography';
 import PageContent from '@/components/shared/view/PageContent';
-import Spinner from '@/components/shared/Spinner';
-import yupFormSchemas from '@/modules/shared/yup/yupFormSchemas';
 import Layout from '@/components/Layout';
 import Breadcrumb from '@/components/Breadcrumb';
 import MDBox from '@/mui/components/MDBox';
-import brokerTopSelectors from '@/modules/broker/top/brokerTopSelectors';
 import axios from 'axios';
 import config from '@/config';
 
-const schema = yup.object().shape({
-  brokerA: yupFormSchemas.relationToOne(
-    i18n.entities.broker.comparison.brokerA,
-    {
-      required: true,
-    },
-  ),
-  brokerB: yupFormSchemas.relationToOne(
-    i18n.entities.broker.comparison.brokerB,
-    {
-      required: true,
-    },
-  ),
-});
-
 function BrokerComparePage({ brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
-  const dispatch = useDispatch();
 
   const router = useRouter();
 
-  const extracts =
-    /^\/forex-cfd-broker-vergleich\/([\w-]+)-versus-([\w-]+)$/.exec(
-      router.asPath,
-    );
   const [valueA, setValueA] = useState({
     id: recordA.name_normalized,
     name: recordA.name
@@ -64,12 +33,6 @@ function BrokerComparePage({ brokerList, author, recordA, recordB, topBroker, ca
     id: recordB.name_normalized,
     name: recordB.name
   });
-
-  const recordToValue = (record) =>
-    record && {
-      id: record.name_normalized,
-      name: record.name,
-    };
 
   const onSubmit = (values) => {
     router.push(

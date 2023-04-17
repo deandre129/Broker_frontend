@@ -1,21 +1,18 @@
 import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import { useDispatch } from 'react-redux';
 import Breadcrumb from './Breadcrumb';
-import dColors from '@/mui/assets/theme-dark/base/colors';
 import HtmlView from './shared/view/HtmlView';
 import lColors from '@/mui/assets/theme/base/colors';
 import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PageContent from '@/components/shared/view/PageContent';
-import pageHomeActions from '@/modules/page/home/pageHomeActions';
 import TopBrokersView from './broker/components/TopBrokersView';
 import AuthorView from '@/components/shared/view/AuthorView';
 
 function NormalPage({ page, topBroker, navigation, author }) {
-  const { sidenavColor, darkMode } = selectMuiSettings();
-  const colors = darkMode ? dColors : lColors;
+  const { sidenavColor } = selectMuiSettings();
+  const colors = lColors;
 
   const handleDownloadPagePDF = () => {
     if (page?.navigation || page.link !== '') {

@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid } from '@mui/material';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import brokerTopSelectors from '@/modules/broker/top/brokerTopSelectors';
 import CircleNumber from '../../shared/CircleNumber';
 import ImageView from '../../ImageView';
 import MaterialLink from '@mui/material/Link';
@@ -10,7 +8,6 @@ import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
 import RatingViewItem from '../../shared/view/RatingViewItem';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 
 function TopBrokersView({ topBrokers }) {
   return (

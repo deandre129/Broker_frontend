@@ -1,7 +1,3 @@
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import affiliateLinkHomeActions from '@/modules/affiliateLink/home/affiliateLinkHomeActions';
 import Spinner from '@/components/shared/Spinner';
 import axios from 'axios';
 import config from '@/config';

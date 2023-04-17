@@ -22,8 +22,6 @@ import { useRouter } from 'next/router';
 import MDBox from '@/mui/components/MDBox';
 
 // for MUI 2 Dashboard
-import muiActions from '@/modules/mui/muiActions';
-import navigationHomeSelectors from '@/modules/navigation/home/navigationHomeSelectors';
 import DefaultNavbar from '@/mui/shared/Navbars/DefaultNavbar';
 import Footer from '@/components/Footer';
 

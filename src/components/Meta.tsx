@@ -1,7 +1,5 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import authorHomeSelectors from '@/modules/author/home/authorHomeSelectors';
 import config from '@/config';
 import PropTypes from 'prop-types';
 

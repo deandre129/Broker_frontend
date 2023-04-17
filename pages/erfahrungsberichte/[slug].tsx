@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import i18n from '@/i18n';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
+import { useState } from 'react';
 import AuthorView from '@/components/shared/view/AuthorView';
 import Breadcrumb from '@/components/Breadcrumb';
 import BrokerCharacteristicsView from '@/components/broker/components/BrokerCharacteristicsView';
@@ -11,52 +9,25 @@ import BrokerHomepageUrls from '@/components/broker/components/BrokerHomepageUrl
 import BrokerMarketsView from '@/components/broker/components/BrokerMarketsView';
 import BrokerOverviewView from '@/components/broker/components/BrokerOverviewView';
 import BrokerPlatformView from '@/components/broker/components/BrokerPlatformView';
-// import BrokerPostPage from './BrokerPostPage';
 import BrokerServiceView from '@/components/broker/components/BrokerServiceView';
 import BrokerSpreadsView from '@/components/broker/components/BrokerSpreadsView';
 import BrokerTabs from '@/components/broker/BrokerTabs';
-import brokerViewActions from '@/modules/broker/view/brokerViewActions';
-import brokerViewSelectors from '@/modules/broker/view/brokerViewSelectors';
 import HtmlView from '@/components/shared/view/HtmlView';
 import Layout from '@/components/Layout';
 import MDBox from '@/mui/components/MDBox';
 import PageContent from '@/components/shared/view/PageContent';
-import Spinner from '@/components/shared/Spinner';
 import TabPanel from '@/components/shared/tab/TabPanel';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
 import MDTypography from '@/mui/components/MDTypography';
 import moment from 'moment';
 import ScrollTo from '@/components/ScrollTo';
-import urlParse from 'url-parse';
 import BrokerForexSignaleView from '@/components/broker/components/BrokerForexSignaleView';
 import axios from 'axios';
 import config from '@/config';
-import yupFormSchemas from '@/modules/shared/yup/yupFormSchemas';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import BrokerPostPage from '@/components/BrokerPostPage';
 
-const schema = yup.object().shape({
-  name: yupFormSchemas.string(i18n.common.name, {
-    required: true,
-    min: 1,
-    max: 255,
-  }),
-  email: yupFormSchemas.email(i18n.common.email, {
-    required: true,
-  }),
-  review: yupFormSchemas.string(i18n.common.review, {
-    required: true,
-  }),
-  rating: yupFormSchemas.integer(i18n.common.rating, {}),
-  recaptcha: yupFormSchemas.string(
-    i18n.common.recaptcha,
-    { required: true },
-  ),
-});
 
 const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
-  const router = useRouter();
 
   const record = page;
 

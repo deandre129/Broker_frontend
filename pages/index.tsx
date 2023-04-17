@@ -1,9 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-import styles from '@/styles/Home.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import actions from '@/modules/test/testActions'
-import { useEffect, useState } from 'react';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors'
 import MDBox from '@/mui/components/MDBox';
 import MDButton from '@/mui/components/MDButton';
@@ -18,9 +14,7 @@ import TopBrokersView from '@/components/broker/components/TopBrokersView';
 import PageContent from '@/components/shared/view/PageContent';
 import Layout from '@/components/Layout';
 import Breadcrumb from '@/components/Breadcrumb';
-import authAxios from '@/modules/shared/axios/authAxios';
 import axios from 'axios';
-import de from '@/test';
 
 function Index({ 
   topBroker, 

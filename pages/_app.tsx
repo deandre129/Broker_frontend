@@ -16,31 +16,26 @@ import rtlPlugin from 'stylis-plugin-rtl';
 
 // Material Dashboard 2 PRO React TS themes
 import theme from '@/mui/assets/theme';
+import themeRTL from '@/mui/assets/theme/theme-rtl';
 import ScrollTop from '@/components/ScrollTop';
 import CookieConsentTool from '@/components/CookieConsentTool';
+import 'typeface-roboto';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
-function MyApp(props: AppProps) {
+function MyApp({Component, pageProps}) {
   const store = useStore({});
-  
+
   return (
     <GlobalDndContext>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <App {...props} />
+          <Component {...pageProps} />
           <ScrollTop />
           <CookieConsentTool />
         </ThemeProvider>
       </Provider>
     </GlobalDndContext>
-  )
-}
-
-function App({ Component, pageProps }: AppProps) {
-  const dispatch = useDispatch()
-  
-  return (
-    <Component {...pageProps} />
   )
 }
 

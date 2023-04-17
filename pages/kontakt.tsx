@@ -1,63 +1,22 @@
 import { Alert, Grid, Snackbar, TextField } from '@mui/material';
-import {useRouter} from 'next/router';
 import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm, FormProvider } from 'react-hook-form';
 import { useRef, useState } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import authActions from '@/modules/auth/authActions';
 import Layout from '@/components/Layout';
 import MDButton from '@/mui/components/MDButton';
 import MDTypography from '@/mui/components/MDTypography';
 import PageContent from '@/components/shared/view/PageContent';
 import SaveIcon from '@mui/icons-material/Save';
-import yupFormSchemas from '@/modules/shared/yup/yupFormSchemas';
-import formActions from '@/modules/form/formActions';
 import axios from 'axios';
 import config from '@/config';
 import MDBox from '@/mui/components/MDBox';
-import Message from '@/components/shared/message';
-import authAxios from '@/modules/shared/axios/authAxios';
 import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-const schema = yup.object().shape({
-  name: yupFormSchemas.string(
-    i18n.entities.contact.fields.name,
-    {
-      required: true,
-      min: 1,
-      max: 255,
-    },
-  ),
-  email: yupFormSchemas.email(
-    i18n.entities.contact.fields.email,
-    {},
-  ),
-  subject: yupFormSchemas.string(
-    i18n.entities.contact.fields.subject,
-    {
-      required: true,
-      min: 1,
-      max: 255,
-    },
-  ),
-  recaptcha: yupFormSchemas.string(
-    i18n.common.recaptcha,
-    { required: true },
-  ),
-});
-
 function Contact({ topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
   const { sidenavColor } = selectMuiSettings();
-
-  const router = useRouter();
-
-  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({
@@ -76,7 +35,6 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
   const [errorContent, setErrorContent] = useState("");
   const [errorSubject, setErrorSubject] = useState("");
   const [errorRecaptcha, setErrorRecaptcha] = useState("");
-
 
   const recaptchaRef = useRef(null);
 

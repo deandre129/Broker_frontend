@@ -1,5 +1,3 @@
-import { tenantSubdomain } from '../tenant/tenantSubdomain';
-
 export default class AuthCurrentTenant {
 
   static get() {

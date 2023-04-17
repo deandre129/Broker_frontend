@@ -1,9 +1,7 @@
 import i18n from '@/i18n';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import actions from '@/modules/blog/home/blogHomeActions';
 import HtmlView from '@/components/shared/view/HtmlView';
 import Layout from '@/components/Layout';
 import MaterialLink from '@mui/material/Link';
@@ -11,15 +9,12 @@ import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PageContent from '@/components/shared/view/PageContent';
 import Pagination from '@/components/shared/table/Pagination';
-import selectors from '@/modules/blog/home/blogHomeSelectors';
-import Spinner from '@/components/shared/Spinner';
 import Breadcrumb from '@/components/Breadcrumb';
 import ImageView from '@/components/ImageView';
-import LazyLoad from 'react-lazy-load';
 import axios from 'axios';
 import config from '@/config';
 
-const BlogListPage = ({pagination, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
+const BlogListPage = ({author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
   const [rows, setRows] = useState([]);

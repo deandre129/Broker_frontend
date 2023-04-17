@@ -16,7 +16,6 @@ Coded by www.creative-tim.com
 import { ReactNode } from 'react';
 
 // @mui material components
-import Icon from '@mui/material/Icon';
 import { Theme } from '@mui/material/styles';
 
 // Material Dashboard 2 PRO React TS components

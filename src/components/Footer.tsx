@@ -1,7 +1,5 @@
 import i18n from '@/i18n';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import categoryFooterSelectors from '@/modules/category/footer/categoryFooterSelectors';
 import config from '@/config';
 import Container from '@mui/material/Container';
 import MaterialLink from '@mui/material/Link';
@@ -9,8 +7,6 @@ import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PageContent from './shared/view/PageContent';
 import TopBrokersView from './broker/components/TopBrokersView';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import { useTranslation } from 'next-i18next';
 
 function Footer({categoryFooter, topBroker}) {
   return (

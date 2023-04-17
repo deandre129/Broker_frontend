@@ -2,13 +2,10 @@ import { Icon } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import lightColors from '@/mui/assets/theme/base/colors';
-import darkColors from '@/mui/assets/theme-dark/base/colors';
 import MDBox from '@/mui/components/MDBox';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const ScrollTop = () => {
-  const { darkMode } = selectMuiSettings();
-
   const [showScroll, setShowScroll] = useState(false);
 
   const scrollTop = () => {
@@ -37,11 +34,7 @@ const ScrollTop = () => {
       alignItems="center"
       width="3.25rem"
       height="3.25rem"
-      bgColor={
-        darkMode
-          ? darkColors.dark.main
-          : lightColors.white.main
-      }
+      bgColor={lightColors.white.main}
       shadow="sm"
       borderRadius="50%"
       position="fixed"

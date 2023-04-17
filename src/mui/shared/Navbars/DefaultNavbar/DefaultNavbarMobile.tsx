@@ -19,7 +19,6 @@ import Link from 'next/link';
 
 // @mui material components
 import Collapse from '@mui/material/Collapse';
-import MuiLink from '@mui/material/Link';
 import { Theme } from '@mui/material/styles';
 
 // Material Dashboard 2 PRO React TS components

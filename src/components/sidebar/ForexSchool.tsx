@@ -1,11 +1,8 @@
 import { Card, CardHeader, Grid } from '@mui/material';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
 import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
-import navigationForexSchoolSelectors from '@/modules/navigation/forexSchool/navigationForexSchoolSelectors';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 
 function ForexSchool({forexSchool}) {
   

@@ -20,7 +20,6 @@ import { Theme } from '@mui/material/styles';
 
 // Material Dashboard 2 PRO React TS components
 import MDBox from '@/mui/components/MDBox';
-import LazyLoad from 'react-lazy-load';
 
 // Declaring prop types for DataTableBodyCell
 interface Props {

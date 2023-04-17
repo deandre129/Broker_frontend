@@ -1,13 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import { useSelector } from 'react-redux';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import config from '@/config';
 import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
-import navigationHomeSelectors from '@/modules/navigation/home/navigationHomeSelectors';
 import PropTypes from 'prop-types';
 
 function Breadcrumb({ items, navigation }) {

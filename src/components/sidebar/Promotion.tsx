@@ -1,10 +1,8 @@
 import { Card, CardHeader, Grid } from '@mui/material';
-import { useSelector } from 'react-redux';
 import ImageView from '../ImageView';
 import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
-import promotionHomeSelectors from '@/modules/promotion/home/promotionHomeSelectors';
 
 function Promotion({promotion}) {
   return (

@@ -1,7 +1,6 @@
 import { Card, CardMedia } from '@mui/material';
 import i18n from '@/i18n';
 import Link from 'next/link';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import { Theme } from '@mui/material/styles';
 import {
   useState,
@@ -24,7 +23,6 @@ import MDTypography from '@/mui/components/MDTypography';
 import Popper from '@mui/material/Popper';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 // Declaring props types for DefaultNavbar
 interface Props {

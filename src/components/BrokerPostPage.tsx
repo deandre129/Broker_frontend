@@ -1,36 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import { DEFAULT_MOMENT_FORMAT_DATE_ONLY } from '@/config/common';
-import { Alert, Grid, IconButton, Snackbar, TextField, Tooltip } from '@mui/material';
+import { Alert, Grid, Snackbar, TextField } from '@mui/material';
 import i18n from '@/i18n';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
-import Router from 'next/router';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import EmailIcon from '@mui/icons-material/Email';
 import HtmlView from '@/components/shared/view/HtmlView';
 import MDBox from '@/mui/components/MDBox';
 import MDButton from '@/mui/components/MDButton';
 import MDTypography from '@/mui/components/MDTypography';
 import moment from 'moment';
 import Pagination from '@/components/shared/table/Pagination';
-import ReviewsIcon from '@mui/icons-material/Reviews';
 import SaveIcon from '@mui/icons-material/Save';
-import Spinner from '@/components/shared/Spinner';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
-import yupFormSchemas from '@/modules/shared/yup/yupFormSchemas';
 import lColors from '@/mui/assets/theme/base/colors';
-import dColors from '@/mui/assets/theme-dark/base/colors';
-import formActions from '@/modules/form/formActions';
-import LazyLoad from 'react-lazy-load';
 import FieldSetViewItem from '@/components/shared/view/FieldSetViewItem';
 import RatingViewItem from './shared/view/RatingViewItem';
 import config from '@/config';
@@ -40,14 +22,11 @@ import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
-import OutOf from './shared/components/OutOf';
-
 
 const BrokerPostPage = (props) => {
 
   const [rows, setRows] = useState([]);
   const [count, setCount] =useState(0);
-  const router = useRouter();
   const colors = lColors;
 
   const recaptchaRef = useRef(null);

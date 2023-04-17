@@ -1,17 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import brokerArticleHomeSelectors from '@/modules/brokerArticle/home/brokerArticleHomeSelectors';
 import BrokerArticlePage from '@/components/BrokerArticlePage';
-import categoryHomeActions from '@/modules/category/home/categoryHomeActions';
-import categoryHomeSelectors from '@/modules/category/home/categoryHomeSelectors';
 import CategoryPage from '@/components/CategoryPage';
 import Layout from '@/components/Layout';
 import moment from 'moment';
 import NormalPage from '@/components/NormalPage';
-import pageHomeSelectors from '@/modules/page/home/pageHomeSelectors';
 import ScrollTo from '@/components/ScrollTo';
-import Spinner from '@/components/shared/Spinner';
 import urlParse from 'url-parse';
 import axios from 'axios';
 import config from '@/config';

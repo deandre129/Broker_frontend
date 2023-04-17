@@ -19,7 +19,6 @@ import Link from 'next/link';
 
 // @mui material components
 import Collapse from '@mui/material/Collapse';
-import Icon from '@mui/material/Icon';
 
 // Material Dashboard 2 PRO React TS components
 import MDBox from '@/mui/components/MDBox';

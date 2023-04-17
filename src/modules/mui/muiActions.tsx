@@ -1,7 +1,3 @@
-import Errors from '@/modules/shared/error/errors';
-import MuiService from '@/modules/mui/muiService';
-import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
-
 const prefix = 'MUI_ACTIONS';
 
 const muiActions = {
@@ -96,13 +92,6 @@ const muiActions = {
     };
   },
 
-  doSave: (values) => async (dispatch, getState) => {
-    try {
-      await MuiService.save(values);
-    } catch (error) {
-      Errors.handle(error);
-    }
-  },
 };
 
 export default muiActions;

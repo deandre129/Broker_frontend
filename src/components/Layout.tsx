@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Advisors from './sidebar/Advisors';
 import Category from './sidebar/Category';
 import ComparableBrokers from './sidebar/ComparableBrokers';

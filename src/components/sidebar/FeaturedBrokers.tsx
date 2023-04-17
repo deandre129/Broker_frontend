@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Card, CardHeader, Grid } from '@mui/material';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import brokerFeaturedSelectors from '@/modules/broker/featured/brokerFeaturedSelectors';
 import ImageView from '../ImageView';
 import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import RatingViewItem from '../shared/view/RatingViewItem';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 
 function FeaturedBrokers({featuredBrokers}) {
 

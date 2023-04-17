@@ -1,17 +1,13 @@
 import i18n from '@/i18n';
 import { DEFAULT_MOMENT_FORMAT_DATE_ONLY } from '@/config/common';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { CKEditor } from 'ckeditor4-react';
 import { useRouter } from 'next/router';
 import AuthorView from '@/components/shared/view/AuthorView';
-import blogFindActions from '@/modules/blog/find/blogFindActions';
-import blogFindSelectors from '@/modules/blog/find/blogFindSelectors';
 import HtmlView from '@/components/shared/view/HtmlView';
 import Layout from '@/components/Layout';
 import MDBox from '@/mui/components/MDBox';
 import PageContent from '@/components/shared/view/PageContent';
-import Spinner from '@/components/shared/Spinner';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
 import Breadcrumb from '@/components/Breadcrumb';
 import urlParse from 'url-parse';
@@ -19,20 +15,16 @@ import ScrollTo from '@/components/ScrollTo';
 import MDTypography from '@/mui/components/MDTypography';
 import axios from 'axios';
 import config from '@/config';
-import authAxios from '@/modules/shared/axios/authAxios';
-import Message from '@/components/shared/message';
 import MDButton from '@/mui/components/MDButton';
-import { Alert, Grid, Snackbar, TextField, useStepContext } from '@mui/material';
+import { Alert, Grid, Snackbar, TextField } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import moment from 'moment';
 import Pagination from '@/components/shared/table/Pagination';
 import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
-import PropTypes from 'prop-types';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { connect } from 'http2';
 
-const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+const BlogDetailPage = ({ slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
