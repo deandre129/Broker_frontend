@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://broker-bewertungen.de
+
+# Sitemaps
+Sitemap: https://broker-bewertungen.de/sitemap.xml
