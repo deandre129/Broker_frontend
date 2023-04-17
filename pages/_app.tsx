@@ -20,10 +20,18 @@ import themeRTL from '@/mui/assets/theme/theme-rtl';
 import ScrollTop from '@/components/ScrollTop';
 import CookieConsentTool from '@/components/CookieConsentTool';
 import 'typeface-roboto';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import '@/assets/scrollbar.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 function MyApp({Component, pageProps}) {
   const store = useStore({});
+
+  useEffect(() => {
+    document.documentElement.className = `${'info'}-scrollbar`;
+  },[]);
 
   return (
     <GlobalDndContext>
@@ -32,7 +40,6 @@ function MyApp({Component, pageProps}) {
           <CssBaseline />
           <Component {...pageProps} />
           <ScrollTop />
-          <CookieConsentTool />
         </ThemeProvider>
       </Provider>
     </GlobalDndContext>

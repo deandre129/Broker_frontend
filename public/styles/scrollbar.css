@@ -6,10 +6,6 @@
   display: none !important;
 }
 
-body {
-  overflow-y: scroll;
-}
-
 .table-responsive {
   overflow-x: auto;
 }

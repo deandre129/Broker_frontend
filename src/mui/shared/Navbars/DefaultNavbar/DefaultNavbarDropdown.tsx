@@ -66,19 +66,6 @@ function DefaultNavbarDropdown({
         component={!collapse && Link}
         href = {!collapse && route}
       >
-        {icon && (
-          <MDTypography
-            variant="body2"
-            lineHeight={1}
-            color="inherit"
-            sx={{
-              alignSelf: 'center',
-              '& *': { verticalAlign: 'middle' },
-            }}
-          >
-            <KeyboardArrowDownOutlinedIcon/>
-          </MDTypography>
-        )}
         <MDTypography
           variant="button"
           fontWeight="bold"
