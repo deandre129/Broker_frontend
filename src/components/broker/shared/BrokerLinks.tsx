@@ -22,7 +22,7 @@ function BrokerLinks({ record }) {
           fontSize="inherit"
           color="inherit"
         >
-          Demo-Konto
+          DEMO-KONTO
         </MDTypography>
         
       </MDButton>
@@ -38,7 +38,9 @@ function BrokerLinks({ record }) {
           variant="h3"
           fontSize="inherit"
           color="inherit"
-        >Zum Broker</MDTypography>
+        >
+          ZUM BROKER
+        </MDTypography>
         
       </MDButton>
     </MDBox>

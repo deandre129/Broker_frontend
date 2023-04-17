@@ -401,7 +401,7 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
             fontSize="inherit"
             color="inherit"
           >
-            Absenden
+            ABSENDEN
           </MDTypography>
         </MDButton>
       </PageContent>

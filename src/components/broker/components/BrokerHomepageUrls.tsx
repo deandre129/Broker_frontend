@@ -24,7 +24,7 @@ function BrokerHomepageUrls({ record }) {
                   fontSize="inherit"
                   color="inherit"
                 >
-                {i18n.entities.broker.text.nowTo(record.name)}
+                {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
               </MDTypography>
             </MDButton>
           </Grid>
@@ -44,9 +44,7 @@ function BrokerHomepageUrls({ record }) {
                   fontSize="inherit"
                   color="inherit"
                 >
-                  {i18n.entities.broker.text.nowTo(
-                  record.name,
-                  )}
+                  {i18n.entities.broker.text.nowTo(record.name,).toUpperCase()}
                 </MDTypography>
               </MDButton>
             </Grid>
@@ -64,7 +62,7 @@ function BrokerHomepageUrls({ record }) {
                   fontSize="inherit"
                   color="inherit"
                 >
-                  {i18n.entities.broker.text.freeDemoAccount}
+                  {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
                 </MDTypography>
               </MDButton>
             </Grid>

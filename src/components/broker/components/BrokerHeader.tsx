@@ -141,9 +141,7 @@ function BrokerHeader({ record }) {
                   fontSize="inherit"
                   color="inherit"
                 >
-                {i18n.entities.broker.text.nowTo(
-                  record.name,
-                )}
+                {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
               </MDTypography>
             </MDButton>
           </MDBox>

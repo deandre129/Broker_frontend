@@ -44,7 +44,7 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
   const pagination = {
     current: current ,
     pageSize: pageSize,
-    total: commentList.count
+    total: count
   }
 
   const doChangePagination = async (paginationChange) => {
@@ -339,7 +339,7 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
                     </MDBox>
                     // </LazyLoad>
                   ))}
-                {commentList.count==0 && (
+                {count==0 && (
                   <MDTypography
                     variant="body2"
                     fontWeight="regular"
@@ -513,7 +513,7 @@ const BlogDetailPage = ({ slug, author, commentList, blog, topBroker, category, 
                   fontSize="inherit"
                   color="inherit"
                 >
-                  {i18n.common.toComment}
+                  {i18n.common.toComment.toUpperCase()}
                 </MDTypography>
               </MDButton>
             </PageContent>
@@ -564,7 +564,6 @@ export async function getServerSideProps(context) {
     authorRes,
     blogRes
     ] = await Promise.all([
-    axios.post(`${config.backendUrl}/individual-blog`, {url}),
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
     axios.get(`${config.backendUrl}/navigation/most-read`),
@@ -575,6 +574,7 @@ export async function getServerSideProps(context) {
     axios.get(`${config.backendUrl}/navigation`),
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
+    axios.post(`${config.backendUrl}/individual-blog`, {url}),
   ])
   const topBroker = topBrokerRes.data;
   const category = categoryRes.data;
