@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Grid } from '@mui/material';
 import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
@@ -135,14 +136,17 @@ function BrokerHeader({ record }) {
               target="_blank"
               startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
               fullWidth
+              size="small"
+              
             >
-              <MDTypography
-                  variant="h3"
-                  fontSize="inherit"
-                  color="inherit"
-                >
+              <div className='white-color'>
                 {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
-              </MDTypography>
+              </div>
+              <style jsx>{`
+                .white-color {
+                  color: white;
+                }
+              `}</style>
             </MDButton>
           </MDBox>
         </Grid>

@@ -22,6 +22,7 @@ import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
+import Image from 'next/image';
 
 const BrokerPostPage = (props) => {
 
@@ -281,16 +282,18 @@ const BrokerPostPage = (props) => {
                     value={post.rating}
                     precision={0.1}
                     emptyIcon={
-                      <img
+                      <Image
                         src="/images/star-grey.png"
-                        height="24px"
+                        width="27"
+                        height="24"
                         alt="star-grey"
                       />
                     }
                     icon={
-                      <img
+                      <Image
                         src="/images/star-fill.png"
-                        height="24px"
+                        width="27"
+                        height="24"
                         alt="star-fill"
                       />
                     }
@@ -485,8 +488,15 @@ const BrokerPostPage = (props) => {
                         name={name}
                         defaultValue={0}
                         value={rating}
-                        icon={<img src="/images/star-fill.png" />}
-                        emptyIcon={<img src="/images/star-grey.png" />}
+                        icon={<Image src="/images/star-fill.png" 
+                          width='18'
+                          height="16"
+                          alt="star-fill" />}
+                        emptyIcon={
+                        <Image src="/images/star-grey.png" 
+                          width='18'
+                          height="16"
+                          alt="star-grey"/>}
                         max={5}
                         precision={1}
                         onChange={(evt, newVal) => {

@@ -27,7 +27,7 @@ import config from '@/config';
 import BrokerPostPage from '@/components/BrokerPostPage';
 
 
-const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+const BrokerViewPage = ({ brokerComparable, slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
 
   const record = page;
 
@@ -89,14 +89,15 @@ const BrokerViewPage = ({ slug, author, page, topBroker, category, mostRead, fea
 
       author = {author}
       navigation = {navigation}
-        topBroker = {topBroker}
-        category = { category }
-        mostRead = { mostRead }
-        featuredBrokers = { featuredBrokers }
-        forexSchool = { forexSchool }
-        forexStrategy = { forexStrategy }
-        promotion = { promotion }
-        categoryFooter = { categoryFooter }
+      topBroker = {topBroker}
+      category = { category }
+      mostRead = { mostRead }
+      featuredBrokers = { featuredBrokers }
+      forexSchool = { forexSchool }
+      forexStrategy = { forexStrategy }
+      promotion = { promotion }
+      categoryFooter = { categoryFooter }
+      brokerComparable={brokerComparable}
     >
       {record && (
         <MDBox
@@ -257,6 +258,7 @@ export async function getServerSideProps(context) {
     navigationRes,
     categoryFooterRes,
     authorRes,
+    brokerComparableRes,
     ] = await Promise.all([
     axios.post(`${config.backendUrl}/broker`,{url}),
     axios.get(`${config.backendUrl}/broker/top`),
@@ -269,6 +271,7 @@ export async function getServerSideProps(context) {
     axios.get(`${config.backendUrl}/navigation`),
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const page = pageRes.data;
   const topBroker = topBrokerRes.data;
@@ -281,8 +284,9 @@ export async function getServerSideProps(context) {
   const navigation = navigationRes.data;
   const categoryFooter = categoryFooterRes.data;
   const author = authorRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
-  return { props: { slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, slug, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BrokerViewPage;

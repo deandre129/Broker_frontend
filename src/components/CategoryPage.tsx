@@ -21,6 +21,7 @@ import TableRow from '@mui/material/TableRow';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 function CategoryPage({allBroker, category, navigation, author, topBroker }) {
   const router = useRouter();
@@ -192,16 +193,18 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                                 row.rating?.overall_rating ?? 0
                               }
                               emptyIcon={
-                                <img
+                                <Image
                                   src="/images/star-grey.png"
-                                  height="16px"
+                                  height="16"
+                                  width="18"
                                   alt="star-grey"
                                 />
                               }
                               icon={
-                                <img
+                                <Image
                                   src="/images/star-fill.png"
-                                  height="16px"
+                                  height="16"
+                                  width="18"
                                   alt="star-fill"
                                 />
                               }

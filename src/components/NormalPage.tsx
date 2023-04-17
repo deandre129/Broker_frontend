@@ -9,6 +9,7 @@ import MDTypography from '@/mui/components/MDTypography';
 import PageContent from '@/components/shared/view/PageContent';
 import TopBrokersView from './broker/components/TopBrokersView';
 import AuthorView from '@/components/shared/view/AuthorView';
+import Image from 'next/image';
 
 function NormalPage({ page, topBroker, navigation, author }) {
   const { sidenavColor } = selectMuiSettings();
@@ -83,7 +84,12 @@ function NormalPage({ page, topBroker, navigation, author }) {
             alignItems="center"
             gap={1}
           >
-            <img src="/images/files/pdf.png" />
+            <Image 
+              src="/images/files/pdf.png"
+              width="16"
+              height="16"
+              alt="pdf" 
+            />
             <MaterialLink
               onClick={handleDownloadPagePDF}
               underline="hover"

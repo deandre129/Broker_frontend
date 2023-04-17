@@ -6,6 +6,7 @@ import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import RatingViewItem from '../shared/view/RatingViewItem';
+import Image from 'next/image';
 
 function FeaturedBrokers({featuredBrokers}) {
 
@@ -55,17 +56,19 @@ function FeaturedBrokers({featuredBrokers}) {
                       value={row.rating?.overall_rating}
                       precision={0.1}
                       emptyIcon={
-                        <img
+                        <Image
                           src="/images/star-grey.png"
                           alt="star-grey"
-                          height="24px"
+                          height="24"
+                          width="27"
                         />
                       }
                       icon={
-                        <img
+                        <Image
                           src="/images/star-fill.png"
                           alt="star-fill"
-                          height="24px"
+                          height="24"
+                          width="27"
                         />
                       }
                       size="large"

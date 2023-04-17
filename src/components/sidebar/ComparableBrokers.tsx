@@ -5,7 +5,8 @@ import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 
-function ComparableBrokers({ record }) {
+function ComparableBrokers({ record, brokerComparable }) {
+  console.log(record);
   return (
     <Grid xs={12} item>
       <Card>
@@ -16,15 +17,14 @@ function ComparableBrokers({ record }) {
               fontWeight="bold"
               lineHeight={1.35}
             >
-              {`${record.name
-                .replace(/\([\w\d\s]+\)/g, '')
+              {`${record.name.replace(/\([\w\d\s]+\)/g, '')
                 .trim()} vergleichen mit`}
             </MDTypography>
           }
           sx={{ pb: 1, px: 3, pt: 2 }}
         />
         <MDBox sx={{ pt: 0, px: 3, pb: 2 }}>
-          {record
+          {brokerComparable.rows
             .filter(({ id }) => id !== record.id)
             .map((row, idx) => (
               <MDTypography

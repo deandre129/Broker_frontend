@@ -11,7 +11,7 @@ import axios from 'axios';
 import config from '@/config';
 import authAxios from '@/modules/shared/axios/authAxios';
 
-const GeneralPage = ({slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
+const GeneralPage = ({ brokerComparable, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
   if(pageType == 'error'){
@@ -90,6 +90,7 @@ const GeneralPage = ({slug, author, allBroker, pageType, page, topBroker, catego
         forexStrategy = { forexStrategy }
         promotion = { promotion }
         categoryFooter = { categoryFooter }
+        brokerComparable={brokerComparable}
       >
         {pageType == "category" && (
           <CategoryPage category={page} topBroker={topBroker} navigation = {navigation} allBroker = {allBroker} author={author}/>
@@ -184,7 +185,8 @@ export async function getServerSideProps(context) {
     navigationRes,
     categoryFooterRes,
     authorRes,
-    allBrokerRes
+    allBrokerRes,
+    brokerComparableRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
@@ -196,7 +198,8 @@ export async function getServerSideProps(context) {
     axios.get(`${config.backendUrl}/navigation`),
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
-    axios.get(`${config.backendUrl}/broker`, {params})
+    axios.get(`${config.backendUrl}/broker`, {params}),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const topBroker = topBrokerRes.data;
   const category = categoryRes.data;
@@ -209,8 +212,9 @@ export async function getServerSideProps(context) {
   const categoryFooter = categoryFooterRes.data;
   const author = authorRes.data;
   const allBroker = allBrokerRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
-  return { props: { allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default GeneralPage;

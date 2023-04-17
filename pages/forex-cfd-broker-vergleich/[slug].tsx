@@ -21,7 +21,7 @@ import MDBox from '@/mui/components/MDBox';
 import axios from 'axios';
 import config from '@/config';
 
-function BrokerComparePage({ brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
+function BrokerComparePage({ brokerComparable, brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 
   const router = useRouter();
 
@@ -79,6 +79,7 @@ function BrokerComparePage({ brokerList, author, recordA, recordB, topBroker, ca
       forexStrategy = { forexStrategy }
       promotion = { promotion }
       categoryFooter = { categoryFooter }
+      brokerComparable={brokerComparable}
     >
       <PageContent
         px={{
@@ -261,7 +262,8 @@ export async function getServerSideProps(context) {
     navigationRes,
     categoryFooterRes,
     authorRes,
-    allBrokerRes
+    allBrokerRes,
+    brokerComparableRes
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
@@ -273,7 +275,8 @@ export async function getServerSideProps(context) {
     axios.get(`${config.backendUrl}/navigation`),
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
-    axios.get(`${config.backendUrl}/broker`, {params})
+    axios.get(`${config.backendUrl}/broker`, {params}),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const topBroker = topBrokerRes.data;
   const category = categoryRes.data;
@@ -286,6 +289,7 @@ export async function getServerSideProps(context) {
   const categoryFooter = categoryFooterRes.data;
   const author = authorRes.data;
   const allBroker = allBrokerRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
   const recordAReq = slug.slice(0,index);
   const recordBReq = slug.slice(index+8,slug.length);
@@ -301,7 +305,7 @@ export async function getServerSideProps(context) {
     brokerList[i] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
   }
 
-  return { props: { brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BrokerComparePage;

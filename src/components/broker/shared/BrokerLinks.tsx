@@ -17,13 +17,14 @@ function BrokerLinks({ record }) {
         target="_blank"
         fullWidth
       >
-        <MDTypography
-          variant="h3"
-          fontSize="inherit"
-          color="inherit"
-        >
+        <div className='white-color'>
           DEMO-KONTO
-        </MDTypography>
+        </div>
+        <style jsx>{`
+          .white-color {
+            color: white;
+          }
+        `}</style>
         
       </MDButton>
       <MDButton
@@ -34,14 +35,14 @@ function BrokerLinks({ record }) {
         target="_blank"
         fullWidth
       >
-        <MDTypography
-          variant="h3"
-          fontSize="inherit"
-          color="inherit"
-        >
+        <div className='white-color'>
           ZUM BROKER
-        </MDTypography>
-        
+        </div>
+        <style jsx>{`
+          .white-color {
+            color: white;
+          }
+        `}</style>    
       </MDButton>
     </MDBox>
   );

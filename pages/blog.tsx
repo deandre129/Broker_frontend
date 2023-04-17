@@ -14,7 +14,7 @@ import ImageView from '@/components/ImageView';
 import axios from 'axios';
 import config from '@/config';
 
-const BlogListPage = ({author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
+const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
   const [rows, setRows] = useState([]);
@@ -75,6 +75,7 @@ const BlogListPage = ({author, topBroker, category, mostRead, featuredBrokers, f
         forexStrategy = { forexStrategy }
         promotion = { promotion }
         categoryFooter = { categoryFooter }
+        brokerComparable={brokerComparable}
     >
       <PageContent id="list-top-4-pagination">
         <MDBox display="none">
@@ -166,6 +167,7 @@ export async function getServerSideProps({ query }) {
       navigationRes,
       categoryFooterRes,
       authorRes,
+      brokerComparableRes,
       ] = await Promise.all([
       axios.get(`${config.backendUrl}/broker/top`),
       axios.get(`${config.backendUrl}/category/sidebar`),
@@ -177,6 +179,7 @@ export async function getServerSideProps({ query }) {
       axios.get(`${config.backendUrl}/navigation`),
       axios.get(`${config.backendUrl}/category/footer`),
       axios.get(`${config.backendUrl}/author`),
+      axios.get(`${config.backendUrl}/broker/comparable`),
     ])
     const topBroker = topBrokerRes.data;
     const category = categoryRes.data;
@@ -188,9 +191,9 @@ export async function getServerSideProps({ query }) {
     const navigation = navigationRes.data;
     const categoryFooter = categoryFooterRes.data;
     const author = authorRes.data;
-  
+    const brokerComparable = brokerComparableRes.data;
 
-    return { props: { author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+    return { props: { brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
   } ;
 
 export default BlogListPage;

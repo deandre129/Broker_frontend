@@ -19,13 +19,14 @@ function BrokerHomepageUrls({ record }) {
               startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
               fullWidth
             >
-              <MDTypography
-                  variant="h3"
-                  fontSize="inherit"
-                  color="inherit"
-                >
-                {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
-              </MDTypography>
+              <div className='white-color'>
+                  {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
+                </div>
+                <style jsx>{`
+                  .white-color {
+                    color: white;
+                  }
+                `}</style>
             </MDButton>
           </Grid>
         ) : (
@@ -39,13 +40,14 @@ function BrokerHomepageUrls({ record }) {
                 startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
                 fullWidth
               >
-                <MDTypography
-                  variant="h3"
-                  fontSize="inherit"
-                  color="inherit"
-                >
+                <div className='white-color'>
                   {i18n.entities.broker.text.nowTo(record.name,).toUpperCase()}
-                </MDTypography>
+                </div>
+                <style jsx>{`
+                  .white-color {
+                    color: white;
+                  }
+                `}</style>
               </MDButton>
             </Grid>
             <Grid md={6} xs={12} item>
@@ -57,13 +59,14 @@ function BrokerHomepageUrls({ record }) {
                 startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
                 fullWidth
               >
-                <MDTypography
-                  variant="h3"
-                  fontSize="inherit"
-                  color="inherit"
-                >
+                <div className='white-color'>
                   {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
-                </MDTypography>
+                </div>
+                <style jsx>{`
+                  .white-color {
+                    color: white;
+                  }
+                `}</style>
               </MDButton>
             </Grid>
           </>

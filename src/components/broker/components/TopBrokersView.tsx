@@ -8,6 +8,7 @@ import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
 import RatingViewItem from '../../shared/view/RatingViewItem';
+import Image from 'next/image';
 
 function TopBrokersView({ topBrokers }) {
   return (
@@ -84,17 +85,19 @@ function TopBrokersView({ topBrokers }) {
                   value={row.rating?.overall_rating}
                   precision={0.1}
                   emptyIcon={
-                    <img
+                    <Image
                       src="/images/star-grey.png"
                       alt="star-grey"
-                      height="32px"
+                      height="32"
+                      width="36"
                     />
                   }
                   icon={
-                    <img
+                    <Image
                       src="/images/star-fill.png"
                       alt="star-fill"
-                      height="32px"
+                      height="32"
+                      width="36"
                     />
                   }
                   size="large"

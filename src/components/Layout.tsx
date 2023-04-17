@@ -26,6 +26,7 @@ function Layout({
   promotion,
   navigation,
   categoryFooter,
+  brokerComparable,
   author,
   record,
   children,
@@ -52,7 +53,7 @@ function Layout({
             <Grid spacing={2} container>
               <TopBrokers topBroker = {topBroker}/>
               {Boolean(record) && (
-                <ComparableBrokers record={record} />
+                <ComparableBrokers record={record} brokerComparable = {brokerComparable}/>
               )}
                {Boolean(record) && (
                 <Advisors record={record} />

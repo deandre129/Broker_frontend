@@ -15,7 +15,7 @@ import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-function Contact({ topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
+function Contact({ brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
   const { sidenavColor } = selectMuiSettings();
 
   const [open, setOpen] = useState(false);
@@ -160,6 +160,7 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
       forexStrategy = { forexStrategy }
       promotion = { promotion }
       categoryFooter = { categoryFooter }
+      brokerComparable= {brokerComparable}
     >
       <PageContent>
         <MDTypography variant="h3">
@@ -354,13 +355,14 @@ function Contact({ topBroker, author, category, mostRead, featuredBrokers, forex
           startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}
           size="small"
         >
-          <MDTypography
-            variant="h3"
-            fontSize="inherit"
-            color="inherit"
-          >
+          <div className='white-color'>
             ABSENDEN
-          </MDTypography>
+          </div>
+          <style jsx>{`
+                .white-color {
+                  color: white;
+                }
+          `}</style>
         </MDButton>
       </PageContent>
       <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>
@@ -385,6 +387,7 @@ export async function getServerSideProps(context) {
     navigationRes,
     categoryFooterRes,
     authorRes,
+    brokerComparableRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
@@ -396,6 +399,7 @@ export async function getServerSideProps(context) {
     axios.get(`${config.backendUrl}/navigation`),
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const topBroker = topBrokerRes.data;
   const category = categoryRes.data;
@@ -407,8 +411,9 @@ export async function getServerSideProps(context) {
   const navigation = navigationRes.data;
   const categoryFooter = categoryFooterRes.data;
   const author = authorRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
-  return { props: { topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 } ;
 
 export default Contact;

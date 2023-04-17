@@ -1,13 +1,15 @@
 import { CardMedia } from '@mui/material';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 function ImageView({ value, sx, alt: originalAlt }) {
   const url = value && value[0] && value[0].downloadUrl;
+  console.log(url);
   const alt =
     originalAlt || (value && value[0] && value[0].name);
   return (
     <CardMedia
-      component="img"
+      component={"img"}
       src={url}
       alt={alt}
       title={alt}

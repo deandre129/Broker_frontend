@@ -25,9 +25,9 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import Link from 'next/link';
+import Image from 'next/image';
 
-
-const ComparisonPage = ({ allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
+const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
   const router = useRouter();
 
   const [sorter, setSorter] =useState({
@@ -58,6 +58,7 @@ const ComparisonPage = ({ allBroker,category, author, topBrokerSidebar, category
         'broker bewertungen',
       ]}
       author = {author}
+      brokerComparable={brokerComparable}
       navigation = {navigationSidebar}
       topBroker = {topBrokerSidebar}
       category = { categorySidebar }
@@ -188,7 +189,7 @@ const ComparisonPage = ({ allBroker,category, author, topBrokerSidebar, category
                               underline="hover"
                             >
                               <CardMedia
-                                component="img"
+                                component={"img"}
                                 image={
                                   row.broker_image_broker_logo[0]
                                     ?.downloadUrl
@@ -216,16 +217,18 @@ const ComparisonPage = ({ allBroker,category, author, topBrokerSidebar, category
                                 row.rating?.overall_rating ?? 0
                               }
                               emptyIcon={
-                                <img
+                                <Image
                                   src="/images/star-grey.png"
-                                  height="16px"
+                                  width='18'
+                                  height="16"
                                   alt="star-grey"
                                 />
                               }
                               icon={
-                                <img
+                                <Image
                                   src="/images/star-fill.png"
-                                  height="16px"
+                                  width='18'
+                                  height="16"
                                   alt="star-fill"
                                 />
                               }
@@ -291,7 +294,8 @@ export async function getServerSideProps({query}) {
     categoryFooterSidebarRes,
     authorRes,
     categoryRes,
-    allBrokerRes
+    allBrokerRes,
+    brokerComparableRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
@@ -304,7 +308,8 @@ export async function getServerSideProps({query}) {
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
     axios.post(`${config.backendUrl}/category`,{url:"/broker-vergleich"}),
-    axios.get(`${config.backendUrl}/broker`, {params})
+    axios.get(`${config.backendUrl}/broker`, {params}),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const topBrokerSidebar = topBrokerSidebarRes.data;
   const categorySidebar = categorySidebarRes.data;
@@ -317,6 +322,7 @@ export async function getServerSideProps({query}) {
   const categoryFooterSidebar = categoryFooterSidebarRes.data;
   const author = authorRes.data;
   const allBroker = allBrokerRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
   let category;
   if(!categoryRes){
@@ -326,7 +332,7 @@ export async function getServerSideProps({query}) {
     category = categoryRes.data;
   }
   
-  return { props: {allBroker, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar, category } };
+  return { props: { brokerComparable, allBroker, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar, category } };
 } ;
 
 export default ComparisonPage;

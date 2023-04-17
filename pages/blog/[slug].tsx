@@ -24,7 +24,7 @@ import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-const BlogDetailPage = ({ slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
@@ -248,6 +248,7 @@ const BlogDetailPage = ({ slug, author, blog, topBroker, category, mostRead, fea
         forexStrategy = { forexStrategy }
         promotion = { promotion }
         categoryFooter = { categoryFooter }
+        brokerComparable={ brokerComparable}
       >
         {record && (
           <MDBox
@@ -500,13 +501,14 @@ const BlogDetailPage = ({ slug, author, blog, topBroker, category, mostRead, fea
                 startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}
                 size="small"
               >
-                <MDTypography
-                  variant="h3"
-                  fontSize="inherit"
-                  color="inherit"
-                >
+                <div className='white-color'>
                   {i18n.common.toComment.toUpperCase()}
-                </MDTypography>
+                </div>
+                <style jsx>{`
+                  .white-color {
+                    color: white;
+                  }
+                `}</style>
               </MDButton>
             </PageContent>
             <AuthorView author={author} />
@@ -554,7 +556,8 @@ export async function getServerSideProps(context) {
     navigationRes,
     categoryFooterRes,
     authorRes,
-    blogRes
+    blogRes,
+    brokerComparableRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
@@ -567,6 +570,7 @@ export async function getServerSideProps(context) {
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
     axios.post(`${config.backendUrl}/individual-blog`, {url}),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const topBroker = topBrokerRes.data;
   const category = categoryRes.data;
@@ -579,8 +583,9 @@ export async function getServerSideProps(context) {
   const categoryFooter = categoryFooterRes.data;
   const author = authorRes.data;
   const blog = blogRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
-  return { props: { slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BlogDetailPage;

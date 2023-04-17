@@ -15,8 +15,10 @@ import PageContent from '@/components/shared/view/PageContent';
 import Layout from '@/components/Layout';
 import Breadcrumb from '@/components/Breadcrumb';
 import axios from 'axios';
+import Image from 'next/image';
 
-function Index({ 
+function Index({
+  brokerComparable, 
   topBroker, 
   category, 
   mostRead, 
@@ -52,6 +54,7 @@ function Index({
       promotion = { promotion }
       categoryFooter = { categoryFooter }
       author={author}
+      brokerComparable = {brokerComparable}
       description="Ihr Bewertungsportal für Forex Broker und CFD Broker ✓Erfahrungen und Bewertungen ✓ Von Tradern für Trader ✓ Alles auf www.broker-bewertungen.de"
     >
       <PageContent>
@@ -119,10 +122,10 @@ function Index({
                 gap={3}
                 p={2}
               >
-                <img
+                <Image
                   src="/images/home-box-forex.png"
-                  width="115px"
-                  height="115px"
+                  width="115"
+                  height="115"
                   alt="home-box-forex"
                 />
                 <MDTypography
@@ -160,10 +163,10 @@ function Index({
                 gap={3}
                 p={2}
               >
-                <img
+                <Image
                   src="/images/home-box-cfd.png"
-                  width="115px"
-                  height="115px"
+                  width="115"
+                  height="115"
                   alt="home-box-cfd"
                 />
                 <MDTypography
@@ -763,6 +766,7 @@ export async function getServerSideProps() {
     navigationRes,
     categoryFooterRes,
     authorRes,
+    brokerComparableRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/broker/top`),
     axios.get(`${config.backendUrl}/category/sidebar`),
@@ -774,6 +778,7 @@ export async function getServerSideProps() {
     axios.get(`${config.backendUrl}/navigation`),
     axios.get(`${config.backendUrl}/category/footer`),
     axios.get(`${config.backendUrl}/author`),
+    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
   const topBroker = topBrokerRes.data;
   const category = categoryRes.data;
@@ -785,8 +790,9 @@ export async function getServerSideProps() {
   const navigation = navigationRes.data;
   const categoryFooter = categoryFooterRes.data;
   const author = authorRes.data;
+  const brokerComparable = brokerComparableRes.data;
 
-  return { props: { topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 } ;
 
 export default Index;

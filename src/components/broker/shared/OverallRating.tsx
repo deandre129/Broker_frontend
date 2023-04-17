@@ -5,6 +5,7 @@ import MDTypography from '@/mui/components/MDTypography';
 import BrokerRatingPercent from './BrokerRatingPercent';
 import RatingViewItem from '../../shared/view/RatingViewItem';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 function OverallRating({
   record,
@@ -41,17 +42,19 @@ function OverallRating({
           value={record.rating?.overall_rating}
           precision={0.1}
           emptyIcon={
-            <img
+            <Image
               src="/images/star-grey.png"
               alt="star-grey"
               height={size}
+              width={size*1.125}
             />
           }
           icon={
-            <img
+            <Image
               src="/images/star-fill.png"
               alt="star-fill"
               height={size}
+              width={size*1.125}
             />
           }
           size="large"
