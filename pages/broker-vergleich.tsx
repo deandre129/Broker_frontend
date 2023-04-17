@@ -271,42 +271,7 @@ const ComparisonPage = ({ allBroker,category, author, topBrokerSidebar, category
 };
 
 export async function getServerSideProps({query}) {
-  const topBrokerSidebarRes = await axios.get(`${config.backendUrl}/broker/top`);
-  const topBrokerSidebar = topBrokerSidebarRes.data;
 
-  const categorySidebarRes = await axios.get(`${config.backendUrl}/category/sidebar`);
-  const categorySidebar = categorySidebarRes.data;
-
-  const mostReadSidebarRes = await axios.get(`${config.backendUrl}/navigation/most-read`);
-  const mostReadSidebar = mostReadSidebarRes.data;
-
-  const featuredBrokersSidebarRes = await axios.get(`${config.backendUrl}/broker/featured`);
-  const featuredBrokersSidebar = featuredBrokersSidebarRes.data;
-
-  const forexSchoolSidebarRes = await axios.get(`${config.backendUrl}/navigation/forex-school`);
-  const forexSchoolSidebar = forexSchoolSidebarRes.data;  
-
-  const forexStrategySidebarRes = await axios.get(`${config.backendUrl}/navigation/forex-strategy`);
-  const forexStrategySidebar = forexStrategySidebarRes.data;
-  
-  const promotionSidebarRes = await axios.get(`${config.backendUrl}/promotion`);
-  const promotionSidebar = promotionSidebarRes.data;
-
-  const navigationSidebarRes = await axios.get(`${config.backendUrl}/navigation`);
-  const navigationSidebar = navigationSidebarRes.data;
-
-  const categoryFooterSidebarRes = await axios.get(`${config.backendUrl}/category/footer`);
-  const categoryFooterSidebar = categoryFooterSidebarRes.data;
-
-  const categoryRes = await axios.post(`${config.backendUrl}/category`,{url:"/broker-vergleich"});
-  let category;
-  if(!categoryRes){
-    const pageRes = await axios.post(`${config.backendUrl}/general-page`,{url:"/broker-vergleich"});
-    category = pageRes.data;
-  }else{
-    category = categoryRes.data;
-  }
-  
   const sortField = query.field ? query.field : 'name';
   const sortOrder = query.orderBy ? query.orderBy : "asc";
 
@@ -320,15 +285,55 @@ export async function getServerSideProps({query}) {
     orderBy: sortField+"_"+sortOrder,
     limit: null,
     offset: 1,
-  }
+  }  
 
-
-  const allBrokerRes = await axios.get(`${config.backendUrl}/broker`, {params});
+  const [
+    topBrokerSidebarRes,
+    categorySidebarRes,
+    mostReadSidebarRes,
+    featuredBrokersSidebarRes,
+    forexSchoolSidebarRes,
+    forexStrategySidebarRes,
+    promotionSidebarRes,
+    navigationSidebarRes,
+    categoryFooterSidebarRes,
+    authorRes,
+    categoryRes,
+    allBrokerRes
+    ] = await Promise.all([
+    axios.get(`${config.backendUrl}/broker/top`),
+    axios.get(`${config.backendUrl}/category/sidebar`),
+    axios.get(`${config.backendUrl}/navigation/most-read`),
+    axios.get(`${config.backendUrl}/broker/featured`),
+    axios.get(`${config.backendUrl}/navigation/forex-school`),
+    axios.get(`${config.backendUrl}/navigation/forex-strategy`),
+    axios.get(`${config.backendUrl}/promotion`),
+    axios.get(`${config.backendUrl}/navigation`),
+    axios.get(`${config.backendUrl}/category/footer`),
+    axios.get(`${config.backendUrl}/author`),
+    axios.post(`${config.backendUrl}/category`,{url:"/broker-vergleich"}),
+    axios.get(`${config.backendUrl}/broker`, {params})
+  ])
+  const topBrokerSidebar = topBrokerSidebarRes.data;
+  const categorySidebar = categorySidebarRes.data;
+  const mostReadSidebar = mostReadSidebarRes.data;
+  const featuredBrokersSidebar = featuredBrokersSidebarRes.data;
+  const forexSchoolSidebar = forexSchoolSidebarRes.data;  
+  const forexStrategySidebar = forexStrategySidebarRes.data;
+  const promotionSidebar = promotionSidebarRes.data;
+  const navigationSidebar = navigationSidebarRes.data;
+  const categoryFooterSidebar = categoryFooterSidebarRes.data;
+  const author = authorRes.data;
   const allBroker = allBrokerRes.data;
 
-  const authorRes = await axios.get(`${config.backendUrl}/author`);
-  const author = authorRes.data;
-
+  let category;
+  if(!categoryRes){
+    const pageRes = await axios.post(`${config.backendUrl}/general-page`,{url:"/broker-vergleich"});
+    category = pageRes.data;
+  }else{
+    category = categoryRes.data;
+  }
+  
   return { props: {allBroker, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar, category } };
 } ;
 

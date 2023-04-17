@@ -160,35 +160,40 @@ const BlogListPage = ({pagination, author, topBroker, category, mostRead, featur
 
 export async function getServerSideProps({ query }) {
 
-    const topBrokerRes = await axios.get(`${config.backendUrl}/broker/top`);
+    const [
+      topBrokerRes,
+      categoryRes,
+      mostReadRes,
+      featuredBrokersRes,
+      forexSchoolRes,
+      forexStrategyRes,
+      promotionRes,
+      navigationRes,
+      categoryFooterRes,
+      authorRes,
+      ] = await Promise.all([
+      axios.get(`${config.backendUrl}/broker/top`),
+      axios.get(`${config.backendUrl}/category/sidebar`),
+      axios.get(`${config.backendUrl}/navigation/most-read`),
+      axios.get(`${config.backendUrl}/broker/featured`),
+      axios.get(`${config.backendUrl}/navigation/forex-school`),
+      axios.get(`${config.backendUrl}/navigation/forex-strategy`),
+      axios.get(`${config.backendUrl}/promotion`),
+      axios.get(`${config.backendUrl}/navigation`),
+      axios.get(`${config.backendUrl}/category/footer`),
+      axios.get(`${config.backendUrl}/author`),
+    ])
     const topBroker = topBrokerRes.data;
-  
-    const categoryRes = await axios.get(`${config.backendUrl}/category/sidebar`);
     const category = categoryRes.data;
-  
-    const mostReadRes = await axios.get(`${config.backendUrl}/navigation/most-read`);
     const mostRead = mostReadRes.data;
-  
-    const featuredBrokersRes = await axios.get(`${config.backendUrl}/broker/featured`);
     const featuredBrokers = featuredBrokersRes.data;
-  
-    const forexSchoolRes = await axios.get(`${config.backendUrl}/navigation/forex-school`);
     const forexSchool = forexSchoolRes.data;  
-  
-    const forexStrategyRes = await axios.get(`${config.backendUrl}/navigation/forex-strategy`);
     const forexStrategy = forexStrategyRes.data;
-    
-    const promotionRes = await axios.get(`${config.backendUrl}/promotion`);
     const promotion = promotionRes.data;
-  
-    const navigationRes = await axios.get(`${config.backendUrl}/navigation`);
     const navigation = navigationRes.data;
-  
-    const categoryFooterRes = await axios.get(`${config.backendUrl}/category/footer`);
     const categoryFooter = categoryFooterRes.data;
-
-    const authorRes = await axios.get(`${config.backendUrl}/author`);
     const author = authorRes.data;
+  
 
     return { props: { author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
   } ;
