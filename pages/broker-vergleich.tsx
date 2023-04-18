@@ -283,46 +283,26 @@ export async function getServerSideProps({query}) {
   }  
 
   const [
-    topBrokerSidebarRes,
-    categorySidebarRes,
-    mostReadSidebarRes,
-    featuredBrokersSidebarRes,
-    forexSchoolSidebarRes,
-    forexStrategySidebarRes,
-    promotionSidebarRes,
-    navigationSidebarRes,
-    categoryFooterSidebarRes,
-    authorRes,
+    baseRes,
     categoryRes,
     allBrokerRes,
-    brokerComparableRes,
     ] = await Promise.all([
-    axios.get(`${config.backendUrl}/broker/top`),
-    axios.get(`${config.backendUrl}/category/sidebar`),
-    axios.get(`${config.backendUrl}/navigation/most-read`),
-    axios.get(`${config.backendUrl}/broker/featured`),
-    axios.get(`${config.backendUrl}/navigation/forex-school`),
-    axios.get(`${config.backendUrl}/navigation/forex-strategy`),
-    axios.get(`${config.backendUrl}/promotion`),
-    axios.get(`${config.backendUrl}/navigation`),
-    axios.get(`${config.backendUrl}/category/footer`),
-    axios.get(`${config.backendUrl}/author`),
+      axios.get(`${config.backendUrl}/base`),
     axios.post(`${config.backendUrl}/category`,{url:"/broker-vergleich"}),
     axios.get(`${config.backendUrl}/broker`, {params}),
-    axios.get(`${config.backendUrl}/broker/comparable`),
   ])
-  const topBrokerSidebar = topBrokerSidebarRes.data;
-  const categorySidebar = categorySidebarRes.data;
-  const mostReadSidebar = mostReadSidebarRes.data;
-  const featuredBrokersSidebar = featuredBrokersSidebarRes.data;
-  const forexSchoolSidebar = forexSchoolSidebarRes.data;  
-  const forexStrategySidebar = forexStrategySidebarRes.data;
-  const promotionSidebar = promotionSidebarRes.data;
-  const navigationSidebar = navigationSidebarRes.data;
-  const categoryFooterSidebar = categoryFooterSidebarRes.data;
-  const author = authorRes.data;
+  const topBrokerSidebar = baseRes.data.brokerTop;
+  const categorySidebar = baseRes.data.categorySidebar;
+  const mostReadSidebar = baseRes.data.mostRead;
+  const featuredBrokersSidebar = baseRes.data.brokerFeatured;
+  const forexSchoolSidebar = baseRes.data.forexSchool;  
+  const forexStrategySidebar = baseRes.data.forexStrategy;
+  const promotionSidebar = baseRes.data.promotion;
+  const navigationSidebar = baseRes.data.navigation;
+  const categoryFooterSidebar = baseRes.data.footer;
+  const author = baseRes.data.author;
+  const brokerComparable = baseRes.data.brokerComparable;
   const allBroker = allBrokerRes.data;
-  const brokerComparable = brokerComparableRes.data;
 
   let category;
   if(!categoryRes){

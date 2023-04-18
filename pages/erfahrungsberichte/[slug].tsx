@@ -221,43 +221,23 @@ export async function getServerSideProps(context) {
 
   const [
     pageRes,
-    topBrokerRes,
-    categoryRes,
-    mostReadRes,
-    featuredBrokersRes,
-    forexSchoolRes,
-    forexStrategyRes,
-    promotionRes,
-    navigationRes,
-    categoryFooterRes,
-    authorRes,
-    brokerComparableRes,
+    baseRes,
   ] = await Promise.all([
     axios.post(`${config.backendUrl}/broker`, { url }),
-    axios.get(`${config.backendUrl}/broker/top`),
-    axios.get(`${config.backendUrl}/category/sidebar`),
-    axios.get(`${config.backendUrl}/navigation/most-read`),
-    axios.get(`${config.backendUrl}/broker/featured`),
-    axios.get(`${config.backendUrl}/navigation/forex-school`),
-    axios.get(`${config.backendUrl}/navigation/forex-strategy`),
-    axios.get(`${config.backendUrl}/promotion`),
-    axios.get(`${config.backendUrl}/navigation`),
-    axios.get(`${config.backendUrl}/category/footer`),
-    axios.get(`${config.backendUrl}/author`),
-    axios.get(`${config.backendUrl}/broker/comparable`),
+    axios.get(`${config.backendUrl}/base`),
   ]);
   const page = pageRes.data;
-  const topBroker = topBrokerRes.data;
-  const category = categoryRes.data;
-  const mostRead = mostReadRes.data;
-  const featuredBrokers = featuredBrokersRes.data;
-  const forexSchool = forexSchoolRes.data;
-  const forexStrategy = forexStrategyRes.data;
-  const promotion = promotionRes.data;
-  const navigation = navigationRes.data;
-  const categoryFooter = categoryFooterRes.data;
-  const author = authorRes.data;
-  const brokerComparable = brokerComparableRes.data;
+  const topBroker = baseRes.data.brokerTop;
+  const category = baseRes.data.categorySidebar;
+  const mostRead = baseRes.data.mostRead;
+  const featuredBrokers = baseRes.data.brokerFeatured;
+  const forexSchool = baseRes.data.forexSchool;  
+  const forexStrategy = baseRes.data.forexStrategy;
+  const promotion = baseRes.data.promotion;
+  const navigation = baseRes.data.navigation;
+  const categoryFooter = baseRes.data.footer;
+  const author = baseRes.data.author;
+  const brokerComparable = baseRes.data.brokerComparable;
 
   return {
     props: {
