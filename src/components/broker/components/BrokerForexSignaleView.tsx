@@ -1,17 +1,15 @@
 import { Grid } from '@mui/material';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import AttrTypography from '../shared/AttrTypography';
 import BrokerAttrs from '../shared/BrokerAttrs';
 import CheckboxViewItem from '../../shared/view/CheckboxViewItem';
-import dColors from '@/mui/assets/theme-dark/base/colors';
 import HtmlView from '../../shared/view/HtmlView';
 import lColors from '@/mui/assets/theme/base/colors';
+import dynamic from 'next/dynamic';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 
 function BrokerForexSignaleView({ record }) {
-  const { darkMode } = selectMuiSettings();
-  const colors = darkMode ? dColors : lColors;
+  const colors = lColors;
   return (
     <>
       <Grid container>

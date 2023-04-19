@@ -4,28 +4,42 @@ import i18n from '@/i18n';
 import { CardMedia, TableContainer } from '@mui/material';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
-import Breadcrumb from '@/components/Breadcrumb';
-import Layout from '@/components/Layout';
-import MDTypography from '@/mui/components/MDTypography';
+import dynamic from 'next/dynamic';
+// import Breadcrumb from '@/components/Breadcrumb';
+// import Layout from '@/components/Layout';
+// import MDTypography from '@/mui/components/MDTypography';
 import moment from 'moment';
-import PageContent from '@/components/shared/view/PageContent';
+// import PageContent from '@/components/shared/view/PageContent';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
 import AuthorView from '@/components/shared/view/AuthorView';
-import MDBox from '@/mui/components/MDBox';
-import DefaultCategoryDescription from '@/components/DefaultCategoryDescription';
-import DashBorder from '@/components/shared/DashBorder';
+// import MDBox from '@/mui/components/MDBox';
+// import DefaultCategoryDescription from '@/components/DefaultCategoryDescription';
+// import DashBorder from '@/components/shared/DashBorder';
 import axios from 'axios';
 import config from '@/config';
 import React from 'react';
 import DataTableBodyCell from '@/mui/shared/Tables/DataTable/DataTableBodyCell';
 import DataTableHeadCell from '@/mui/shared/Tables/DataTable/DataTableHeadCell';
 import MaterialLink from '@mui/material/Link';
-import RatingListItem from '@/components/shared/table/RatingListItem';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
+// import RatingListItem from '@/components/shared/table/RatingListItem';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableRow from '@mui/material/TableRow';
 import Link from 'next/link';
 import Image from 'next/image';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+const DefaultCategoryDescription = dynamic(() => import('@/components/DefaultCategoryDescription'));
+const DashBorder = dynamic(() => import('@/components/shared/DashBorder'));
+const RatingListItem = dynamic(() => import('@/components/shared/table/RatingListItem'));
+const Table = dynamic(() => import('@mui/material/Table'));
+const TableBody = dynamic(() => import('@mui/material/TableBody'));
+const TableRow = dynamic(() => import('@mui/material/TableRow'));
+const Layout = dynamic(() => import('@/components/Layout'));
+
 
 const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
   const router = useRouter();
@@ -57,21 +71,19 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
         'broker erfahrungen',
         'broker bewertungen',
       ]}
-      author = {author}
+      author={author}
       brokerComparable={brokerComparable}
-      navigation = {navigationSidebar}
-      topBroker = {topBrokerSidebar}
-      category = { categorySidebar }
-      mostRead = { mostReadSidebar }
-      featuredBrokers = { featuredBrokersSidebar }
-      forexSchool = { forexSchoolSidebar }
-      forexStrategy = { forexStrategySidebar }
-      promotion = { promotionSidebar }
-      categoryFooter = { categoryFooterSidebar }
-      description={`100% unabhängiger Broker Vergleich ✚✚ Über ${
-        category?.count ?? 0
-      } Broker Vergleich im Test mit Erfahrungsberichten von Tradern ➔ Jetzt lesen!`}
-    >
+      navigation={navigationSidebar}
+      topBroker={topBrokerSidebar}
+      category={categorySidebar}
+      mostRead={mostReadSidebar}
+      featuredBrokers={featuredBrokersSidebar}
+      forexSchool={forexSchoolSidebar}
+      forexStrategy={forexStrategySidebar}
+      promotion={promotionSidebar}
+      categoryFooter={categoryFooterSidebar}
+      description={`100% unabhängiger Broker Vergleich ✚✚ Über ${category?.count ?? 0} Broker Vergleich im Test mit Erfahrungsberichten von Tradern ➔ Jetzt lesen!`} 
+      record={undefined}>
       <MDBox display="flex" flexDirection="column" gap={2}>
         {category && (
           <PageContent>

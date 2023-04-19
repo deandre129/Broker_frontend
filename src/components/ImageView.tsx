@@ -20,7 +20,17 @@ function ImageView({ value, sx, alt: originalAlt }) {
         ...sx,
       }}
     />
+    // <CardMedia title={alt}>
+    //   <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+    //     <Image
+    //       src={url} alt={alt}
+    //       layout="fill"
+    //       objectFit="contain" // or objectFit="cover"
+    //     />
+    //   </div>
+    // </CardMedia>
   );
+  
 }
 
 ImageView.propTypes = {

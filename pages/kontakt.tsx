@@ -3,17 +3,24 @@ import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import { useRef, useState } from 'react';
 import Layout from '@/components/Layout';
-import MDButton from '@/mui/components/MDButton';
-import MDTypography from '@/mui/components/MDTypography';
-import PageContent from '@/components/shared/view/PageContent';
-import SaveIcon from '@mui/icons-material/Save';
+// import MDButton from '@/mui/components/MDButton';
+// import MDTypography from '@/mui/components/MDTypography';
+// import PageContent from '@/components/shared/view/PageContent';
+// import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
 import config from '@/config';
-import MDBox from '@/mui/components/MDBox';
+// import MDBox from '@/mui/components/MDBox';
 import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import dynamic from 'next/dynamic';
+
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+const MDButton = dynamic(() => import('@/mui/components/MDButton'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const SaveIcon = dynamic(() => import('@mui/icons-material/Save'));
 
 function Contact({ brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
   const { sidenavColor } = selectMuiSettings();

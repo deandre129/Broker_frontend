@@ -4,25 +4,35 @@ import { useEffect, useRef, useState } from 'react';
 import { CKEditor } from 'ckeditor4-react';
 import { useRouter } from 'next/router';
 import AuthorView from '@/components/shared/view/AuthorView';
-import HtmlView from '@/components/shared/view/HtmlView';
-import Layout from '@/components/Layout';
-import MDBox from '@/mui/components/MDBox';
-import PageContent from '@/components/shared/view/PageContent';
+// import HtmlView from '@/components/shared/view/HtmlView';
+// import Layout from '@/components/Layout';
+// import MDBox from '@/mui/components/MDBox';
+// import PageContent from '@/components/shared/view/PageContent';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
-import Breadcrumb from '@/components/Breadcrumb';
+// import Breadcrumb from '@/components/Breadcrumb';
 import urlParse from 'url-parse';
 import ScrollTo from '@/components/ScrollTo';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDTypography from '@/mui/components/MDTypography';
 import axios from 'axios';
 import config from '@/config';
-import MDButton from '@/mui/components/MDButton';
+// import MDButton from '@/mui/components/MDButton';
 import { Alert, Grid, Snackbar, TextField } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import moment from 'moment';
-import Pagination from '@/components/shared/table/Pagination';
+// import Pagination from '@/components/shared/table/Pagination';
 import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import ReCAPTCHA from 'react-google-recaptcha';
+import dynamic from 'next/dynamic';
+
+const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'));
+const Layout = dynamic(() => import('@/components/Layout'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const Pagination = dynamic(() => import('@/components/shared/table/Pagination'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDButton = dynamic(() => import('@/mui/components/MDButton'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
@@ -238,17 +248,18 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
         keywords={[record?.metakeywords]}
         description={record?.metadescription}
 
-        author = {author}
-        navigation = {navigation}
-        topBroker = {topBroker}
-        category = { category }
-        mostRead = { mostRead }
-        featuredBrokers = { featuredBrokers }
-        forexSchool = { forexSchool }
-        forexStrategy = { forexStrategy }
-        promotion = { promotion }
-        categoryFooter = { categoryFooter }
-        brokerComparable={ brokerComparable}
+        author={author}
+        navigation={navigation}
+        topBroker={topBroker}
+        category={category}
+        mostRead={mostRead}
+        featuredBrokers={featuredBrokers}
+        forexSchool={forexSchool}
+        forexStrategy={forexStrategy}
+        promotion={promotion}
+        categoryFooter={categoryFooter}
+        brokerComparable={brokerComparable} 
+        record={undefined} 
       >
         {record && (
           <MDBox

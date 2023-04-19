@@ -4,10 +4,15 @@ import Link from 'next/link';
 import CircleNumber from '../shared/CircleNumber';
 import ImageView from '../ImageView';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import RatingViewItem from '../shared/view/RatingViewItem';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
+// import RatingViewItem from '../shared/view/RatingViewItem';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const RatingViewItem = dynamic(() => import('../shared/view/RatingViewItem'));
 
 function TopBrokers({topBroker}) {
   return (

@@ -1,8 +1,12 @@
 import { Card, CardHeader, Grid } from '@mui/material';
 import Link from 'next/link';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography'
+import dynamic from 'next/dynamic';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography'
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 function Category({category}) {
   return (

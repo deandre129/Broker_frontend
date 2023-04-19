@@ -1,14 +1,21 @@
 import { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
 import CookieConsent from 'react-cookie-consent';
-import CookieConsentModal from './CookieConsentModal';
+// import CookieConsentModal from './CookieConsentModal';
 import lBorders from '@/mui/assets/theme/base/borders';
 import lBoxShadows from '@/mui/assets/theme/base/boxShadows';
 import lightColors from '@/mui/assets/theme/base/colors';
-import MDBox from '@/mui/components/MDBox';
-import MDButton from '@/mui/components/MDButton';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDButton from '@/mui/components/MDButton';
+// import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDButton = dynamic(() => import('@/mui/components/MDButton'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const CloseIcon = dynamic(() => import('@mui/icons-material/Close'));
+const CookieConsentModal = dynamic(() => import('./CookieConsentModal'));
 
 function CookieConsentTool() {
   const [visible, setVisible] = useState(true);

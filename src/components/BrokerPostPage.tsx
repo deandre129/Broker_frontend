@@ -23,6 +23,7 @@ import { CKEditor } from 'ckeditor4-react';
 import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 const BrokerPostPage = (props) => {
 

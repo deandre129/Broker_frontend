@@ -1,15 +1,22 @@
 import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import Breadcrumb from './Breadcrumb';
-import HtmlView from './shared/view/HtmlView';
+// import Breadcrumb from './Breadcrumb';
+// import HtmlView from './shared/view/HtmlView';
 import lColors from '@/mui/assets/theme/base/colors';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import PageContent from '@/components/shared/view/PageContent';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
+// import PageContent from '@/components/shared/view/PageContent';
 import TopBrokersView from './broker/components/TopBrokersView';
 import AuthorView from '@/components/shared/view/AuthorView';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
+const Breadcrumb = dynamic(() => import('./Breadcrumb'));
 
 function NormalPage({ page, topBroker, navigation, author }) {
   const { sidenavColor } = selectMuiSettings();
@@ -34,7 +41,7 @@ function NormalPage({ page, topBroker, navigation, author }) {
       }}
     >
       <PageContent>
-        <Breadcrumb navigation = {navigation}/>
+        <Breadcrumb navigation={navigation} items={undefined}/>
         <HtmlView value={page.body} />
         {Boolean(page.related_links.length) && (
           <MDBox

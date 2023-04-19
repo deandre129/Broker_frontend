@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Grid } from '@mui/material';
 import i18n from '@/i18n';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import { useEffect, useState } from 'react';
-import dColors from '@/mui/assets/theme-dark/base/colors';
 import ImageView from '../../ImageView';
 import lColors from '@/mui/assets/theme/base/colors';
 import MaterialLink from '@mui/material/Link';
@@ -12,10 +10,10 @@ import MDButton from '@/mui/components/MDButton';
 import MDTypography from '@/mui/components/MDTypography';
 import OverallRating from '../shared/OverallRating';
 import SendIcon from '@mui/icons-material/Send';
+import dynamic from 'next/dynamic';
 
 function BrokerHeader({ record }) {
-  const { darkMode } = selectMuiSettings();
-  const colors = darkMode ? dColors : lColors;
+  const colors = lColors;
   const [ratingSize, setRatingSize] = useState(37);
   useEffect(() => {
     const handleRatingSize = () => {
@@ -127,7 +125,11 @@ function BrokerHeader({ record }) {
           >
             <OverallRating
               record={record}
-              size={ratingSize}
+              size={ratingSize} 
+              hideDescription={undefined} 
+              hidePercent={undefined} 
+              gap={undefined} 
+              compare={undefined}            
             />
             <MDButton
               variant="contained"

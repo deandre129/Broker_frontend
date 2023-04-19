@@ -1,9 +1,13 @@
 import { Card, CardHeader, Grid } from '@mui/material';
 import Link from 'next/link';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 function Advisors({ record }) {
   const { sidenavColor } = selectMuiSettings();

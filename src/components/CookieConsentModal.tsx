@@ -6,9 +6,14 @@ import {
   DialogContent,
   IconButton,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import MDTypography from '@/mui/components/MDTypography';
-import MDBox from '@/mui/components/MDBox';
+import dynamic from 'next/dynamic';
+// import CloseIcon from '@mui/icons-material/Close';
+// import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const CloseIcon = dynamic(() => import('@mui/icons-material/Close'));
 
 function CookieConsentModal(props) {
   const doClose = () => {

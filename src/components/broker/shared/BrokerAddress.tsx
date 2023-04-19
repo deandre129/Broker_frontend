@@ -1,5 +1,8 @@
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
-import AttrTypography from './AttrTypography';
+// import AttrTypography from './AttrTypography';
+
+const AttrTypography = dynamic(() => import('./AttrTypography'));
 
 function BrokerAddress({ record }) {
   if (!record.address) {
@@ -13,7 +16,7 @@ function BrokerAddress({ record }) {
           return null;
         }
         return (
-          <AttrTypography key={v}>{address}</AttrTypography>
+          <AttrTypography key={v} noIndent={undefined}>{address}</AttrTypography>
         );
       })}
     </>

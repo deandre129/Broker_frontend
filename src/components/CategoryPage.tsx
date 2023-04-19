@@ -2,26 +2,39 @@
 import i18n from '@/i18n';
 import { CardMedia, TableContainer } from '@mui/material';
 import AuthorView from './shared/view/AuthorView';
-import Breadcrumb from './Breadcrumb';
-import DefaultCategoryDescription from './DefaultCategoryDescription';
-import HtmlView from './shared/view/HtmlView';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import PageContent from './shared/view/PageContent';
+// import Breadcrumb from './Breadcrumb';
+// import DefaultCategoryDescription from './DefaultCategoryDescription';
+// import HtmlView from './shared/view/HtmlView';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
+//import PageContent from './shared/view/PageContent';
 import TopBrokersView from './broker/components/TopBrokersView';
-import DashBorder from './shared/DashBorder';
-
+// import DashBorder from './shared/DashBorder';
 import DataTableBodyCell from '@/mui/shared/Tables/DataTable/DataTableBodyCell';
 import DataTableHeadCell from '@/mui/shared/Tables/DataTable/DataTableHeadCell';
 import MaterialLink from '@mui/material/Link';
-import RatingListItem from '@/components/shared/table/RatingListItem';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
+//import RatingListItem from '@/components/shared/table/RatingListItem';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableRow from '@mui/material/TableRow';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const Breadcrumb = dynamic(() => import('./Breadcrumb'));
+const DefaultCategoryDescription = dynamic(() => import('./DefaultCategoryDescription'));
+const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('./shared/view/PageContent'));
+const DashBorder = dynamic(() => import('./shared/DashBorder'));
+const RatingListItem = dynamic(() => import('@/components/shared/table/RatingListItem'));
+const Table = dynamic(() => import('@mui/material/Table'));
+const TableBody = dynamic(() => import('@mui/material/TableBody'));
+const TableRow = dynamic(() => import('@mui/material/TableRow'));
+
 
 function CategoryPage({allBroker, category, navigation, author, topBroker }) {
   const router = useRouter();

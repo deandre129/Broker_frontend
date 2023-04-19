@@ -2,6 +2,7 @@ import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import MaterialLink from '@mui/material/Link';
 import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
 
 function AttachLink({ link, children }) {
   const { sidenavColor } = selectMuiSettings();

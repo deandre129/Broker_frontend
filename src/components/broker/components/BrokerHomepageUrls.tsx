@@ -3,7 +3,6 @@ import i18n from '@/i18n';
 import MDButton from '@/mui/components/MDButton';
 import PropTypes from 'prop-types';
 import SendIcon from '@mui/icons-material/Send';
-import MDTypography from '@/mui/components/MDTypography';
 
 function BrokerHomepageUrls({ record }) {
   return (

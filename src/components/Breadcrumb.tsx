@@ -1,12 +1,17 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+// import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import config from '@/config';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const ArrowRightIcon = dynamic(() => import('@mui/icons-material/ArrowRight'));
 
 function Breadcrumb({ items, navigation }) {
   const { sidenavColor } = selectMuiSettings();

@@ -2,17 +2,26 @@ import i18n from '@/i18n';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import HtmlView from '@/components/shared/view/HtmlView';
-import Layout from '@/components/Layout';
+// import HtmlView from '@/components/shared/view/HtmlView';
+// import Layout from '@/components/Layout';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import PageContent from '@/components/shared/view/PageContent';
-import Pagination from '@/components/shared/table/Pagination';
-import Breadcrumb from '@/components/Breadcrumb';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
+// import PageContent from '@/components/shared/view/PageContent';
+// import Pagination from '@/components/shared/table/Pagination';
+// import Breadcrumb from '@/components/Breadcrumb';
 import ImageView from '@/components/ImageView';
 import axios from 'axios';
 import config from '@/config';
+import dynamic from 'next/dynamic';
+
+const Layout = dynamic(() => import('@/components/Layout'));
+const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+const Pagination = dynamic(() => import('@/components/shared/table/Pagination'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 
 const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
@@ -64,18 +73,21 @@ const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead,
 
   return (
     <Layout 
-        title="Broker-Bewertungen Blog"
-        author={author}
-        navigation = {navigation}
-        topBroker = {topBroker}
-        category = { category }
-        mostRead = { mostRead }
-        featuredBrokers = { featuredBrokers }
-        forexSchool = { forexSchool }
-        forexStrategy = { forexStrategy }
-        promotion = { promotion }
-        categoryFooter = { categoryFooter }
-        brokerComparable={brokerComparable}
+      title="Broker-Bewertungen Blog"
+      author={author}
+      navigation={navigation}
+      topBroker={topBroker}
+      category={category}
+      mostRead={mostRead}
+      featuredBrokers={featuredBrokers}
+      forexSchool={forexSchool}
+      forexStrategy={forexStrategy}
+      promotion={promotion}
+      categoryFooter={categoryFooter}
+      brokerComparable={brokerComparable} 
+      keywords={undefined} 
+      description={undefined} 
+      record={undefined}
     >
       <PageContent id="list-top-4-pagination">
         <MDBox display="none">

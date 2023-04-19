@@ -1,21 +1,31 @@
-/* eslint-disable @next/next/no-img-element */
-
+import dynamic from 'next/dynamic';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors'
-import MDBox from '@/mui/components/MDBox';
-import MDButton from '@/mui/components/MDButton';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDButton from '@/mui/components/MDButton';
+// import MDTypography from '@/mui/components/MDTypography';
 import { Card, Grid } from '@mui/material';
 import i18n from '@/i18n';
 import config from '@/config';
-import DashBorder from '@/components/shared/DashBorder';
-import SendIcon from '@mui/icons-material/Send';
+// import DashBorder from '@/components/shared/DashBorder';
+// import SendIcon from '@mui/icons-material/Send';
 import { HtmlViewWrapper } from '@/components/shared/view/HtmlView';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
-import PageContent from '@/components/shared/view/PageContent';
-import Layout from '@/components/Layout';
-import Breadcrumb from '@/components/Breadcrumb';
+// import PageContent from '@/components/shared/view/PageContent';
+// import Layout from '@/components/Layout';
+// import Breadcrumb from '@/components/Breadcrumb';
 import axios from 'axios';
-import Image from 'next/image';
+// import Image from 'next/image';
+
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const DashBorder = dynamic(() => import('@/components/shared/DashBorder'));
+const SendIcon = dynamic(() => import('@mui/icons-material/Send'));
+const Image = dynamic(() => import('next/image'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDButton = dynamic(() => import('@/mui/components/MDButton'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+// const TopBrokersView = dynamic(() => import('@/components/broker/components/TopBrokersView'));
+const Layout = dynamic(() => import('@/components/Layout'));
 
 function Index({
   brokerComparable, 
@@ -44,19 +54,19 @@ function Index({
         'Test',
         'Kritik',
       ]}
-      navigation = {navigation}
-      topBroker = {topBroker}
-      category = { category }
-      mostRead = { mostRead }
-      featuredBrokers = { featuredBrokers }
-      forexSchool = { forexSchool }
-      forexStrategy = { forexStrategy }
-      promotion = { promotion }
-      categoryFooter = { categoryFooter }
+      navigation={navigation}
+      topBroker={topBroker}
+      category={category}
+      mostRead={mostRead}
+      featuredBrokers={featuredBrokers}
+      forexSchool={forexSchool}
+      forexStrategy={forexStrategy}
+      promotion={promotion}
+      categoryFooter={categoryFooter}
       author={author}
-      brokerComparable = {brokerComparable}
-      description="Ihr Bewertungsportal für Forex Broker und CFD Broker ✓Erfahrungen und Bewertungen ✓ Von Tradern für Trader ✓ Alles auf www.broker-bewertungen.de"
-    >
+      brokerComparable={brokerComparable}
+      description="Ihr Bewertungsportal für Forex Broker und CFD Broker ✓Erfahrungen und Bewertungen ✓ Von Tradern für Trader ✓ Alles auf www.broker-bewertungen.de" 
+      record={undefined}>
       <PageContent>
         <MDBox display="none">
           <Breadcrumb

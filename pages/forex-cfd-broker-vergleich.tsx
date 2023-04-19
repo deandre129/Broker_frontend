@@ -1,27 +1,41 @@
 import { Autocomplete, Box, Grid, TextField } from '@mui/material';
-
-import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
-
+import { useRouter } from 'next/router';
 import i18n from '@/i18n';
-import CompareDetail from '@/components/broker/comparisons/CompareDetail';
-import CompareOverview from '@/components/broker/comparisons/CompareOverview';
-import CompareProfile from '@/components/broker/comparisons/CompareProfile';
-import CompareRegulation from '@/components/broker/comparisons/CompareRegulation';
-import CompareSection from '@/components/broker/comparisons/CompareSection';
-import CompareService from '@/components/broker/comparisons/CompareService';
-import CompareSpreadsAndFees from '@/components/broker/comparisons/CompareSpreadsAndFees';
-import CompareTradable from '@/components/broker/comparisons/CompareTradable';
-import CompareTradingPlatforms from '@/components/broker/comparisons/CompareTradingPlatforms';
-import MDButton from '@/mui/components/MDButton';
-import MDTypography from '@/mui/components/MDTypography';
-import PageContent from '@/components/shared/view/PageContent';
+ import CompareDetail from '@/components/broker/comparisons/CompareDetail';
+// import CompareOverview from '@/components/broker/comparisons/CompareOverview';
+// import CompareProfile from '@/components/broker/comparisons/CompareProfile';
+// import CompareRegulation from '@/components/broker/comparisons/CompareRegulation';
+ import CompareSection from '@/components/broker/comparisons/CompareSection';
+// import CompareService from '@/components/broker/comparisons/CompareService';
+// import CompareSpreadsAndFees from '@/components/broker/comparisons/CompareSpreadsAndFees';
+// import CompareTradable from '@/components/broker/comparisons/CompareTradable';
+// import CompareTradingPlatforms from '@/components/broker/comparisons/CompareTradingPlatforms';
+// import MDButton from '@/mui/components/MDButton';
+// import MDTypography from '@/mui/components/MDTypography';
+// import PageContent from '@/components/shared/view/PageContent';
 import Layout from '@/components/Layout';
-import Breadcrumb from '@/components/Breadcrumb';
-import MDBox from '@/mui/components/MDBox';
+// import Breadcrumb from '@/components/Breadcrumb';
+// import MDBox from '@/mui/components/MDBox';
 import axios from 'axios';
 import config from '@/config';
+import dynamic from 'next/dynamic';
+
+// const CompareDetail = dynamic(() => import('@/components/broker/comparisons/CompareDetail'));
+const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'));
+const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'));
+const CompareRegulation = dynamic(() => import('@/components/broker/comparisons/CompareRegulation'));
+// const CompareSection = dynamic(() => import('@/components/broker/comparisons/CompareSection'));
+const CompareService = dynamic(() => import('@/components/broker/comparisons/CompareService'));
+const CompareSpreadsAndFees = dynamic(() => import('@/components/broker/comparisons/CompareSpreadsAndFees'));
+const CompareTradable = dynamic(() => import('@/components/broker/comparisons/CompareTradable'));
+const CompareTradingPlatforms = dynamic(() => import('@/components/broker/comparisons/CompareTradingPlatforms'));
+const MDButton = dynamic(() => import('@/mui/components/MDButton'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
+// const Layout = dynamic(() => import('@/components/Layout'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 
 function BrokerComparePage({ brokerComparable, brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 

@@ -9,6 +9,7 @@ import HtmlView from '../../shared/view/HtmlView';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import SingleCheckbox from '../components/SingleCheckbox';
+import dynamic from 'next/dynamic';
 
 function BrokerCharacteristicsView({ record }) {
   return (
@@ -52,7 +53,7 @@ function BrokerCharacteristicsView({ record }) {
           {i18n.entities.broker.characteristics.fields.licensed_broker}
         </BrokerSection>
         <Grid md={8} xs={12} item>
-          <AttrTypography>
+          <AttrTypography noIndent={undefined}>
             {Boolean(record.meta?.licensed_broker)
               ? i18n.common.yes
               : i18n.common.no}
@@ -74,6 +75,7 @@ function BrokerCharacteristicsView({ record }) {
         <Grid md={8} xs={12} item>
           <AttrTypography
             children={record.meta?.minimum_deposit}
+            noIndent={undefined}
           />
         </Grid>
         <BrokerSection
@@ -115,7 +117,7 @@ function BrokerCharacteristicsView({ record }) {
           {i18n.entities.broker.characteristics.fields.withholding_tax}
         </BrokerSection>
         <Grid md={8} xs={12} item>
-          <AttrTypography>
+          <AttrTypography  noIndent={undefined}>
             {i18n.entities.broker.enumerators.meta.withholding_tax[record.meta?.withholding_tax]}
           </AttrTypography>
         </Grid>

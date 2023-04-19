@@ -1,11 +1,18 @@
 import i18n from '@/i18n';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
+//import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
 import TopBrokersView from './broker/components/TopBrokersView';
-import Breadcrumb from './Breadcrumb';
-import HtmlView from './shared/view/HtmlView';
-import PageContent from './shared/view/PageContent';
+// import Breadcrumb from './Breadcrumb';
+// import HtmlView from './shared/view/HtmlView';
+// import PageContent from './shared/view/PageContent';
 import AuthorView from './shared/view/AuthorView';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const Breadcrumb = dynamic(() => import('./Breadcrumb'));
+const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
+const PageContent = dynamic(() => import('./shared/view/PageContent'));
 
 function BrokerArticlePage({ brokerArticle, topBroker, navigation, author }) {
   return (

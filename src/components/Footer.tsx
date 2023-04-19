@@ -3,10 +3,14 @@ import Link from 'next/link';
 import config from '@/config';
 import Container from '@mui/material/Container';
 import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDTypography from '@/mui/components/MDTypography';
 import PageContent from './shared/view/PageContent';
 import TopBrokersView from './broker/components/TopBrokersView';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 function Footer({categoryFooter, topBroker}) {
   return (

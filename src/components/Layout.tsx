@@ -90,6 +90,7 @@ Layout.propTypes = {
   promotion: PropTypes.any,
   navigation: PropTypes.any,
   categoryFooter: PropTypes.any,
+  brokerComparable: PropTypes.any,
 };
 
 export default Layout;

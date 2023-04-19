@@ -2,10 +2,10 @@
 import { Autocomplete, Icon } from '@mui/material';
 import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import MDBox from '@/mui/components/MDBox';
-import MDInput from '@/mui/components/MDInput';
-import MDPagination from '@/mui/components/MDPagination';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDInput from '@/mui/components/MDInput';
+// import MDPagination from '@/mui/components/MDPagination';
+// import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
 import ScrollTo from '../../ScrollTo';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,12 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import dynamic from 'next/dynamic';
+
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDInput = dynamic(() => import('@/mui/components/MDInput'));
+const MDPagination = dynamic(() => import('@/mui/components/MDPagination'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 function Pagination(props) {
   const { entriesPerPage, showTotalEntries, pagination } =

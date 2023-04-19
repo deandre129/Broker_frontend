@@ -1,6 +1,5 @@
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
 import StyledRating from '../styles/StyledRating';
 import PropTypes from 'prop-types';
 

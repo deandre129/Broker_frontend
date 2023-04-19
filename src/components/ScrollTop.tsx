@@ -2,8 +2,12 @@ import { Icon } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import lightColors from '@/mui/assets/theme/base/colors';
-import MDBox from '@/mui/components/MDBox';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+// import MDBox from '@/mui/components/MDBox';
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import dynamic from 'next/dynamic';
+
+const KeyboardArrowUpIcon = dynamic(() => import('@mui/icons-material/KeyboardArrowUp'));
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 
 const ScrollTop = () => {
   const [showScroll, setShowScroll] = useState(false);

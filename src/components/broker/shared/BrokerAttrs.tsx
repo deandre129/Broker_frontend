@@ -1,6 +1,10 @@
-import AttachLink from './AttachLink';
-import AttrTypography from './AttrTypography';
+import dynamic from 'next/dynamic';
+// import AttachLink from './AttachLink';
+// import AttrTypography from './AttrTypography';
 import PropTypes from 'prop-types';
+
+const AttachLink = dynamic(() => import('./AttachLink'));
+const AttrTypography = dynamic(() => import('./AttrTypography'));
 
 function BrokerAttrs({
   records,
