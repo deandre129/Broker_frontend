@@ -131,18 +131,25 @@ export async function getServerSideProps(context) {
   
   let page: any;
   let pageType : any;
-  let pageRes: any;
 
-  pageRes = await authAxios.post(`${config.backendUrl}/category`,{url});
-  page = pageRes.data;
-  if(page){
+  const [
+    categoryRes,
+    generalPageRes,
+    articleRes
+    ] = await Promise.all([
+      authAxios.post(`${config.backendUrl}/category`,{url}),
+      authAxios.post(`${config.backendUrl}/general-page`,{url}),
+      authAxios.post(`${config.backendUrl}/broker-article`,{url})
+  ])
+
+  if(categoryRes){
+    page = categoryRes.data;
     pageType = "category";
   }
   else{
     page =null;
-    pageRes = await authAxios.post(`${config.backendUrl}/general-page`,{url});
-    page = pageRes.data;
-    if(page){
+    if(generalPageRes){
+      page = generalPageRes.data;
       pageType = "page";
       if(page.downloadPdf) {
         window.location.href = page.downloadUrl;
@@ -150,9 +157,8 @@ export async function getServerSideProps(context) {
     }
     else {
       page = null;
-      pageRes = await authAxios.post(`${config.backendUrl}/broker-article`,{url});
-      page = pageRes.data;
-      if(page){
+      if(articleRes){
+        page = articleRes.data;
         pageType = "article";
         if(page.downloadPdf) {
           window.location.href = page.downloadUrl;
@@ -164,7 +170,6 @@ export async function getServerSideProps(context) {
       }
     }
   }
-
 
   const sortField = query.field ? query.field : 'name';
   const sortOrder = query.orderBy ? query.orderBy : "asc";

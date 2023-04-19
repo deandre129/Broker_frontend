@@ -297,10 +297,14 @@ export async function getServerSideProps(context) {
   const recordAReq = slug.slice(0,index);
   const recordBReq = slug.slice(index+8,slug.length);
 
-  const recordARes = await axios.post(`${config.backendUrl}/broker`,{url: recordAReq});
+  const [
+    recordARes,
+    recordBRes,
+    ] = await Promise.all([
+      axios.post(`${config.backendUrl}/broker`,{url: recordAReq}),
+      axios.post(`${config.backendUrl}/broker`,{url: recordBReq})
+  ])
   const recordA = recordARes.data;
-
-  const recordBRes = await axios.post(`${config.backendUrl}/broker`,{url: recordBReq});
   const recordB = recordBRes.data;
 
   return { props: { brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
