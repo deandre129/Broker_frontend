@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 function ImageView({ value, sx, alt: originalAlt }) {
   const url = value && value[0] && value[0].downloadUrl;
+  console.log(url);
   const alt =
     originalAlt || (value && value[0] && value[0].name);
   return (

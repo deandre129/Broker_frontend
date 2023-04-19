@@ -14,18 +14,19 @@ import TopBrokersView from '@/components/broker/components/TopBrokersView';
 // import Layout from '@/components/Layout';
 // import Breadcrumb from '@/components/Breadcrumb';
 import axios from 'axios';
+import Spinner from '@/components/shared/Spinner';
 // import Image from 'next/image';
 
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
-const DashBorder = dynamic(() => import('@/components/shared/DashBorder'));
-const SendIcon = dynamic(() => import('@mui/icons-material/Send'));
-const Image = dynamic(() => import('next/image'));
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDButton = dynamic(() => import('@/mui/components/MDButton'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {ssr:false});
+const DashBorder = dynamic(() => import('@/components/shared/DashBorder'), {ssr:false, loading: () => <Spinner />});
+const SendIcon = dynamic(() => import('@mui/icons-material/Send'), {ssr:false});
+const Image = dynamic(() => import('next/image'), {ssr:false});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
+const MDButton = dynamic(() => import('@/mui/components/MDButton'), {ssr:false});
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
 // const TopBrokersView = dynamic(() => import('@/components/broker/components/TopBrokersView'));
-const Layout = dynamic(() => import('@/components/Layout'));
+const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
 
 function Index({
   brokerComparable, 

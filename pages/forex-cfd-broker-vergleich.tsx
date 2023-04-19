@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import i18n from '@/i18n';
  import CompareDetail from '@/components/broker/comparisons/CompareDetail';
+ import CompareSection from '@/components/broker/comparisons/CompareSection';
 // import CompareOverview from '@/components/broker/comparisons/CompareOverview';
 // import CompareProfile from '@/components/broker/comparisons/CompareProfile';
 // import CompareRegulation from '@/components/broker/comparisons/CompareRegulation';
- import CompareSection from '@/components/broker/comparisons/CompareSection';
 // import CompareService from '@/components/broker/comparisons/CompareService';
 // import CompareSpreadsAndFees from '@/components/broker/comparisons/CompareSpreadsAndFees';
 // import CompareTradable from '@/components/broker/comparisons/CompareTradable';
@@ -14,28 +14,27 @@ import i18n from '@/i18n';
 // import MDButton from '@/mui/components/MDButton';
 // import MDTypography from '@/mui/components/MDTypography';
 // import PageContent from '@/components/shared/view/PageContent';
-import Layout from '@/components/Layout';
+// import Layout from '@/components/Layout';
 // import Breadcrumb from '@/components/Breadcrumb';
 // import MDBox from '@/mui/components/MDBox';
 import axios from 'axios';
 import config from '@/config';
 import dynamic from 'next/dynamic';
+import Spinner from '@/components/shared/Spinner';
 
-// const CompareDetail = dynamic(() => import('@/components/broker/comparisons/CompareDetail'));
-const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'));
-const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'));
-const CompareRegulation = dynamic(() => import('@/components/broker/comparisons/CompareRegulation'));
-// const CompareSection = dynamic(() => import('@/components/broker/comparisons/CompareSection'));
-const CompareService = dynamic(() => import('@/components/broker/comparisons/CompareService'));
-const CompareSpreadsAndFees = dynamic(() => import('@/components/broker/comparisons/CompareSpreadsAndFees'));
-const CompareTradable = dynamic(() => import('@/components/broker/comparisons/CompareTradable'));
-const CompareTradingPlatforms = dynamic(() => import('@/components/broker/comparisons/CompareTradingPlatforms'));
-const MDButton = dynamic(() => import('@/mui/components/MDButton'));
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
-// const Layout = dynamic(() => import('@/components/Layout'));
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'), {ssr:false, loading: () => <Spinner />});
+const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'), {ssr:false, loading: () => <Spinner />});
+const CompareRegulation = dynamic(() => import('@/components/broker/comparisons/CompareRegulation'), {ssr:false, loading: () => <Spinner />});
+const CompareService = dynamic(() => import('@/components/broker/comparisons/CompareService'), {ssr:false, loading: () => <Spinner />});
+const CompareSpreadsAndFees = dynamic(() => import('@/components/broker/comparisons/CompareSpreadsAndFees'), {ssr:false, loading: () => <Spinner />});
+const CompareTradable = dynamic(() => import('@/components/broker/comparisons/CompareTradable'), {ssr:false, loading: () => <Spinner />});
+const CompareTradingPlatforms = dynamic(() => import('@/components/broker/comparisons/CompareTradingPlatforms'), {ssr:false, loading: () => <Spinner />});
+const MDButton = dynamic(() => import('@/mui/components/MDButton'), {ssr:false});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
+const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {ssr:false});
 
 function BrokerComparePage({ brokerComparable, brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 
@@ -85,18 +84,18 @@ function BrokerComparePage({ brokerComparable, brokerList, author, recordA, reco
         recordB?.name_normalized,
       ].filter(Boolean)}
       description={description}
-
       author={author}
-      navigation = {navigation}
-      topBroker = {topBroker}
-      category = { category }
-      mostRead = { mostRead }
-      featuredBrokers = { featuredBrokers }
-      forexSchool = { forexSchool }
-      forexStrategy = { forexStrategy }
-      promotion = { promotion }
-      categoryFooter = { categoryFooter }
-      brokerComparable={brokerComparable}
+      navigation={navigation}
+      topBroker={topBroker}
+      category={category}
+      mostRead={mostRead}
+      featuredBrokers={featuredBrokers}
+      forexSchool={forexSchool}
+      forexStrategy={forexStrategy}
+      promotion={promotion}
+      categoryFooter={categoryFooter}
+      brokerComparable={brokerComparable} 
+      record={undefined}
     >
       <PageContent
         px={{

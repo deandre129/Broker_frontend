@@ -24,15 +24,16 @@ import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import ReCAPTCHA from 'react-google-recaptcha';
 import dynamic from 'next/dynamic';
+import Spinner from '@/components/shared/Spinner';
 
-const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'));
-const Layout = dynamic(() => import('@/components/Layout'));
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
-const Pagination = dynamic(() => import('@/components/shared/table/Pagination'));
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDButton = dynamic(() => import('@/mui/components/MDButton'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), {ssr:false, loading: () => <Spinner />});
+const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {ssr:false});
+const Pagination = dynamic(() => import('@/components/shared/table/Pagination'), {ssr:false});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
+const MDButton = dynamic(() => import('@/mui/components/MDButton'), {ssr:false});
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
 
 const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();

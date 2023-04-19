@@ -26,24 +26,25 @@ import axios from "axios";
 import config from "@/config";
 //import BrokerPostPage from "@/components/BrokerPostPage";
 import dynamic from "next/dynamic";
+import Spinner from "@/components/shared/Spinner";
 
-const Layout = dynamic(() => import('@/components/Layout'));
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
-const BrokerCharacteristicsView = dynamic(() => import('@/components/broker/components/BrokerCharacteristicsView'));
-const BrokerHeader = dynamic(() => import('@/components/broker/components/BrokerHeader'));
-const BrokerHomepageUrls = dynamic(() => import('@/components/broker/components/BrokerHomepageUrls'));
-const BrokerMarketsView = dynamic(() => import('@/components/broker/components/BrokerMarketsView'));
-const BrokerOverviewView = dynamic(() => import('@/components/broker/components/BrokerOverviewView'));
-const BrokerPlatformView = dynamic(() => import('@/components/broker/components/BrokerPlatformView'));
-const BrokerServiceView = dynamic(() => import('@/components/broker/components/BrokerServiceView'));
-const BrokerSpreadsView = dynamic(() => import('@/components/broker/components/BrokerSpreadsView'));
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
-const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'));
-const TabPanel = dynamic(() => import('@/components/shared/tab/TabPanel'));
-const BrokerPostPage = dynamic(() => import('@/components/BrokerPostPage'));
-const BrokerForexSignaleView = dynamic(() => import('@/components/broker/components/BrokerForexSignaleView'));
+const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {ssr:false});
+const BrokerCharacteristicsView = dynamic(() => import('@/components/broker/components/BrokerCharacteristicsView'), {ssr:false, loading: () => <Spinner />});
+const BrokerHeader = dynamic(() => import('@/components/broker/components/BrokerHeader'), {ssr:false, loading: () => <Spinner />});
+const BrokerHomepageUrls = dynamic(() => import('@/components/broker/components/BrokerHomepageUrls'), {ssr:false, loading: () => <Spinner />});
+const BrokerMarketsView = dynamic(() => import('@/components/broker/components/BrokerMarketsView'), {ssr:false, loading: () => <Spinner />});
+const BrokerOverviewView = dynamic(() => import('@/components/broker/components/BrokerOverviewView'), {ssr:false, loading: () => <Spinner />});
+const BrokerPlatformView = dynamic(() => import('@/components/broker/components/BrokerPlatformView'), {ssr:false, loading: () => <Spinner />});
+const BrokerServiceView = dynamic(() => import('@/components/broker/components/BrokerServiceView'), {ssr:false, loading: () => <Spinner />});
+const BrokerSpreadsView = dynamic(() => import('@/components/broker/components/BrokerSpreadsView'), {ssr:false, loading: () => <Spinner />});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
+const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), {ssr:false, loading: () => <Spinner />});
+const TabPanel = dynamic(() => import('@/components/shared/tab/TabPanel'), {ssr:false});
+const BrokerPostPage = dynamic(() => import('@/components/BrokerPostPage'), {ssr:false, loading: () => <Spinner />});
+const BrokerForexSignaleView = dynamic(() => import('@/components/broker/components/BrokerForexSignaleView'), {ssr:false});
 
 const BrokerViewPage = ({
   brokerComparable,

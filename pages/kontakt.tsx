@@ -15,12 +15,13 @@ import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import dynamic from 'next/dynamic';
+import Spinner from '@/components/shared/Spinner';
 
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
-const MDButton = dynamic(() => import('@/mui/components/MDButton'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const SaveIcon = dynamic(() => import('@mui/icons-material/Save'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
+const MDButton = dynamic(() => import('@/mui/components/MDButton'), {ssr:false});
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
+const SaveIcon = dynamic(() => import('@mui/icons-material/Save'), {ssr:false});
 
 function Contact({ brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
   const { sidenavColor } = selectMuiSettings();
