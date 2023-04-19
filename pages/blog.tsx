@@ -63,11 +63,9 @@ const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead,
       `${config.backendUrl}/blog`, { params }
     ).then(res => {
       const blogData = res.data;
-      console.log(blogData);
       setRows(blogData.rows);
       setCount(blogData.count);
     }).catch(error => {
-      console.log(error);
     })
   },[]);
 

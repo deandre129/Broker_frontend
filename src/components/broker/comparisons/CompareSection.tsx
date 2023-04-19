@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material';
 import i18n from '@/i18n';
 import Help from '@mui/icons-material/Help';
-import LazyLoad from 'react-lazy-load';
 import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
 import Tooltip from '@mui/material/Tooltip';

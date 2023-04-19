@@ -11,7 +11,6 @@ const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 
 function ComparableBrokers({ record, brokerComparable }) {
-  console.log(record);
   return (
     <Grid xs={12} item>
       <Card>

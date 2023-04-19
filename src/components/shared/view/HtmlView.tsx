@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import MDBox from '@/mui/components/MDBox';
-import LazyLoad from 'react-lazy-load';
 
 const HtmlStyled = styled('div')(() => ({
   fontSize: '1rem',

@@ -1,5 +1,4 @@
 import Grid from '@mui/material/Grid';
-import LazyLoad from 'react-lazy-load';
 import PropTypes from 'prop-types';
 
 function CompareDetail({

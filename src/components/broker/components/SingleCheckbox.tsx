@@ -3,7 +3,6 @@ import i18n from '@/i18n';
 import BrokerCheckbox from '../shared/BrokerCheckbox';
 import BrokerSection from '../components/BrokerSection';
 import PropTypes from 'prop-types';
-import LazyLoad from 'react-lazy-load';
 
 function SingleCheckbox({ record, fields }) {
   return (

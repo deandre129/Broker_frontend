@@ -88,11 +88,9 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
       `${config.backendUrl}/comment-list`, { params }
     ).then(res => {
       const commentList = res.data;
-      console.log(commentList);
       setRows(commentList.rows);
       setCount(commentList.count);
     }).catch(error => {
-      console.log(error);
     })
   },[slug]);
 
@@ -154,12 +152,9 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
         recaptcha: recaptcha
       }
 
-      console.log(data);
-
       const response = axios.post(
         `${config.backendUrl}/blog-comment`, {data}
       ).then(res => {
-        console.log(res);
         setOpen(true);
         setMessage({type:"success", content: i18n.entities.blogComment.create.success });
         setName('');

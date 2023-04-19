@@ -4,7 +4,6 @@ import Image from 'next/image';
 
 function ImageView({ value, sx, alt: originalAlt }) {
   const url = value && value[0] && value[0].downloadUrl;
-  console.log(url);
   const alt =
     originalAlt || (value && value[0] && value[0].name);
   return (
@@ -20,15 +19,6 @@ function ImageView({ value, sx, alt: originalAlt }) {
         ...sx,
       }}
     />
-    // <CardMedia title={alt}>
-    //   <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-    //     <Image
-    //       src={url} alt={alt}
-    //       layout="fill"
-    //       objectFit="contain" // or objectFit="cover"
-    //     />
-    //   </div>
-    // </CardMedia>
   );
   
 }

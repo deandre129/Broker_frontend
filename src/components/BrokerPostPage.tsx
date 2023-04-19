@@ -133,7 +133,6 @@ const BrokerPostPage = (props) => {
       const response = axios.post(
         `${config.backendUrl}/tenant/${tenantId}/broker-post`, { data }
       ).then(res => {
-        console.log(res);
       
         setOpen(true);
         setMessage({type:"success", content: i18n.entities.brokerPost.create.success(props.name) });
@@ -179,15 +178,12 @@ const BrokerPostPage = (props) => {
       offset: (pagination.current - 1)*pagination.pageSize,
       limit: pagination.pageSize,
     }
-    console.log(params);
     const brokerPostRes = axios.get(
       `${config.backendUrl}/brokerPost-list`, { params }
     ).then(res => {
-      console.log(res);
       const brokerPost = res.data;
       setRows(brokerPost.rows);
     }).catch(error => {
-      console.log(error);
     })
 
   };
@@ -210,11 +206,9 @@ const BrokerPostPage = (props) => {
       `${config.backendUrl}/brokerPost-list`, { params }
     ).then(res => {
       const brokerPost = res.data;
-      console.log(brokerPost);
       setRows(brokerPost.rows);
       setCount(brokerPost.count);
     }).catch(error => {
-      console.log(error);
     })
   },[props.slug]);
 

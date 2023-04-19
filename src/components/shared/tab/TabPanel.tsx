@@ -1,4 +1,3 @@
-import LazyLoad from 'react-lazy-load';
 import MDBox from '@/mui/components/MDBox';
 
 interface TabPanelProps {

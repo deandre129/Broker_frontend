@@ -48,7 +48,6 @@ function Contact({ brokerComparable, topBroker, author, category, mostRead, feat
   async function onSubmit() {
     if(name=='')
     {
-      console.log(1);
       setErrorName("Name is required");
     }else {
       setErrorName("");
@@ -90,12 +89,10 @@ function Contact({ brokerComparable, topBroker, author, category, mostRead, feat
         subject: subject,
         recaptcha: recaptcha
       }
-      console.log(data);
 
       const response = axios.post(
         `${config.backendUrl}/auth/send-contact`, { data }
       ).then(res => {
-        console.log(res);
       
         setOpen(true);
         setMessage({type:"success", content: i18n.auth.contactSuccess });
