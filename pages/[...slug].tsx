@@ -142,38 +142,21 @@ export async function getServerSideProps(context) {
       authAxios.post(`${config.backendUrl}/broker-article`,{url})
   ])
 
-  if(categoryRes){
+  if(categoryRes.data){
     page = categoryRes.data;
     pageType = "category";
   }
-  else{
-    page =null;
-    if(generalPageRes){
-      page = generalPageRes.data;
-      pageType = "page";
-      if(page.downloadPdf) {
-        window.location.href = page.downloadUrl;
-      }
-    }
-    else {
-      page = null;
-      if(articleRes){
-        page = articleRes.data;
-        pageType = "article";
-        if(page.downloadPdf) {
-          window.location.href = page.downloadUrl;
-        }
-      }
-      else{
-        pageType= "error";
-        //window.open(config.frontendUrl.protocol+"://"+config.frontendUrl.host+"/404");
-      }
-    }
+  else if(generalPageRes.data){
+    page = generalPageRes.data;
+    pageType = "page";
   }
-
+  else if(articleRes.data){
+    page = articleRes.data;
+    pageType = "article";
+  }
+  
   const sortField = query.field ? query.field : 'name';
   const sortOrder = query.orderBy ? query.orderBy : "asc";
-
 
   const filter = {
     activated: query.activated ? query.activated : true,
