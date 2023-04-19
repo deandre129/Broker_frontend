@@ -11,6 +11,7 @@ import TopBrokersView from './broker/components/TopBrokersView';
 import AuthorView from '@/components/shared/view/AuthorView';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import LazyLoad from 'react-lazyload'
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
@@ -107,18 +108,20 @@ function NormalPage({ page, topBroker, navigation, author }) {
           </MDTypography>
         )}
       </PageContent>
-      <AuthorView author={author} />
-      <PageContent
-        display={{
-          xs: 'none',
-          lg: 'block',
-        }}
-      >
-        <MDTypography display="block" variant="h3" mb={2}>
-          {i18n.entities.home.top_brokers}
-        </MDTypography>
-        <TopBrokersView topBrokers={topBroker}/>
-      </PageContent>
+      <LazyLoad>
+        <AuthorView author={author} />
+        <PageContent
+          display={{
+            xs: 'none',
+            lg: 'block',
+          }}
+        >
+          <MDTypography display="block" variant="h3" mb={2}>
+            {i18n.entities.home.top_brokers}
+          </MDTypography>
+          <TopBrokersView topBrokers={topBroker}/>
+        </PageContent>
+      </LazyLoad>
     </MDBox>
   );
 }

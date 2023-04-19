@@ -21,6 +21,7 @@ import axios from 'axios';
 import config from '@/config';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
+import LazyLoad from 'react-lazyload';
 
 const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'), { loading: () => <Spinner />});
 const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'), { loading: () => <Spinner />});
@@ -221,30 +222,42 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                 recordA={recordA}
                 recordB={recordB}
               />
-              <CompareRegulation
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareProfile
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareTradable
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareSpreadsAndFees
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareTradingPlatforms
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareService
-                recordA={recordA}
-                recordB={recordB}
-              />
+              <LazyLoad>
+                <CompareRegulation
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareProfile
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareTradable
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareSpreadsAndFees
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareTradingPlatforms
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareService
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
             </>
           )}
         </MDBox>

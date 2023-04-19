@@ -16,6 +16,7 @@ import TopBrokersView from '@/components/broker/components/TopBrokersView';
 import axios from 'axios';
 import Spinner from '@/components/shared/Spinner';
 // import Image from 'next/image';
+import LazyLoad from 'react-lazyload';
 
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {});
@@ -303,7 +304,6 @@ function Index({
                 Zusammenhang einige der folgenden Fragen
                 stellen:
               </p>
-
               <ul>
                 <li>
                   Was kann über den Broker gehandelt werden?
@@ -330,7 +330,7 @@ function Index({
                 </li>
                 <li>Wird ein Demokonto angeboten?</li>
               </ul>
-
+            <LazyLoad>
               <p>
                 Diese und viele weitere Fragen können dabei
                 helfen, Schritt für Schritt den richtigen
@@ -756,6 +756,7 @@ function Index({
                 Broker mit Hilfe von unserem Broker
                 Vergleich machen können.
               </p>
+              </LazyLoad>
             </HtmlViewWrapper>
           </Grid>
         </Grid>

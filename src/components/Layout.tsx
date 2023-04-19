@@ -1,17 +1,29 @@
-import Advisors from './sidebar/Advisors';
-import Category from './sidebar/Category';
-import ComparableBrokers from './sidebar/ComparableBrokers';
+// import Advisors from './sidebar/Advisors';
+// import Category from './sidebar/Category';
+// import ComparableBrokers from './sidebar/ComparableBrokers';
 import Container from '@mui/material/Container';
-import FeaturedBrokers from './sidebar/FeaturedBrokers';
-import ForexSchool from './sidebar/ForexSchool';
-import ForexStrategy from './sidebar/ForexStrategy';
+// import FeaturedBrokers from './sidebar/FeaturedBrokers';
+// import ForexSchool from './sidebar/ForexSchool';
+// import ForexStrategy from './sidebar/ForexStrategy';
 import Grid from '@mui/material/Grid';
 import Meta from './Meta';
-import MostRead from './sidebar/MostRead';
+// import MostRead from './sidebar/MostRead';
 import PageLayout from '@/mui/shared/Layouts/PageLayout';
-import Promotion from './sidebar/Promotion';
+// import Promotion from './sidebar/Promotion';
 import PropTypes from 'prop-types';
-import TopBrokers from './sidebar/TopBrokers';
+// import TopBrokers from './sidebar/TopBrokers';
+import dynamic from 'next/dynamic';
+import LazyLoad from 'react-lazyload'
+
+const TopBrokers = dynamic(() => import('./sidebar/TopBrokers'));
+const Advisors = dynamic(() => import('./sidebar/Advisors'));
+const Category = dynamic(() => import('./sidebar/Category'));
+const ComparableBrokers = dynamic(() => import('./sidebar/ComparableBrokers'));
+const FeaturedBrokers = dynamic(() => import('./sidebar/FeaturedBrokers'));
+const ForexSchool = dynamic(() => import('./sidebar/ForexSchool'));
+const ForexStrategy = dynamic(() => import('./sidebar/ForexStrategy'));
+const Promotion = dynamic(() => import('./sidebar/Promotion'));
+const MostRead = dynamic(() => import('./sidebar/MostRead'));
 
 function Layout({
   title,
@@ -55,15 +67,23 @@ function Layout({
               {Boolean(record) && (
                 <ComparableBrokers record={record} brokerComparable = {brokerComparable}/>
               )}
-               {Boolean(record) && (
+              {Boolean(record) && (
                 <Advisors record={record} />
               )}
               <Category category = { category }/>
-              <FeaturedBrokers featuredBrokers = {featuredBrokers}/>
-              <MostRead mostRead = {mostRead}/>
-              <ForexSchool forexSchool = { forexSchool }/>
-              <ForexStrategy forexStrategy = {forexStrategy}/>
-              <Promotion promotion = {promotion}/>
+                <FeaturedBrokers featuredBrokers = {featuredBrokers}/>
+              <LazyLoad>
+                <MostRead mostRead = {mostRead}/>
+              </LazyLoad>
+              <LazyLoad>
+                <ForexSchool forexSchool = { forexSchool }/>
+              </LazyLoad>
+              <LazyLoad>
+                <ForexStrategy forexStrategy = {forexStrategy}/>
+              </LazyLoad>
+              <LazyLoad>
+                <Promotion promotion = {promotion}/>
+              </LazyLoad>
             </Grid>
           </Grid>
         </Grid>

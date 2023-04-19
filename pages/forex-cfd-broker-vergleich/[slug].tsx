@@ -23,6 +23,7 @@ import config from '@/config';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
 // import Layout from '@/components/Layout';
+import LazyLoad from 'react-lazyload'
 
 const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'), {loading: () => <Spinner />});
 const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'), {loading: () => <Spinner />});
@@ -132,123 +133,135 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
         >
           {i18n.entities.broker.comparison.description}
         </MDTypography>
-              <MDBox
-                sx={{
-                  '& > * + *': {
-                    mt: 2,
-                  },
-                  '& > * + *:before': {
-                    display: 'block',
-                    content: '""',
-                    borderTop:
-                      '1px dotted rgba(128,128,128,.5)',
-                    width: '100%',
-                    ml: 2,
-                  },
-                }}
-              >
-                <Grid container spacing={2} >
-                  <CompareSection name="selectBrokers" />
-                  <CompareDetail
-                    childrenA={
-                      <Autocomplete
-                        disablePortal
-                        id="brokerA"
-                        options={brokerList}
-                        value={valueA.name}
-                        onChange={(event: any, newValue: any) => {
-                          if(newValue) {
-                            setValueA({ id:newValue.id , name: newValue.name});
-                          }
-                          
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                          />
-                        )}
-                        renderOption={(props, option) => (
-                          <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                            {option.name}
-                          </Box>
-                        )}
-                      />
+        <MDBox
+          sx={{
+            '& > * + *': {
+              mt: 2,
+            },
+            '& > * + *:before': {
+              display: 'block',
+              content: '""',
+              borderTop:
+                '1px dotted rgba(128,128,128,.5)',
+              width: '100%',
+              ml: 2,
+            },
+          }}
+        >
+          <Grid container spacing={2} >
+            <CompareSection name="selectBrokers" />
+            <CompareDetail
+              childrenA={
+                <Autocomplete
+                  disablePortal
+                  id="brokerA"
+                  options={brokerList}
+                  value={valueA.name}
+                  onChange={(event: any, newValue: any) => {
+                    if(newValue) {
+                      setValueA({ id:newValue.id , name: newValue.name});
                     }
-                    childrenB={
-                      <Autocomplete
-                        disablePortal
-                        id="brokerB"
-                        options={brokerList}
-                        value={valueB.name}
-                        onChange={(event: any, newValue: any) => {
-                          if(newValue) {
-                            setValueB({ id:newValue.id , name: newValue.name});
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                          />
-                        )}
-                        renderOption={(props, option) => (
-                          <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                            {option.name}
-                          </Box>
-                        )}
-                      />
+                    
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                    />
+                  )}
+                  renderOption={(props, option) => (
+                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      {option.name}
+                    </Box>
+                  )}
+                />
+              }
+              childrenB={
+                <Autocomplete
+                  disablePortal
+                  id="brokerB"
+                  options={brokerList}
+                  value={valueB.name}
+                  onChange={(event: any, newValue: any) => {
+                    if(newValue) {
+                      setValueB({ id:newValue.id , name: newValue.name});
                     }
-                    after={
-                      <MDButton
-                        variant="contained"
-                        type="submit"
-                        onClick={onSubmit}
-                        color={'info'}
-                        fullWidth
-                      >
-                        <MDTypography
-                          variant="h3"
-                          fontSize="inherit"
-                          color="inherit"
-                        >
-                          {i18n.entities.broker.comparison.compare}
-                        </MDTypography>
-                      </MDButton>
-                    }
-                  />
-                </Grid>
-                {recordA && recordB && (
-                  <>
-                    <CompareOverview
-                      recordA={recordA}
-                      recordB={recordB}
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
                     />
-                    <CompareRegulation
-                      recordA={recordA}
-                      recordB={recordB}
-                    />
-                    <CompareProfile
-                      recordA={recordA}
-                      recordB={recordB}
-                    />
-                    <CompareTradable
-                      recordA={recordA}
-                      recordB={recordB}
-                    />
-                    <CompareSpreadsAndFees
-                      recordA={recordA}
-                      recordB={recordB}
-                    />
-                    <CompareTradingPlatforms
-                      recordA={recordA}
-                      recordB={recordB}
-                    />
-                    <CompareService
-                      recordA={recordA}
-                      recordB={recordB}
-                    />
-                  </>
-                )}
-              </MDBox>
+                  )}
+                  renderOption={(props, option) => (
+                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      {option.name}
+                    </Box>
+                  )}
+                />
+              }
+              after={
+                <MDButton
+                  variant="contained"
+                  type="submit"
+                  onClick={onSubmit}
+                  color={'info'}
+                  fullWidth
+                >
+                  <MDTypography
+                    variant="h3"
+                    fontSize="inherit"
+                    color="inherit"
+                  >
+                    {i18n.entities.broker.comparison.compare}
+                  </MDTypography>
+                </MDButton>
+              }
+            />
+          </Grid>
+          {recordA && recordB && (
+            <>
+              <CompareOverview
+                recordA={recordA}
+                recordB={recordB}
+              />
+              <LazyLoad>
+                <CompareRegulation
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareProfile
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareTradable
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareSpreadsAndFees
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareTradingPlatforms
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+              <LazyLoad>
+                <CompareService
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </LazyLoad>
+            </>
+          )}
+        </MDBox>
       </PageContent>
     </Layout>
   );

@@ -24,6 +24,7 @@ import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import LazyLoad from 'react-lazyload'
 
 const BrokerPostPage = (props) => {
 
@@ -381,212 +382,213 @@ const BrokerPostPage = (props) => {
         </MDTypography>
         <TopBrokersView topBrokers={ props.topBrokers}/>
       </MDBox>
-
-      <MDBox
-        pt={2}
-        borderTop={`1px dashed ${colors.inputBorderColor}`}
-      >
-        <MDTypography
-          variant="body1"
-          fontWeight="bold"
-          pb={2}
+      <LazyLoad>
+        <MDBox
+          pt={2}
+          borderTop={`1px dashed ${colors.inputBorderColor}`}
         >
-          {i18n.common.writeReview}
-        </MDTypography>
-        <Grid spacing={2} container>
-            <Grid item md={6} xs={12}>
-                <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                >
-                    {i18n.common.name} *
-                </MDTypography>
-                <>
-                    <TextField
-                        id={"name"}
-                        name={"name"}
-                        required={true}
-                        onChange={(event) => {
-                            setName(event.target.value);
-                        }}
-                        fullWidth
-                        variant={"standard"}
-                        placeholder={undefined}
-                        autoFocus={undefined}
-                        autoComplete={undefined}
-                        value={name}
-                    />
-                    {errorName!='' && (
-                        <MDBox mt={0.75}>
-                            <MDTypography
-                                component="div"
-                                variant="caption"
-                                color="error"
-                                fontWeight="regular"
-                            >
-                                {errorName}
-                            </MDTypography>
-                        </MDBox>
-                    )}
-                </>
-            </Grid>
-            <Grid item md={6} xs={12}>
-                <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                >
-                    {i18n.common.email} *
-                </MDTypography>
-                <>
-                    <TextField
-                        id={"email"}
-                        name={"email"}
-                        required={true}
-                        onChange={(event) => {
-                        setEmail(event.target.value);
-                        }}
-                        fullWidth
-                        variant={"standard"}
-                        placeholder={undefined}
-                        autoFocus={undefined}
-                        autoComplete={undefined}
-                        value={email}
-                    />
-                    {errorEmail!='' && (
-                        <MDBox mt={0.75}>
-                            <MDTypography
-                                component="div"
-                                variant="caption"
-                                color="error"
-                                fontWeight="regular"
-                            >
-                                {errorEmail}
-                            </MDTypography>
-                        </MDBox>
-                    )}
-                </>
-            </Grid>
-            <Grid item xs={12}>
-                <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                >
-                    {i18n.common.rating}
-                </MDTypography>
-                <MDBox
-                    pt={0}
-                    position="relative"
-                    lineHeight={0}
-                    >
-                    <MDBox display="flex" alignItems="center" gap={1}>
-                        <StyledRating
-                        name={name}
-                        defaultValue={0}
-                        value={rating}
-                        icon={<Image src="/images/star-fill.png" 
-                          width='18'
-                          height="16"
-                          alt="star-fill" />}
-                        emptyIcon={
-                        <Image src="/images/star-grey.png" 
-                          width='18'
-                          height="16"
-                          alt="star-grey"/>}
-                        max={5}
-                        precision={1}
-                        onChange={(evt, newVal) => {
-                            setRating(newVal);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                            setHover(newHover);
-                        }}
-                        ownerState={{color:"info"}}
-                        disabled={false}
-                        readOnly={false}
-                        size={'medium'}
-                        />
-                    </MDBox>
-                </MDBox>
-            </Grid>
-            <Grid item xs={12}>
-                <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                >
-                    {i18n.common.review} *
-                </MDTypography>
-                <MDBox
-                    pt={0}
-                    position="relative"
-                >
-                    <CKEditor
-                        initData={review}
-                        config={ckeditorConfig}
-                        onChange={(evt) => { 
-                            setEditor(evt.editor);
-                            setReview(evt.editor?.getData());
-                        }}
-                    />
-                    {errorReview!='' && (
-                        <MDBox mt={0.75}>
-                        <MDTypography
-                            component="div"
-                            variant="caption"
-                            color="error"
-                            fontWeight="regular"
-                        >
-                            {errorReview}
-                        </MDTypography>
-                        </MDBox>
-                    )}
-                </MDBox>
-            </Grid>
-            <Grid item xs={12} mb={2}>
-            <MDBox
-              display="flex"
-              justifyContent="center"
-              width="100%"
-            >
-              <ReCAPTCHA
-                onChange={(value) => {
-                  setRecaptcha(value);
-                }}
-                ref={recaptchaRef}
-                sitekey={config.reCaptchaV2SiteKey}
-                theme={'light'}
-              />
-            </MDBox>
-            {errorRecaptcha!='' && (
-              <MDBox mt={0.75}>
-                <MDTypography
-                  component="div"
-                  variant="caption"
-                  color="error"
-                  fontWeight="regular"
-                  textAlign="center"
-                >
-                  {errorRecaptcha}
-                </MDTypography>
+          <MDTypography
+            variant="body1"
+            fontWeight="bold"
+            pb={2}
+          >
+            {i18n.common.writeReview}
+          </MDTypography>
+          <Grid spacing={2} container>
+              <Grid item md={6} xs={12}>
+                  <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                  >
+                      {i18n.common.name} *
+                  </MDTypography>
+                  <>
+                      <TextField
+                          id={"name"}
+                          name={"name"}
+                          required={true}
+                          onChange={(event) => {
+                              setName(event.target.value);
+                          }}
+                          fullWidth
+                          variant={"standard"}
+                          placeholder={undefined}
+                          autoFocus={undefined}
+                          autoComplete={undefined}
+                          value={name}
+                      />
+                      {errorName!='' && (
+                          <MDBox mt={0.75}>
+                              <MDTypography
+                                  component="div"
+                                  variant="caption"
+                                  color="error"
+                                  fontWeight="regular"
+                              >
+                                  {errorName}
+                              </MDTypography>
+                          </MDBox>
+                      )}
+                  </>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                  <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                  >
+                      {i18n.common.email} *
+                  </MDTypography>
+                  <>
+                      <TextField
+                          id={"email"}
+                          name={"email"}
+                          required={true}
+                          onChange={(event) => {
+                          setEmail(event.target.value);
+                          }}
+                          fullWidth
+                          variant={"standard"}
+                          placeholder={undefined}
+                          autoFocus={undefined}
+                          autoComplete={undefined}
+                          value={email}
+                      />
+                      {errorEmail!='' && (
+                          <MDBox mt={0.75}>
+                              <MDTypography
+                                  component="div"
+                                  variant="caption"
+                                  color="error"
+                                  fontWeight="regular"
+                              >
+                                  {errorEmail}
+                              </MDTypography>
+                          </MDBox>
+                      )}
+                  </>
+              </Grid>
+              <Grid item xs={12}>
+                  <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                  >
+                      {i18n.common.rating}
+                  </MDTypography>
+                  <MDBox
+                      pt={0}
+                      position="relative"
+                      lineHeight={0}
+                      >
+                      <MDBox display="flex" alignItems="center" gap={1}>
+                          <StyledRating
+                          name={name}
+                          defaultValue={0}
+                          value={rating}
+                          icon={<Image src="/images/star-fill.png" 
+                            width='18'
+                            height="16"
+                            alt="star-fill" />}
+                          emptyIcon={
+                          <Image src="/images/star-grey.png" 
+                            width='18'
+                            height="16"
+                            alt="star-grey"/>}
+                          max={5}
+                          precision={1}
+                          onChange={(evt, newVal) => {
+                              setRating(newVal);
+                          }}
+                          onChangeActive={(event, newHover) => {
+                              setHover(newHover);
+                          }}
+                          ownerState={{color:"info"}}
+                          disabled={false}
+                          readOnly={false}
+                          size={'medium'}
+                          />
+                      </MDBox>
+                  </MDBox>
+              </Grid>
+              <Grid item xs={12}>
+                  <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                  >
+                      {i18n.common.review} *
+                  </MDTypography>
+                  <MDBox
+                      pt={0}
+                      position="relative"
+                  >
+                      <CKEditor
+                          initData={review}
+                          config={ckeditorConfig}
+                          onChange={(evt) => { 
+                              setEditor(evt.editor);
+                              setReview(evt.editor?.getData());
+                          }}
+                      />
+                      {errorReview!='' && (
+                          <MDBox mt={0.75}>
+                          <MDTypography
+                              component="div"
+                              variant="caption"
+                              color="error"
+                              fontWeight="regular"
+                          >
+                              {errorReview}
+                          </MDTypography>
+                          </MDBox>
+                      )}
+                  </MDBox>
+              </Grid>
+              <Grid item xs={12} mb={2}>
+              <MDBox
+                display="flex"
+                justifyContent="center"
+                width="100%"
+              >
+                <ReCAPTCHA
+                  onChange={(value) => {
+                    setRecaptcha(value);
+                  }}
+                  ref={recaptchaRef}
+                  sitekey={config.reCaptchaV2SiteKey}
+                  theme={'light'}
+                />
               </MDBox>
-            )}
-            </Grid>
-        </Grid>
-        <MDButton
-            variant="gradient"
-            color={'info'}
-            type="button"
-            onClick={onSubmit}
-            startIcon={<SaveIcon />}
-            size="small"
-            >
-            Erfahrungsbericht speichern
-        </MDButton>
-        <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>
-            <Alert onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}} severity={message.type} sx={{ width: '100%' }}>
-                {message.content}
-            </Alert>
-        </Snackbar>
-      </MDBox> 
+              {errorRecaptcha!='' && (
+                <MDBox mt={0.75}>
+                  <MDTypography
+                    component="div"
+                    variant="caption"
+                    color="error"
+                    fontWeight="regular"
+                    textAlign="center"
+                  >
+                    {errorRecaptcha}
+                  </MDTypography>
+                </MDBox>
+              )}
+              </Grid>
+          </Grid>
+          <MDButton
+              variant="gradient"
+              color={'info'}
+              type="button"
+              onClick={onSubmit}
+              startIcon={<SaveIcon />}
+              size="small"
+              >
+              Erfahrungsbericht speichern
+          </MDButton>
+          <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>
+              <Alert onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}} severity={message.type} sx={{ width: '100%' }}>
+                  {message.content}
+              </Alert>
+          </Snackbar>
+        </MDBox> 
+      </LazyLoad>
     </>
   );
 };

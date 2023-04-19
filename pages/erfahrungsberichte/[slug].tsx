@@ -27,6 +27,7 @@ import config from "@/config";
 //import BrokerPostPage from "@/components/BrokerPostPage";
 import dynamic from "next/dynamic";
 import Spinner from "@/components/shared/Spinner";
+import LazyLoad from 'react-lazyload'
 
 const Layout = dynamic(() => import('@/components/Layout'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
@@ -198,15 +199,18 @@ const BrokerViewPage = ({
           </PageContent>
           {isBrowser && (
             <>
-              <PageContent pt={4}>
-                <BrokerPostPage
-                  brokerId={record.id}
-                  name={record.name}
-                  middle={<BrokerHomepageUrls record={record} />}
-                  topBrokers={topBroker}
-                  slug={slug}
-                />
-              </PageContent>
+              <LazyLoad>
+                <PageContent pt={4}>
+                  <BrokerPostPage
+                    brokerId={record.id}
+                    name={record.name}
+                    middle={<BrokerHomepageUrls record={record} />}
+                    topBrokers={topBroker}
+                    slug={slug}
+                  />
+                </PageContent>
+              </LazyLoad>
+              <LazyLoad>
               {Boolean(record.creteria) && Boolean(record.creteria.body) && (
                 <PageContent>
                   <MDBox fontSize="1rem">
@@ -214,18 +218,21 @@ const BrokerViewPage = ({
                   </MDBox>
                 </PageContent>
               )}
-              <AuthorView author={author} />
-              <PageContent
-                display={{
-                  xs: "none",
-                  lg: "block",
-                }}
-              >
-                <MDTypography display="block" variant="h3" mb={2}>
-                  {i18n.entities.home.top_brokers}
-                </MDTypography>
-                <TopBrokersView topBrokers={topBroker} />
-              </PageContent>
+              </LazyLoad>
+              <LazyLoad>
+                <AuthorView author={author} />
+                <PageContent
+                  display={{
+                    xs: "none",
+                    lg: "block",
+                  }}
+                >
+                  <MDTypography display="block" variant="h3" mb={2}>
+                    {i18n.entities.home.top_brokers}
+                  </MDTypography>
+                  <TopBrokersView topBrokers={topBroker} />
+                </PageContent>
+              </LazyLoad>
             </>
           )}
         </MDBox>

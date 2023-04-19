@@ -25,6 +25,7 @@ import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import ReCAPTCHA from 'react-google-recaptcha';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
+import LazyLoad from 'react-lazyload'
 
 const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), {loading: () => <Spinner />});
 const Layout = dynamic(() => import('@/components/Layout'));
@@ -348,192 +349,196 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                   </MDTypography>
                 )}
               </MDBox>
-
-              { rows && (
-                <MDBox mt={2}>
-                  <Pagination
-                    onChange={doChangePagination}
-                    pagination={pagination}
-                    noPadding
-                    entriesPerPage
-                    showTotalEntries
-                  />
+              <LazyLoad>
+                { rows && (
+                  <MDBox mt={2}>
+                    <Pagination
+                      onChange={doChangePagination}
+                      pagination={pagination}
+                      noPadding
+                      entriesPerPage
+                      showTotalEntries
+                    />
+                  </MDBox>
+                )}
+              </LazyLoad>
+              <LazyLoad>
+                <MDBox color="text" py={4}>
+                  <MDTypography variant="body1" fontWeight="bold">
+                    {i18n.common.toComment}
+                  </MDTypography>
                 </MDBox>
-              )}
-
-              <MDBox color="text" py={4}>
-                <MDTypography variant="body1" fontWeight="bold">
-                  {i18n.common.toComment}
+                <Grid spacing={2} container>
+                  <Grid item md={6} xs={12}>
+                    <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                    >
+                      {i18n.common.name} *
+                    </MDTypography>
+                    <>
+                      <TextField
+                        id={"name"}
+                        name={"name"}
+                        required={true}
+                        onChange={(event) => {
+                          setName(event.target.value);
+                        }}
+                        fullWidth
+                        variant={"standard"}
+                        placeholder={undefined}
+                        autoFocus={undefined}
+                        autoComplete={undefined}
+                        value={name}
+                      />
+                      {errorName!='' && (
+                        <MDBox mt={0.75}>
+                          <MDTypography
+                            component="div"
+                            variant="caption"
+                            color="error"
+                            fontWeight="regular"
+                          >
+                            {errorName}
+                          </MDTypography>
+                        </MDBox>
+                      )}
+                    </>
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                    >
+                      {i18n.common.email} *
+                    </MDTypography>
+                    <>
+                      <TextField
+                        id={"email"}
+                        name={"email"}
+                        type={"email"}
+                        required={true}
+                        onChange={(event) => {
+                          setEmail(event.target.value);
+                        }}
+                        fullWidth
+                        variant={"standard"}
+                        placeholder={undefined}
+                        autoFocus={undefined}
+                        autoComplete={undefined}
+                        value={email}
+                      />
+                      {errorEmail!='' && (
+                        <MDBox mt={0.75}>
+                          <MDTypography
+                            component="div"
+                            variant="caption"
+                            color="error"
+                            fontWeight="regular"
+                          >
+                            {errorEmail}
+                          </MDTypography>
+                        </MDBox>
+                      )}
+                    </>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <MDTypography
+                      variant="body2"
+                      fontWeight="regular"
+                    >
+                      {i18n.common.content} *
+                    </MDTypography>
+                    <MDBox
+                      pt={2}
+                      position="relative"
+                    >
+                      <CKEditor
+                        initData={content}
+                        config={ckeditorConfig}
+                        onChange={(evt) => { setEditor(evt.editor); setContent(evt.editor?.getData());}}
+                      />
+                      {errorContent!='' && (
+                        <MDBox mt={0.75}>
+                          <MDTypography
+                            component="div"
+                            variant="caption"
+                            color="error"
+                            fontWeight="regular"
+                          >
+                            {errorContent}
+                          </MDTypography>
+                        </MDBox>
+                      )}
+                    </MDBox>
+                  </Grid>
+                  <Grid item xs={12} mb={2}>
+                    <MDBox
+                      display="flex"
+                      justifyContent="center"
+                      width="100%"
+                    >
+                      <ReCAPTCHA
+                        onChange={(value) => {
+                          setRecaptcha(value);
+                        }}
+                        ref={recaptchaRef}
+                        sitekey={config.reCaptchaV2SiteKey}
+                        theme={'light'}
+                      />
+                    </MDBox>
+                    {errorRecaptcha!='' && (
+                        <MDBox mt={0.75}>
+                          <MDTypography
+                            component="div"
+                            variant="caption"
+                            color="error"
+                            fontWeight="regular"
+                            textAlign="center"
+                          >
+                            {errorRecaptcha}
+                          </MDTypography>
+                        </MDBox>
+                      )}
+                  </Grid>
+                </Grid>
+                <MDButton
+                  variant="gradient"
+                  color={'info'}
+                  type="button"
+                  onClick={onSubmit}
+                  startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}
+                  size="small"
+                >
+                  <div className='white-color'>
+                    {i18n.common.toComment.toUpperCase()}
+                  </div>
+                  <style jsx>{`
+                    .white-color {
+                      color: white;
+                    }
+                  `}</style>
+                </MDButton>
+              </LazyLoad>
+            </PageContent>
+            <LazyLoad>
+              <AuthorView author={author} />
+              <PageContent
+                display={{
+                  xs: 'none',
+                  lg: 'block',
+                }}
+              >
+                <MDTypography
+                  display="block"
+                  variant="h3"
+                  mb={2}
+                >
+                  {i18n.entities.home.top_brokers}
                 </MDTypography>
-              </MDBox>
-              <Grid spacing={2} container>
-                <Grid item md={6} xs={12}>
-                  <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                  >
-                    {i18n.common.name} *
-                  </MDTypography>
-                  <>
-                    <TextField
-                      id={"name"}
-                      name={"name"}
-                      required={true}
-                      onChange={(event) => {
-                        setName(event.target.value);
-                      }}
-                      fullWidth
-                      variant={"standard"}
-                      placeholder={undefined}
-                      autoFocus={undefined}
-                      autoComplete={undefined}
-                      value={name}
-                    />
-                    {errorName!='' && (
-                      <MDBox mt={0.75}>
-                        <MDTypography
-                          component="div"
-                          variant="caption"
-                          color="error"
-                          fontWeight="regular"
-                        >
-                          {errorName}
-                        </MDTypography>
-                      </MDBox>
-                    )}
-                  </>
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                  >
-                    {i18n.common.email} *
-                  </MDTypography>
-                  <>
-                    <TextField
-                      id={"email"}
-                      name={"email"}
-                      type={"email"}
-                      required={true}
-                      onChange={(event) => {
-                        setEmail(event.target.value);
-                      }}
-                      fullWidth
-                      variant={"standard"}
-                      placeholder={undefined}
-                      autoFocus={undefined}
-                      autoComplete={undefined}
-                      value={email}
-                    />
-                    {errorEmail!='' && (
-                      <MDBox mt={0.75}>
-                        <MDTypography
-                          component="div"
-                          variant="caption"
-                          color="error"
-                          fontWeight="regular"
-                        >
-                          {errorEmail}
-                        </MDTypography>
-                      </MDBox>
-                    )}
-                  </>
-                </Grid>
-                <Grid item xs={12}>
-                  <MDTypography
-                    variant="body2"
-                    fontWeight="regular"
-                  >
-                    {i18n.common.content} *
-                  </MDTypography>
-                  <MDBox
-                    pt={2}
-                    position="relative"
-                  >
-                    <CKEditor
-                      initData={content}
-                      config={ckeditorConfig}
-                      onChange={(evt) => { setEditor(evt.editor); setContent(evt.editor?.getData());}}
-                    />
-                    {errorContent!='' && (
-                      <MDBox mt={0.75}>
-                        <MDTypography
-                          component="div"
-                          variant="caption"
-                          color="error"
-                          fontWeight="regular"
-                        >
-                          {errorContent}
-                        </MDTypography>
-                      </MDBox>
-                    )}
-                  </MDBox>
-                </Grid>
-                <Grid item xs={12} mb={2}>
-                  <MDBox
-                    display="flex"
-                    justifyContent="center"
-                    width="100%"
-                  >
-                    <ReCAPTCHA
-                      onChange={(value) => {
-                        setRecaptcha(value);
-                      }}
-                      ref={recaptchaRef}
-                      sitekey={config.reCaptchaV2SiteKey}
-                      theme={'light'}
-                    />
-                  </MDBox>
-                  {errorRecaptcha!='' && (
-                      <MDBox mt={0.75}>
-                        <MDTypography
-                          component="div"
-                          variant="caption"
-                          color="error"
-                          fontWeight="regular"
-                          textAlign="center"
-                        >
-                          {errorRecaptcha}
-                        </MDTypography>
-                      </MDBox>
-                    )}
-                </Grid>
-              </Grid>
-              <MDButton
-                variant="gradient"
-                color={'info'}
-                type="button"
-                onClick={onSubmit}
-                startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}
-                size="small"
-              >
-                <div className='white-color'>
-                  {i18n.common.toComment.toUpperCase()}
-                </div>
-                <style jsx>{`
-                  .white-color {
-                    color: white;
-                  }
-                `}</style>
-              </MDButton>
-            </PageContent>
-            <AuthorView author={author} />
-            <PageContent
-              display={{
-                xs: 'none',
-                lg: 'block',
-              }}
-            >
-              <MDTypography
-                display="block"
-                variant="h3"
-                mb={2}
-              >
-                {i18n.entities.home.top_brokers}
-              </MDTypography>
-              <TopBrokersView topBrokers={topBroker}/>
-            </PageContent>
+                <TopBrokersView topBrokers={topBroker}/>
+              </PageContent>
+            </LazyLoad>
           </MDBox>
         )}
         <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>

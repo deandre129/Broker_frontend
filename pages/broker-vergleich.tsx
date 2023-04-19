@@ -28,6 +28,7 @@ import MaterialLink from '@mui/material/Link';
 import Link from 'next/link';
 import Image from 'next/image';
 import Spinner from '@/components/shared/Spinner';
+import LazyLoad from 'react-lazyload';
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
@@ -269,7 +270,9 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
                 </Table>
               </TableContainer>
             </MDBox> 
-            <DefaultCategoryDescription />
+            <LazyLoad>
+              <DefaultCategoryDescription />
+            </LazyLoad>
           </PageContent>
         )}
         <AuthorView author={author} />
