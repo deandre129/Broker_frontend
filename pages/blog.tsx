@@ -16,13 +16,13 @@ import config from '@/config';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
 
-const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
-const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), {ssr:false, loading: () => <Spinner />});
-const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
-const Pagination = dynamic(() => import('@/components/shared/table/Pagination'), {ssr:false});
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {ssr:false});
+const Layout = dynamic(() => import('@/components/Layout'));
+const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), { loading: () => <Spinner />});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
+const Pagination = dynamic(() => import('@/components/shared/table/Pagination'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 
 const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 

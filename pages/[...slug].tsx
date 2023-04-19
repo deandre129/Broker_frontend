@@ -13,10 +13,10 @@ import authAxios from '@/modules/shared/axios/authAxios';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
 
-const BrokerArticlePage = dynamic(() => import('@/components/BrokerArticlePage'), {ssr:false, loading: () => <Spinner />});
-const CategoryPage = dynamic(() => import('@/components/CategoryPage'), {ssr:false, loading: () => <Spinner />});
-const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
-const NormalPage = dynamic(() => import('@/components/NormalPage'), {ssr:false, loading: () => <Spinner />});
+const BrokerArticlePage = dynamic(() => import('@/components/BrokerArticlePage'), { loading: () => <Spinner />});
+const CategoryPage = dynamic(() => import('@/components/CategoryPage'), { loading: () => <Spinner />});
+const Layout = dynamic(() => import('@/components/Layout'));
+const NormalPage = dynamic(() => import('@/components/NormalPage'), { loading: () => <Spinner />});
 
 const GeneralPage = ({ brokerComparable, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 

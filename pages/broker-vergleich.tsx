@@ -29,17 +29,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Spinner from '@/components/shared/Spinner';
 
-const MDBox = dynamic(() => import('@/mui/components/MDBox'), {ssr:false});
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {ssr:false});
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {ssr:false});
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {ssr:false, loading: () => <Spinner />});
-const DefaultCategoryDescription = dynamic(() => import('@/components/DefaultCategoryDescription'), {ssr:false, loading: () => <Spinner />});
-const DashBorder = dynamic(() => import('@/components/shared/DashBorder'), {ssr:false});
-const RatingListItem = dynamic(() => import('@/components/shared/table/RatingListItem'), {ssr:false});
-const Table = dynamic(() => import('@mui/material/Table'), {ssr:false, loading: () => <Spinner />});
-const TableBody = dynamic(() => import('@mui/material/TableBody'), {ssr:false, loading: () => <Spinner />});
-const TableRow = dynamic(() => import('@mui/material/TableRow'), {ssr:false, loading: () => <Spinner />});
-const Layout = dynamic(() => import('@/components/Layout'), {ssr:false});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'));
+const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
+const DefaultCategoryDescription = dynamic(() => import('@/components/DefaultCategoryDescription'), { loading: () => <Spinner />});
+const DashBorder = dynamic(() => import('@/components/shared/DashBorder'));
+const RatingListItem = dynamic(() => import('@/components/shared/table/RatingListItem'));
+const Table = dynamic(() => import('@mui/material/Table'), { loading: () => <Spinner />});
+const TableBody = dynamic(() => import('@mui/material/TableBody'), { loading: () => <Spinner />});
+const TableRow = dynamic(() => import('@mui/material/TableRow'), { loading: () => <Spinner />});
+const Layout = dynamic(() => import('@/components/Layout'));
 
 
 const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
