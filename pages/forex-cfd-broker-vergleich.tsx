@@ -36,13 +36,16 @@ const PageContent = dynamic(() => import('@/components/shared/view/PageContent')
 const Layout = dynamic(() => import('@/components/Layout'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 
-function BrokerComparePage({ brokerComparable, brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
+function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 
   const router = useRouter();
 
+  let brokerList = [] as Array<any>;
+  for(var i = 0; allBroker.rows[i] ; i++) {
+    brokerList[i] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
+  }
+
   const [valueA, setValueA] = useState({
-
-
     id: recordA.name_normalized,
     name: recordA.name
   });
@@ -298,12 +301,7 @@ export async function getServerSideProps(context) {
   const recordBRes = await axios.post(`${config.backendUrl}/broker`,{url: recordBReq});
   const recordB = recordBRes.data;
 
-  let brokerList = [] as Array<any>;
-  for(var i = 0; allBroker.rows[i] ; i++) {
-    brokerList[i] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
-  }
-
-  return { props: { brokerComparable, brokerList, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default BrokerComparePage;

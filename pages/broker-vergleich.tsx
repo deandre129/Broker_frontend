@@ -299,10 +299,12 @@ export async function getServerSideProps({query}) {
     baseRes,
     categoryRes,
     allBrokerRes,
+    pageRes
     ] = await Promise.all([
-      axios.get(`${config.backendUrl}/base`),
+    axios.get(`${config.backendUrl}/base`),
     axios.post(`${config.backendUrl}/category`,{url:"/broker-vergleich"}),
     axios.get(`${config.backendUrl}/broker`, {params}),
+    axios.post(`${config.backendUrl}/general-page`,{url:"/broker-vergleich"})
   ])
   const topBrokerSidebar = baseRes.data.brokerTop;
   const categorySidebar = baseRes.data.categorySidebar;
@@ -319,7 +321,6 @@ export async function getServerSideProps({query}) {
 
   let category;
   if(!categoryRes){
-    const pageRes = await axios.post(`${config.backendUrl}/general-page`,{url:"/broker-vergleich"});
     category = pageRes.data;
   }else{
     category = categoryRes.data;
