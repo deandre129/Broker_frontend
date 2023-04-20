@@ -15,7 +15,7 @@ import AuthorView from '@/components/shared/view/AuthorView';
 // import MDBox from '@/mui/components/MDBox';
 // import DefaultCategoryDescription from '@/components/DefaultCategoryDescription';
 // import DashBorder from '@/components/shared/DashBorder';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import config from '@/config';
 import React from 'react';
 import DataTableBodyCell from '@/mui/shared/Tables/DataTable/DataTableBodyCell';
@@ -29,6 +29,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Spinner from '@/components/shared/Spinner';
 import LazyLoad from 'react-lazyload';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
@@ -63,6 +64,20 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
       pathname: router.pathname,
       query: { field: field, orderBy: order}
     })
+  };
+
+  const [ page, setPage] = useState(1);
+  const [ brokers, setBrokers ] = useState(allBroker.rows.slice(1, page*10));
+  const [ hasMore, setHasMore ] = useState(true);
+
+  console.log(allBroker.rows.slice((page - 1) * 10, page*10));
+
+  const getMoreBroker = () => {
+    setPage(page+1);
+    if((page+1)*10 > allBroker.count){
+      setHasMore(false);
+    }
+    setBrokers(allBroker.rows.slice(1, (page + 1) * 10 ))
   };
 
   return (
@@ -194,7 +209,13 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
                         </DataTableBodyCell>
                       </TableRow>
                     )}
-                    {allBroker.rows.map((row) => (
+                    <InfiniteScroll
+                      dataLength = {page*20}
+                      next={getMoreBroker}
+                      hasMore={hasMore}
+                      loader={<Spinner />}
+                    >
+                    {brokers.map((row, index) => (
                         <TableRow key={row.id}>
                           <DataTableBodyCell width="auto" px={1}>
                             <MaterialLink
@@ -266,6 +287,7 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
                           </DataTableBodyCell>
                         </TableRow>
                       ))}
+                    </InfiniteScroll>
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -275,7 +297,9 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
             </LazyLoad>
           </PageContent>
         )}
-        <AuthorView author={author} />
+        <LazyLoad>
+          <AuthorView author={author} />
+        </LazyLoad>
       </MDBox>
     </Layout>
   );

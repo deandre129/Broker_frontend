@@ -290,7 +290,7 @@ function Index({
                 mittelmäßigen oder sogar schlechten Broker
                 unterscheidet.
               </p>
-
+            <LazyLoad>
               <h3>
                 Achten Sie beim Broker Vergleich auf diverse
                 Kriterien
@@ -330,7 +330,7 @@ function Index({
                 </li>
                 <li>Wird ein Demokonto angeboten?</li>
               </ul>
-            <LazyLoad>
+
               <p>
                 Diese und viele weitere Fragen können dabei
                 helfen, Schritt für Schritt den richtigen
@@ -429,7 +429,8 @@ function Index({
                 Devisen und CFDs von unterwegs aus mit
                 mobilen Endgeräten handeln können.
               </p>
-
+            </LazyLoad>
+            <LazyLoad>
               <h3>
                 Welche Trading-Strategie verfolge ich ?
               </h3>
@@ -582,7 +583,8 @@ function Index({
                 eine Position handeln, die einen Gesamtwert
                 von 10.000 Euro besitzt.
               </p>
-
+              </LazyLoad>
+              <LazyLoad>
               <h3>Wie hoch ist die Mindesteinlage?</h3>
               <p>
                 Eine Mindesteinlage fordert nahezu jeder
@@ -685,7 +687,8 @@ function Index({
                 Idealfall zeitlich unbefristet - zur
                 Verfügung gestellt wird.
               </p>
-
+              </LazyLoad>
+              <LazyLoad>
               <h3>
                 Welche Erfahrungen haben andere Trader mit
                 dem Broker gemacht?
