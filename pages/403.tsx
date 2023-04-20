@@ -11,7 +11,6 @@ import MDTypography from '@/mui/components/MDTypography';
 import { useSelector } from 'react-redux';
 
 const Error403Page = () => {
-  const { sidenavColor } = selectMuiSettings();
 
   return (
     <>
@@ -21,9 +20,9 @@ const Error403Page = () => {
         <Card>
           <MDBox
             variant="gradient"
-            bgColor={sidenavColor}
+            bgColor={'info'}
             borderRadius="lg"
-            coloredShadow={sidenavColor}
+            coloredShadow={'info'}
             mx={2}
             mt={-3}
             p={2}
@@ -53,7 +52,7 @@ const Error403Page = () => {
               component={Link}
               href="/"
               variant="gradient"
-              color={sidenavColor}
+              color={'info'}
               type="button"
               fullWidth
             >

@@ -29,7 +29,6 @@ function Pagination(props) {
     return null;
   }
 
-  const { sidenavColor } = selectMuiSettings();
   const defaultPageSize =
     entriesPerPage?.defaultPageSize || 10;
 
@@ -216,7 +215,7 @@ function Pagination(props) {
             color={
               pagination.color
                 ? pagination.color
-                : sidenavColor
+                : 'info'
             }
           >
             <MDPagination

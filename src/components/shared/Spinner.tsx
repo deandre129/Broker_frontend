@@ -6,7 +6,6 @@ interface SpinnerProps {
 }
 
 function Spinner({ size }: SpinnerProps) {
-  const { sidenavColor } = selectMuiSettings();
   return (
     <div
       style={{
@@ -19,7 +18,7 @@ function Spinner({ size }: SpinnerProps) {
         alignItems: 'center',
       }}
     >
-      <CircularProgress color={sidenavColor} size={size} />
+      <CircularProgress color={'info'} size={size} />
     </div>
   );
 }

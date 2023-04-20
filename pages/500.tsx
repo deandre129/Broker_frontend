@@ -11,7 +11,6 @@ import MDTypography from '@/mui/components/MDTypography';
 import { useSelector } from 'react-redux';
 
 const Error500Page = () => {
-  const { sidenavColor } = selectMuiSettings();
   return (
     <>
       <BasicLayout
@@ -20,9 +19,9 @@ const Error500Page = () => {
         <Card>
           <MDBox
             variant="gradient"
-            bgColor={sidenavColor}
+            bgColor={'info'}
             borderRadius="lg"
-            coloredShadow={sidenavColor}
+            coloredShadow={'info'}
             mx={2}
             mt={-3}
             p={2}
@@ -52,7 +51,7 @@ const Error500Page = () => {
               component={Link}
               href="/"
               variant="gradient"
-              color={sidenavColor}
+              color={'info'}
               type="button"
               fullWidth
             >

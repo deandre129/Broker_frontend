@@ -4,7 +4,6 @@ import StyledRating from '../styles/StyledRating';
 import PropTypes from 'prop-types';
 
 function RatingListItem(props) {
-  const { darkMode } = selectMuiSettings();
   const {
     allowHalf,
     color,

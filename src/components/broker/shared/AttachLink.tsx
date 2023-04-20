@@ -5,13 +5,12 @@ import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
 
 function AttachLink({ link, children }) {
-  const { sidenavColor } = selectMuiSettings();
   return Boolean(link) && link.trim() !== '' ? (
     <MDTypography
       variant="body2"
       fontWeight="regular"
       component="span"
-      color={sidenavColor}
+      color={'info'}
       lineHeight={1}
     >
       <MaterialLink

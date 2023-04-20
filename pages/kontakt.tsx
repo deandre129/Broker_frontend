@@ -24,7 +24,6 @@ const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const SaveIcon = dynamic(() => import('@mui/icons-material/Save'));
 
 function Contact({ brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
-  const { sidenavColor } = selectMuiSettings();
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({
@@ -354,7 +353,7 @@ function Contact({ brokerComparable, topBroker, author, category, mostRead, feat
         </Grid>
         <MDButton
           variant="gradient"
-          color={sidenavColor}
+          color={'info'}
           type="button"
           onClick={onSubmit}
           startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}

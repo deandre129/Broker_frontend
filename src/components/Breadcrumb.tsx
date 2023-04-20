@@ -14,7 +14,6 @@ const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 const ArrowRightIcon = dynamic(() => import('@mui/icons-material/ArrowRight'));
 
 function Breadcrumb({ items, navigation }) {
-  const { sidenavColor } = selectMuiSettings();
 
   const router = useRouter();
   const replaceFn = (item) =>
@@ -94,7 +93,7 @@ function Breadcrumb({ items, navigation }) {
               variant="body2"
               color={
                 idx + 1 !== arr.length
-                  ? sidenavColor
+                  ? 'info'
                   : 'text'
               }
               fontWeight="regular"

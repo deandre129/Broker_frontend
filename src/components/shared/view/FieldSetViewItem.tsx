@@ -10,7 +10,6 @@ import rgba from '@/mui/assets/theme-dark/functions/rgba';
 function FieldSetViewItem(props) {
   const { children, description, label, noContainer } =
     props;
-  const { darkMode } = selectMuiSettings();
   const render = () => (
     <Grid spacing={2} container>
       {(label || description) && (
@@ -48,11 +47,7 @@ function FieldSetViewItem(props) {
   ) : (
     <MDBox
       p={3}
-      border={`1px solid ${
-        darkMode
-          ? rgba(darkColors.inputBorderColor, 0.6)
-          : lightColors.inputBorderColor
-      }`}
+      border={`1px solid ${lightColors.inputBorderColor}`}
       borderRadius="md"
     >
       {render()}

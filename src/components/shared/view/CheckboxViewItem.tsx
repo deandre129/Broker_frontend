@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 
 function CheckboxViewItem(props) {
-  const { sidenavColor } = selectMuiSettings();
   const label =
     Boolean(props.label) &&
     `${props.prefix ? `${props.prefix} ` : ''}${
@@ -19,7 +18,7 @@ function CheckboxViewItem(props) {
         {props.checked ? (
           <CheckSharpIcon
             fontSize="medium"
-            color={sidenavColor}
+            color={'info'}
             fontWeight="bold"
           />
         ) : (

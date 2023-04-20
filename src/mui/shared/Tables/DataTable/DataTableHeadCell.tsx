@@ -46,7 +46,6 @@ function DataTableHeadCell({
   noWrap,
   ...rest
 }: Props): JSX.Element {
-  const { darkMode } = selectMuiSettings();
 
   return (
     <MDBox
@@ -66,7 +65,7 @@ function DataTableHeadCell({
         {...rest}
         position="relative"
         textAlign={align}
-        color={darkMode ? 'white' : 'secondary'}
+        color={'secondary'}
         opacity={0.7}
         sx={({
           typography: { size, fontWeightBold },

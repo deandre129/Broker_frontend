@@ -42,7 +42,6 @@ function Index({
   categoryFooter,
   author
 }) {
-  const { sidenavColor } = selectMuiSettings();
   
 
   return (
@@ -115,7 +114,7 @@ function Index({
               <MDButton
                 variant="contained"
                 href={'/forex-broker-vergleich'}
-                color={sidenavColor}
+                color={'info'}
                 startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
                 fullWidth
               >
@@ -156,7 +155,7 @@ function Index({
               <MDButton
                 variant="contained"
                 href={'/cfd-broker-vergleich'}
-                color={sidenavColor}
+                color={'info'}
                 startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
                 fullWidth
               >

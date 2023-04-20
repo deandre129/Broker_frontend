@@ -10,7 +10,6 @@ const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 
 function Advisors({ record }) {
-  const { sidenavColor } = selectMuiSettings();
   if (
     !record ||
     ((!record.blogs || !record.blogs.length) &&
@@ -55,7 +54,7 @@ function Advisors({ record }) {
               key={idx}
               variant="body2"
               fontWeight="regular"
-              color={sidenavColor}
+              color={'info'}
             >
               <MaterialLink
                 component={Link}

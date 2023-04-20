@@ -246,7 +246,7 @@ const BrokerPostPage = (props) => {
               >
                 <MDBox>
                   <MDTypography
-                    variant="h4"
+                    variant="h5"
                     color="warning"
                     fontSize={{
                       lg: '1.25rem',

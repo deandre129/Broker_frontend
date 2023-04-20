@@ -20,7 +20,6 @@ const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
 const Breadcrumb = dynamic(() => import('./Breadcrumb'));
 
 function NormalPage({ page, topBroker, navigation, author }) {
-  const { sidenavColor } = selectMuiSettings();
   const colors = lColors;
 
   const handleDownloadPagePDF = () => {
@@ -63,7 +62,7 @@ function NormalPage({ page, topBroker, navigation, author }) {
                 <MDTypography
                   key={idx}
                   variant="body2"
-                  color={sidenavColor}
+                  color={'info'}
                   fontWeight="regular"
                 >
                   <MaterialLink href={url}>
@@ -85,7 +84,7 @@ function NormalPage({ page, topBroker, navigation, author }) {
         {Boolean(page.pdf) && (
           <MDTypography
             variant="body2"
-            color={sidenavColor}
+            color={'info'}
             fontWeight="regular"
             mt={2}
             display="flex"
