@@ -9,7 +9,7 @@ import HtmlView from '../../shared/view/HtmlView';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import SingleCheckbox from '../components/SingleCheckbox';
-import dynamic from 'next/dynamic';
+import LazyLoad from 'react-lazyload'
 
 function BrokerCharacteristicsView({ record }) {
   return (
@@ -27,20 +27,22 @@ function BrokerCharacteristicsView({ record }) {
               <MDTypography variant="h5" mt={2}>
                 {i18n.entities.broker.text.introduction}
               </MDTypography>
-              <MDBox position="relative" pb="56.25%">
-                <iframe
-                  src={`https://www.youtube.com/embed/${record.video?.youtube_hash}`}
-                  frameBorder={0}
-                  width="100%"
-                  height="100%"
-                  allowFullScreen
-                  style={{
-                    left: 0,
-                    top: 0,
-                    position: 'absolute',
-                  }}
-                />
-              </MDBox>
+              <LazyLoad>
+                <MDBox position="relative" pb="56.25%">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${record.video?.youtube_hash}`}
+                    frameBorder={0}
+                    width="100%"
+                    height="100%"
+                    allowFullScreen
+                    style={{
+                      left: 0,
+                      top: 0,
+                      position: 'absolute',
+                    }}
+                  />
+                </MDBox>
+              </LazyLoad>
             </Grid>
           )}
         <BrokerSection
