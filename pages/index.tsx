@@ -42,7 +42,6 @@ function Index({
   categoryFooter,
   author
 }) {
-  
 
   return (
     <Layout
@@ -769,7 +768,9 @@ function Index({
 
 export async function getServerSideProps() {
 
-  const [baseRes ] = await Promise.all([
+  const [
+    baseRes,
+  ] = await Promise.all([
     axios.get(`${config.backendUrl}/base`),
   ])
   const topBroker = baseRes.data.brokerTop;
@@ -783,6 +784,7 @@ export async function getServerSideProps() {
   const categoryFooter = baseRes.data.footer;
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
+
 
   return { props: { brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 } ;

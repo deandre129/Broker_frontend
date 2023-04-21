@@ -79,7 +79,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
             },
           ]}
         />
-        <MDTypography variant="h2">
+        <MDTypography variant="h1">
           {category.title}
         </MDTypography>
         {category.teaser ? (

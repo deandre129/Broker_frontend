@@ -1,5 +1,5 @@
 const config = {
-    siteUrl: 'https://broker-bewertungen.de',
+    siteUrl: process.env.SITE_URL,
     generateRobotsTxt: true, // (Optional parameter for creating robots.txt file)
     // Other available options..
   }

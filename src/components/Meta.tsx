@@ -32,7 +32,7 @@ function Meta({
         name="google-site-verification"
         content="7VJfY7OIcOlKQG6IpURj9rYJhVsDv6v3D1gTdQSChpw"
       />
-      {/* {Boolean(noIndex) && (
+      {Boolean(noIndex) && (
         <meta name="robots" content="noindex" />
       )}
       {Boolean(noIndex) && (
@@ -40,9 +40,7 @@ function Meta({
       )}
       {!noIndex && (
         <meta name="robots" content="index,follow" />
-      )} */}
-      <meta name="robots" content="noindex" />
-      <meta name="googlebot" content="noindex" />
+      )}
       <link
         rel="canonical"
         href={`${config.frontendUrl.protocol}://${config.frontendUrl.host}${router.asPath}`}
