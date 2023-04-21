@@ -3,8 +3,9 @@ import config from '@/config';
 
 const Sitemap = ({ testimonials, navigation, broker, forexSchool, forexStrategy, blog, }) => {
     const site_url = config.frontendUrl.protocol+"://"+config.frontendUrl.host;
-    
-    console.log(navigation[4]);
+
+
+    console.log(testimonials)
 
     const homeUrl = 
         `<url>
@@ -136,6 +137,7 @@ export async function getServerSideProps() {
     const navigation = baseRes.data.navigation;
     const blog  = blogRes.data;
 
+    
         
     return { props: { testimonials, broker, forexSchool, forexStrategy, navigation, blog } };
 } ;

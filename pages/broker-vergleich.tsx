@@ -47,6 +47,8 @@ const Layout = dynamic(() => import('@/components/Layout'));
 const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
   const router = useRouter();
 
+  console.log(allBroker);
+
   const [sorter, setSorter] =useState({
     field: 'name',
     order: 'asc',
@@ -64,20 +66,6 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
       pathname: router.pathname,
       query: { field: field, orderBy: order}
     })
-  };
-
-  const [ page, setPage] = useState(1);
-  const [ brokers, setBrokers ] = useState(allBroker.rows.slice(1, page*10));
-  const [ hasMore, setHasMore ] = useState(true);
-
-  console.log(allBroker.rows.slice((page - 1) * 10, page*10));
-
-  const getMoreBroker = () => {
-    setPage(page+1);
-    if((page+1)*10 > allBroker.count){
-      setHasMore(false);
-    }
-    setBrokers(allBroker.rows.slice(1, (page + 1) * 10 ))
   };
 
   return (
@@ -209,85 +197,78 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
                         </DataTableBodyCell>
                       </TableRow>
                     )}
-                    <InfiniteScroll
-                      dataLength = {page*20}
-                      next={getMoreBroker}
-                      hasMore={hasMore}
-                      loader={<Spinner />}
-                    >
-                    {brokers.map((row, index) => (
-                        <TableRow key={row.id}>
-                          <DataTableBodyCell width="auto" px={1}>
-                            <MaterialLink
-                              href={row.meta?.homepage}
-                              target="_blank"
-                              underline="hover"
-                            >
-                              <CardMedia
-                                component={"img"}
-                                image={
-                                  row.broker_image_broker_logo[0]
-                                    ?.downloadUrl
-                                }
-                                alt={row.name}
-                                sx={{
-                                  margin: 0,
-                                  borderRadius: 0,
-                                  width: 115,
-                                  height: 45,
-                                }}
-                              />
-                            </MaterialLink>
-                          </DataTableBodyCell>
-                          <DataTableBodyCell width="auto" px={1}>
-                            {row.meta?.minimum_deposit}
-                          </DataTableBodyCell>
-                          <DataTableBodyCell width="auto" px={1}>
-                            {row.rating?.overall_reviews}
-                          </DataTableBodyCell>
-                          <DataTableBodyCell width="auto" px={1}>
-                            <RatingListItem
-                              precision={0.1}
-                              value={
-                                row.rating?.overall_rating ?? 0
+                    {allBroker.rows.map((row) => (
+                      <TableRow key={row.id}>
+                        <DataTableBodyCell width="auto" px={1}>
+                          <MaterialLink
+                            href={row.meta?.homepage}
+                            target="_blank"
+                            underline="hover"
+                          >
+                            <CardMedia
+                              component={"img"}
+                              image={
+                                row.broker_image_broker_logo[0]
+                                  ?.downloadUrl
                               }
-                              emptyIcon={
-                                <Image
-                                  src="/images/star-grey.png"
-                                  width='18'
-                                  height="16"
-                                  alt="star-grey"
-                                />
-                              }
-                              icon={
-                                <Image
-                                  src="/images/star-fill.png"
-                                  width='18'
-                                  height="16"
-                                  alt="star-fill"
-                                />
-                              }
+                              alt={row.name}
+                              sx={{
+                                margin: 0,
+                                borderRadius: 0,
+                                width: 115,
+                                height: 45,
+                              }}
                             />
-                          </DataTableBodyCell>
-                          <DataTableBodyCell width="auto" px={1}>
-                            {(row.regulatory_authorities || [])
-                              .map((v) => v.abbreviation)
-                              .join(', ')}
-                          </DataTableBodyCell>
-                          <DataTableBodyCell width="auto" px={1}>
-                            <MaterialLink
-                              component={Link}
-                              href={`/erfahrungsberichte/${row.name_normalized}`}
-                              underline="hover"
-                            >
-                              {`${row.name
-                                .replace(/\([\w\d\s]+\)/g, '')
-                                .trim()} Erfahrungen`}
-                            </MaterialLink>
-                          </DataTableBodyCell>
-                        </TableRow>
-                      ))}
-                    </InfiniteScroll>
+                          </MaterialLink>
+                        </DataTableBodyCell>
+                        <DataTableBodyCell width="auto" px={1}>
+                          {row.meta?.minimum_deposit}
+                        </DataTableBodyCell>
+                        <DataTableBodyCell width="auto" px={1}>
+                          {row.rating?.overall_reviews}
+                        </DataTableBodyCell>
+                        <DataTableBodyCell width="auto" px={1}>
+                          <RatingListItem
+                            precision={0.1}
+                            value={
+                              row.rating?.overall_rating ?? 0
+                            }
+                            emptyIcon={
+                              <Image
+                                src="/images/star-grey.png"
+                                width='18'
+                                height="16"
+                                alt="star-grey"
+                              />
+                            }
+                            icon={
+                              <Image
+                                src="/images/star-fill.png"
+                                width='18'
+                                height="16"
+                                alt="star-fill"
+                              />
+                            }
+                          />
+                        </DataTableBodyCell>
+                        <DataTableBodyCell width="auto" px={1}>
+                          {(row.regulatory_authorities || [])
+                            .map((v) => v.abbreviation)
+                            .join(', ')}
+                        </DataTableBodyCell>
+                        <DataTableBodyCell width="auto" px={1}>
+                          <MaterialLink
+                            component={Link}
+                            href={`/erfahrungsberichte/${row.name_normalized}`}
+                            underline="hover"
+                          >
+                            {`${row.name
+                              .replace(/\([\w\d\s]+\)/g, '')
+                              .trim()} Erfahrungen`}
+                          </MaterialLink>
+                        </DataTableBodyCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </TableContainer>

@@ -13,8 +13,7 @@
     "build:production": "cross-env REACT_APP_ENVIRONMENT=production next build",
     "start:staging": "cross-env REACT_APP_ENVIRONMENT=staging next start",
     "build:staging": "cross-env REACT_APP_ENVIRONMENT=build next start",
-    "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.7",
