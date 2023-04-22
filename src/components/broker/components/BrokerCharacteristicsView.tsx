@@ -27,7 +27,6 @@ function BrokerCharacteristicsView({ record }) {
               <MDTypography variant="h5" mt={2}>
                 {i18n.entities.broker.text.introduction}
               </MDTypography>
-              <LazyLoad>
                 <MDBox position="relative" pb="56.25%">
                   <iframe
                     src={`https://www.youtube.com/embed/${record.video?.youtube_hash}`}
@@ -42,7 +41,6 @@ function BrokerCharacteristicsView({ record }) {
                     }}
                   />
                 </MDBox>
-              </LazyLoad>
             </Grid>
           )}
         <BrokerSection

@@ -349,7 +349,6 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                   </MDTypography>
                 )}
               </MDBox>
-              <LazyLoad>
                 { rows && (
                   <MDBox mt={2}>
                     <Pagination
@@ -361,8 +360,6 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                     />
                   </MDBox>
                 )}
-              </LazyLoad>
-              <LazyLoad>
                 <MDBox color="text" py={4}>
                   <MDTypography variant="body1" fontWeight="bold">
                     {i18n.common.toComment}
@@ -519,7 +516,6 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                     }
                   `}</style>
                 </MDButton>
-              </LazyLoad>
             </PageContent>
             <LazyLoad>
               <AuthorView author={author} />

@@ -246,13 +246,11 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
             </Table>
           </TableContainer>
         </MDBox> 
-        <LazyLoad>
           {category.description ? (
             <HtmlView value={category.description} />
           ) : (
             <DefaultCategoryDescription />
           )}
-        </LazyLoad>
       </PageContent>
       <AuthorView author={author} />
     </MDBox>

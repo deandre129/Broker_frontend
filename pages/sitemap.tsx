@@ -1,11 +1,11 @@
 import axios from 'axios';
 import config from '@/config';
+import authAxios from '@/modules/shared/axios/authAxios';
+import { AuthToken } from '@/modules/auth/authToken';
+import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 
 const Sitemap = ({ testimonials, navigation, broker, forexSchool, forexStrategy, blog, }) => {
     const site_url = config.frontendUrl.protocol+"://"+config.frontendUrl.host;
-
-
-    console.log(testimonials)
 
     const homeUrl = 
         `<url>
@@ -88,8 +88,8 @@ const Sitemap = ({ testimonials, navigation, broker, forexSchool, forexStrategy,
         `;
       }).join('\r\n');
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>\r\n
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\r\n
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${homeUrl}
         ${brokerCompareUrl}
         ${blogUrl}
@@ -124,11 +124,11 @@ export async function getServerSideProps() {
     const [
         baseRes,
         testimonialsRes,
-        blogRes,
+        blogRes
     ] = await Promise.all([
         axios.get(`${config.backendUrl}/base`),
         axios.get(`${config.backendUrl}/broker`, {params}),
-        axios.get(`${config.backendUrl}/blog`, { params: { limit: 10, offset: 0 } })
+        axios.get(`${config.backendUrl}/blog`, { params: { limit: 10, offset: 0 } }),
     ])
     const testimonials = testimonialsRes.data;
     const broker = baseRes.data.categorySidebar;
@@ -137,8 +137,6 @@ export async function getServerSideProps() {
     const navigation = baseRes.data.navigation;
     const blog  = blogRes.data;
 
-    
-        
     return { props: { testimonials, broker, forexSchool, forexStrategy, navigation, blog } };
 } ;
   

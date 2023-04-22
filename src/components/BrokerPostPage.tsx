@@ -382,7 +382,6 @@ const BrokerPostPage = (props) => {
         </MDTypography>
         <TopBrokersView topBrokers={ props.topBrokers}/>
       </MDBox>
-      <LazyLoad>
         <MDBox
           pt={2}
           borderTop={`1px dashed ${colors.inputBorderColor}`}
@@ -587,8 +586,7 @@ const BrokerPostPage = (props) => {
                   {message.content}
               </Alert>
           </Snackbar>
-        </MDBox> 
-      </LazyLoad>
+        </MDBox>
     </>
   );
 };

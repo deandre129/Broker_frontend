@@ -142,6 +142,8 @@ export async function getServerSideProps(context) {
       authAxios.post(`${config.backendUrl}/broker-article`,{url})
   ])
 
+  console.log(url);
+
   if(categoryRes.data){
     page = categoryRes.data;
     pageType = "category";

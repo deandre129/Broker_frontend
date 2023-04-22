@@ -273,9 +273,7 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
                 </Table>
               </TableContainer>
             </MDBox> 
-            <LazyLoad>
               <DefaultCategoryDescription />
-            </LazyLoad>
           </PageContent>
         )}
         <LazyLoad>

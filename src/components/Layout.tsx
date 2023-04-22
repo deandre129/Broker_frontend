@@ -71,19 +71,11 @@ function Layout({
                 <Advisors record={record} />
               )}
               <Category category = { category }/>
-                <FeaturedBrokers featuredBrokers = {featuredBrokers}/>
-              <LazyLoad>
-                <MostRead mostRead = {mostRead}/>
-              </LazyLoad>
-              <LazyLoad>
-                <ForexSchool forexSchool = { forexSchool }/>
-              </LazyLoad>
-              <LazyLoad>
-                <ForexStrategy forexStrategy = {forexStrategy}/>
-              </LazyLoad>
-              <LazyLoad>
-                <Promotion promotion = {promotion}/>
-              </LazyLoad>
+              <FeaturedBrokers featuredBrokers = {featuredBrokers}/>
+              <MostRead mostRead = {mostRead}/>
+              <ForexSchool forexSchool = { forexSchool }/>
+              <ForexStrategy forexStrategy = {forexStrategy}/>
+              <Promotion promotion = {promotion}/>
             </Grid>
           </Grid>
         </Grid>

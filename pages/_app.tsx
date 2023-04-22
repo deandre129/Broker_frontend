@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import { useStore } from '@/modules/store';
 import GlobalDndContext from '@/components/dnd-context';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // Material Dashboard 2 PRO React TS themes
 import theme from '@/mui/assets/theme';
@@ -17,11 +18,16 @@ import ScrollTop from '@/components/ScrollTop';
 import 'typeface-roboto';
 import '@/assets/scrollbar.css';
 
+import {initPiwik} from '@/utils/piwik';
+
 function MyApp({Component, pageProps}) {
   const store = useStore({});
+  const router = useRouter();
 
   useEffect(() => {
+    initPiwik();
     document.documentElement.className = `${'info'}-scrollbar`;
+    
   },[]);
 
   return (

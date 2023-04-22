@@ -199,7 +199,6 @@ const BrokerViewPage = ({
           </PageContent>
           {isBrowser && (
             <>
-              <LazyLoad>
                 <PageContent pt={4}>
                   <BrokerPostPage
                     brokerId={record.id}
@@ -209,8 +208,6 @@ const BrokerViewPage = ({
                     slug={slug}
                   />
                 </PageContent>
-              </LazyLoad>
-              <LazyLoad>
               {Boolean(record.creteria) && Boolean(record.creteria.body) && (
                 <PageContent>
                   <MDBox fontSize="1rem">
@@ -218,7 +215,6 @@ const BrokerViewPage = ({
                   </MDBox>
                 </PageContent>
               )}
-              </LazyLoad>
               <LazyLoad>
                 <AuthorView author={author} />
                 <PageContent

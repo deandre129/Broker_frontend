@@ -223,42 +223,30 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                 recordA={recordA}
                 recordB={recordB}
               />
-              <LazyLoad>
-                <CompareRegulation
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-              </LazyLoad>
-              <LazyLoad>
-                <CompareProfile
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-              </LazyLoad>
-              <LazyLoad>
-                <CompareTradable
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-              </LazyLoad>
-              <LazyLoad>
-                <CompareSpreadsAndFees
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-              </LazyLoad>
-              <LazyLoad>
-                <CompareTradingPlatforms
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-              </LazyLoad>
-              <LazyLoad>
-                <CompareService
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-              </LazyLoad>
+              <CompareRegulation
+                recordA={recordA}
+                recordB={recordB}
+              />
+              <CompareProfile
+                recordA={recordA}
+                recordB={recordB}
+              />
+              <CompareTradable
+                recordA={recordA}
+                recordB={recordB}
+              />
+              <CompareSpreadsAndFees
+                recordA={recordA}
+                recordB={recordB}
+              />
+              <CompareTradingPlatforms
+                recordA={recordA}
+                recordB={recordB}
+              />
+              <CompareService
+                recordA={recordA}
+                recordB={recordB}
+              />
             </>
           )}
         </MDBox>

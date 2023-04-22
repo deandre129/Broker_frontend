@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import config from '@/config';
 import PropTypes from 'prop-types';
 
+
+
 function Meta({
   title,
   keywords,
@@ -12,6 +14,7 @@ function Meta({
   author,
 }) {
   const router = useRouter();
+
   return (
     <Head>
       <title>
@@ -54,6 +57,7 @@ function Meta({
           url: `${config.frontendUrl.protocol}://${config.frontendUrl.host}`,
         })}
       </script>
+
       {!noArticle && Boolean(author) && (
         <script type="application/ld+json">
           {JSON.stringify({
