@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import i18n from '@/i18n';
 import { DEFAULT_MOMENT_FORMAT_DATE_ONLY } from '@/config/common';
 import { useEffect, useRef, useState } from 'react';

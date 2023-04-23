@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import actions from '@/modules/mui/muiActions';
 import AuthCurrentTenant from '../auth/authCurrentTenant';
 

@@ -53,7 +53,7 @@ function Breadcrumb({ items, navigation }) {
       mb={2}
     >
       <script
-        type="application/ld+json"
+        type='application/ld+json'
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',

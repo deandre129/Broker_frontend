@@ -19,6 +19,8 @@ import 'typeface-roboto';
 import '@/assets/scrollbar.css';
 
 import {initPiwik} from '@/utils/piwik';
+//import { trackMatomo } from '@/utils/matomo';
+import MatomoImageTracker from '@/utils/MatomoImageTracker';
 
 function MyApp({Component, pageProps}) {
   const store = useStore({});
@@ -26,6 +28,7 @@ function MyApp({Component, pageProps}) {
 
   useEffect(() => {
     initPiwik();
+   // trackMatomo();
     document.documentElement.className = `${'info'}-scrollbar`;
     
   },[]);
@@ -37,6 +40,7 @@ function MyApp({Component, pageProps}) {
           <CssBaseline />
           <Component {...pageProps} />
           <ScrollTop />
+          <MatomoImageTracker/>
         </ThemeProvider>
       </Provider>
     </GlobalDndContext>

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 const backendUrl = `http://localhost:8080/api`;
 
 // SwaggerUI Documentation URL

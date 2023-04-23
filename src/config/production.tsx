@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 // Place the URL here with the /api suffix.
 // Ex.:`https://domain.com/api`;
 const backendUrl = `/api`;

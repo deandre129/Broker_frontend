@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 // import BrokerArticlePage from '@/components/BrokerArticlePage';
@@ -24,6 +25,8 @@ const GeneralPage = ({ brokerComparable, slug, author, allBroker, pageType, page
   if(pageType == 'error'){
     router.push('/404');
   }
+
+  const path = router.asPath;
 
   useEffect(() => {
     const url = "/"+slug;

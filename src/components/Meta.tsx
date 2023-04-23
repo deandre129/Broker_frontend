@@ -48,19 +48,21 @@ function Meta({
         rel="canonical"
         href={`${config.frontendUrl.protocol}://${config.frontendUrl.host}${router.asPath}`}
       />
-      <script type="application/ld+json">
-        {JSON.stringify({
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML= {{
+          __html: JSON.stringify({
           '@context': 'http://schema.org',
           '@type': 'WebSite',
           name: 'Broker Bewertungen',
           alternateName: 'Broker-Bewertungen',
           url: `${config.frontendUrl.protocol}://${config.frontendUrl.host}`,
-        })}
-      </script>
+        })}}
+      />
 
       {!noArticle && Boolean(author) && (
-        <script type="application/ld+json">
-          {JSON.stringify({
+        <script type="application/ld+json"
+        dangerouslySetInnerHTML= {{
+          __html: JSON.stringify({
             '@context': 'http://schema.org',
             '@type': 'Article',
             headline: title || '',
@@ -71,8 +73,8 @@ function Meta({
                 url: author.link,
               },
             ],
-          })}
-        </script>
+          })}}
+        />
       )}
     </Head>
   );

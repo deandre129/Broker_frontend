@@ -24,7 +24,7 @@ function BrokerCharacteristicsView({ record }) {
         {record.video?.youtube_hash &&
           record.video?.youtube_hash.trim() !== '' && (
             <Grid xs={12} item>
-              <MDTypography variant="h5" mt={2}>
+              <MDTypography variant="h4" mt={2}>
                 {i18n.entities.broker.text.introduction}
               </MDTypography>
                 <MDBox position="relative" pb="56.25%">
