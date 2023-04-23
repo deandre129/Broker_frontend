@@ -19,7 +19,7 @@ const CategoryPage = dynamic(() => import('@/components/CategoryPage'), { loadin
 const Layout = dynamic(() => import('@/components/Layout'));
 const NormalPage = dynamic(() => import('@/components/NormalPage'), { loading: () => <Spinner />});
 
-const GeneralPage = ({ brokerComparable, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
+const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
   if(pageType == 'error'){
@@ -107,7 +107,7 @@ const GeneralPage = ({ brokerComparable, slug, author, allBroker, pageType, page
           <CategoryPage category={page} topBroker={topBroker} navigation = {navigation} allBroker = {allBroker} author={author}/>
         )}
         {pageType == "page" && (
-          <NormalPage page={page} topBroker={topBroker} navigation = {navigation} author={author}/>
+          <NormalPage page={page} topBroker={topBroker} navigation = {navigation} author={author} downloadPdf={downloadPdf}/>
         )}
         { pageType == "article" && (
             <BrokerArticlePage
@@ -121,7 +121,6 @@ const GeneralPage = ({ brokerComparable, slug, author, allBroker, pageType, page
     </>
   );
 };
-
 
 
 export async function getServerSideProps(context) {
@@ -145,8 +144,6 @@ export async function getServerSideProps(context) {
       authAxios.post(`${config.backendUrl}/broker-article`,{url})
   ])
 
-  console.log(url);
-
   if(categoryRes.data){
     page = categoryRes.data;
     pageType = "category";
@@ -159,6 +156,16 @@ export async function getServerSideProps(context) {
     page = articleRes.data;
     pageType = "article";
   }
+
+  let downloadUrl;
+  if(page?.navigation) {
+    downloadUrl = page.navigation?.link + '.pdf';
+  } else if(page.link !== '') {
+    downloadUrl = page.link  + '.pdf';
+  }
+
+  console.log(downloadUrl);
+  
   
   const sortField = query.field ? query.field : 'name';
   const sortOrder = query.orderBy ? query.orderBy : "asc";
@@ -178,9 +185,11 @@ export async function getServerSideProps(context) {
   const [
     baseRes,
     allBrokerRes,
+    downloadPdfRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/base`),
     axios.get(`${config.backendUrl}/broker`, {params}),
+    authAxios.post(`/general-page`, {url:downloadUrl})
   ])
   const topBroker = baseRes.data.brokerTop;
   const category = baseRes.data.categorySidebar;
@@ -194,8 +203,9 @@ export async function getServerSideProps(context) {
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
   const allBroker = allBrokerRes.data;
+  const downloadPdf = downloadPdfRes.data;
 
-  return { props: { brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { props: { downloadPdf, brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };
 
 export default GeneralPage;

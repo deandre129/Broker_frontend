@@ -19,13 +19,15 @@ const PageContent = dynamic(() => import('@/components/shared/view/PageContent')
 const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
 const Breadcrumb = dynamic(() => import('./Breadcrumb'));
 
-function NormalPage({ page, topBroker, navigation, author }) {
+function NormalPage({ downloadPdf, page, topBroker, navigation, author }) {
   const colors = lColors;
+
+  console.log(downloadPdf);
 
   const handleDownloadPagePDF = () => {
     if (page?.navigation || page.link !== '') {
-      if(page.downloadPdf){
-        window.open(page.downloadUrl);
+      if(downloadPdf.downloadPdf){
+        window.open(downloadPdf.downloadUrl);
       }
     }
   };
