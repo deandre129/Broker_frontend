@@ -518,24 +518,22 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                   `}</style>
                 </MDButton>
             </PageContent>
-            <LazyLoad>
-              <AuthorView author={author} />
-              <PageContent
-                display={{
-                  xs: 'none',
-                  lg: 'block',
-                }}
+            <AuthorView author={author} />
+            <PageContent
+              display={{
+                xs: 'none',
+                lg: 'block',
+              }}
+            >
+              <MDTypography
+                display="block"
+                variant="h3"
+                mb={2}
               >
-                <MDTypography
-                  display="block"
-                  variant="h3"
-                  mb={2}
-                >
-                  {i18n.entities.home.top_brokers}
-                </MDTypography>
-                <TopBrokersView topBrokers={topBroker}/>
-              </PageContent>
-            </LazyLoad>
+                {i18n.entities.home.top_brokers}
+              </MDTypography>
+              <TopBrokersView topBrokers={topBroker}/>
+            </PageContent>
           </MDBox>
         )}
         <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>

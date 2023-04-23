@@ -276,9 +276,7 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
               <DefaultCategoryDescription />
           </PageContent>
         )}
-        <LazyLoad>
-          <AuthorView author={author} />
-        </LazyLoad>
+        <AuthorView author={author} />
       </MDBox>
     </Layout>
   );

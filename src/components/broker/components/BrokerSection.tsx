@@ -21,9 +21,9 @@ function BrokerSection({ children, name, tooltip }) {
         {Boolean(tooltip) && (
           <Tooltip
             title={
-              typeof tooltip === 'string'
-                ? i18n.entities.broker.comparison[tooltip]
-                : tooltip
+              typeof tooltip === 'string' && tooltip.indexOf('tooltip.') >= 0
+              ? i18n.entities.broker.comparison.tooltip[tooltip.slice(tooltip.indexOf('.')+1,tooltip.length)]
+              : tooltip
             }
           >
             <Help color="secondary">help</Help>

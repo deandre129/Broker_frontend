@@ -107,20 +107,18 @@ function NormalPage({ page, topBroker, navigation, author }) {
           </MDTypography>
         )}
       </PageContent>
-      <LazyLoad>
-        <AuthorView author={author} />
-        <PageContent
-          display={{
-            xs: 'none',
-            lg: 'block',
-          }}
-        >
-          <MDTypography display="block" variant="h3" mb={2}>
-            {i18n.entities.home.top_brokers}
-          </MDTypography>
-          <TopBrokersView topBrokers={topBroker}/>
-        </PageContent>
-      </LazyLoad>
+      <AuthorView author={author} />
+      <PageContent
+        display={{
+          xs: 'none',
+          lg: 'block',
+        }}
+      >
+        <MDTypography display="block" variant="h3" mb={2}>
+          {i18n.entities.home.top_brokers}
+        </MDTypography>
+        <TopBrokersView topBrokers={topBroker}/>
+      </PageContent>
     </MDBox>
   );
 }

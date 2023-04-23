@@ -17,7 +17,7 @@ function SingleCheckbox({ record, fields }) {
             <BrokerSection
               tooltip={
                 tooltip === tooltipKey ? null : (
-                  <>{tooltip}</>
+                  tooltip
                 )
               }
             >
