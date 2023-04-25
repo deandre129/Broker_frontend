@@ -4,8 +4,10 @@ import authAxios from '@/modules/shared/axios/authAxios';
 import { AuthToken } from '@/modules/auth/authToken';
 import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 
-const Sitemap = ({ testimonials, navigation, broker, forexSchool, forexStrategy, blog, }) => {
+function generateSiteMap(testimonials, navigation, broker, forexSchool, forexStrategy, blog) {
     const site_url = config.frontendUrl.protocol+"://"+config.frontendUrl.host;
+
+    console.log(blog);
 
     const homeUrl = 
         `<url>
@@ -105,7 +107,11 @@ const Sitemap = ({ testimonials, navigation, broker, forexSchool, forexStrategy,
     return xml;
 }
 
-export async function getServerSideProps() {
+const Sitemap = () => {
+    
+}
+
+export async function getServerSideProps({res}) {
     const sortField = 'name';
     const sortOrder = "asc";
 
@@ -128,7 +134,7 @@ export async function getServerSideProps() {
     ] = await Promise.all([
         axios.get(`${config.backendUrl}/base`),
         axios.get(`${config.backendUrl}/broker`, {params}),
-        axios.get(`${config.backendUrl}/blog`, { params: { limit: 10, offset: 0 } }),
+        axios.get(`${config.backendUrl}/blog`, { params: { limit: null, offset: 0 } }),
     ])
     const testimonials = testimonialsRes.data;
     const broker = baseRes.data.categorySidebar;
@@ -137,7 +143,13 @@ export async function getServerSideProps() {
     const navigation = baseRes.data.navigation;
     const blog  = blogRes.data;
 
-    return { props: { testimonials, broker, forexSchool, forexStrategy, navigation, blog } };
+    const sitemap = generateSiteMap(testimonials, navigation, broker, forexSchool, forexStrategy, blog);
+
+    res.setHeader('Content-Type', 'text-xml');
+    res.write(sitemap);
+    res.end();
+
+    return { props: { } };
 } ;
   
 export default Sitemap;
