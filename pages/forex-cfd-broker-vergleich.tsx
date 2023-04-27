@@ -46,6 +46,8 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
     brokerList[i] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
   }
 
+  console.log(brokerList);
+
   const [valueA, setValueA] = useState({
     id: recordA.name_normalized,
     name: recordA.name
@@ -54,6 +56,8 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
     id: recordB.name_normalized,
     name: recordB.name
   });
+
+  console.log(valueB)
 
   const onSubmit = (values) => {
     router.push(
@@ -153,7 +157,8 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                   disablePortal
                   id="brokerA"
                   options={brokerList}
-                  value={valueA.name}
+                  defaultValue={valueA}
+                  getOptionLabel={(option) => option.name}
                   onChange={(event: any, newValue: any) => {
                     if(newValue) {
                       setValueA({ id:newValue.id , name: newValue.name});
@@ -175,10 +180,11 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
               }
               childrenB={
                 <Autocomplete
-                  disablePortal
+                 // disablePortal
                   id="brokerB"
                   options={brokerList}
-                  value={valueB.name}
+                  defaultValue={valueB}
+                  getOptionLabel={(option) => option.name}
                   onChange={(event: any, newValue: any) => {
                     if(newValue) {
                       setValueB({ id:newValue.id , name: newValue.name});
@@ -187,6 +193,9 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      inputProps={{
+                        ...params.inputProps
+                      }}
                       variant="standard"
                     />
                   )}
@@ -305,6 +314,8 @@ export async function getServerSideProps(context) {
   ])
   const recordA = recordARes.data;
   const recordB = recordBRes.data;
+
+
 
   return { props: { brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 };

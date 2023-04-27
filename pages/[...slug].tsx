@@ -26,6 +26,8 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
     router.push('/404');
   }
 
+  console.log(page);
+
   const path = router.asPath;
 
   useEffect(() => {
@@ -160,12 +162,11 @@ export async function getServerSideProps(context) {
   let downloadUrl;
   if(page?.navigation) {
     downloadUrl = page.navigation?.link + '.pdf';
-  } else if(page.link !== '') {
+  } else if(page && page.link !== '') {
     downloadUrl = page.link  + '.pdf';
+  } else {
+    downloadUrl = "";
   }
-
-  console.log(downloadUrl);
-  
   
   const sortField = query.field ? query.field : 'name';
   const sortOrder = query.orderBy ? query.orderBy : "asc";

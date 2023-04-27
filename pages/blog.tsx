@@ -15,6 +15,7 @@ import axios from 'axios';
 import config from '@/config';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
+import authAxios from '@/modules/shared/axios/authAxios';
 
 const Layout = dynamic(() => import('@/components/Layout'));
 const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), { loading: () => <Spinner />});
@@ -60,8 +61,9 @@ const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead,
       limit: 10,
       offset: 0,
     }
+
     const blogRes = axios.get(
-      `${config.backendUrl}/blog`, { params }
+      `${config.backendUrl}/blog?limit=10&offset=0`, 
     ).then(res => {
       const blogData = res.data;
       setRows(blogData.rows);
@@ -119,7 +121,7 @@ const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead,
                   alignItems="start"
                   gap={5}
                 >
-                  {record.blog_image[0].downloadUrl && (
+                  {record.blog_image[0] && record.blog_image[0].downloadUrl && (
                     <ImageView
                       value={record.blog_image}
                       sx={{
