@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
+import dynamic from 'next/dynamic';
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 // @mui material components

@@ -11,7 +11,9 @@ export const initPiwik = () => {
         _paq.push(['setTrackerUrl', u+'matomo.php']);
         _paq.push(['setSiteId', '1']);
         const d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src='//cdn.innocraft.cloud/broker-bewertungen.innocraft.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+        g.type = "text/javascript";
+        g.defer = true;
+        g.async = true; g.src='//cdn.innocraft.cloud/broker-bewertungen.innocraft.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
       })();
     }
 }

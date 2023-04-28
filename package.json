@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "cross-env REACT_APP_ENVIRONMENT=localhost next dev",
     "build": "next build",
+    "build-stats": "cross-env ANALYZE=true npm run build",
     "export": "next export",
     "start": "npm run start:localhost",
     "start:localhost": "cross-env REACT_APP_ENVIRONMENT=localhost next start -p 8000",
@@ -16,6 +17,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.1.0",
     "@datapunt/matomo-tracker-react": "^0.5.1",
     "@emotion/cache": "^11.10.7",
     "@emotion/react": "^11.10.6",
@@ -34,8 +36,10 @@
     "@types/react-redux": "^7.1.25",
     "@types/url-parse": "^1.4.8",
     "axios": "^1.3.5",
+    "babel-loader": "^9.1.2",
     "chroma-js": "^2.4.2",
     "ckeditor4-react": "^4.2.0",
+    "compression": "^1.7.4",
     "connected-next-router": "^4.2.0",
     "connected-react-router": "^6.9.3",
     "cross-env": "^7.0.3",
@@ -46,10 +50,12 @@
     "jquery": "^3.6.4",
     "moment": "^2.29.4",
     "next": "13.3.0",
+    "next-optimized-images": "^2.6.2",
     "next-seo": "^6.0.0",
     "next-sitemap": "^4.0.7",
     "piwik-react-router": "^0.12.1",
     "piwik-tracker": "^1.1.2",
+    "postcss-import": "^15.1.0",
     "prop-types": "^15.8.1",
     "qs": "^6.11.1",
     "react": "18.2.0",
@@ -72,10 +78,14 @@
     "stylis-plugin-rtl": "^2.1.1",
     "typeface-roboto": "^1.1.13",
     "typescript": "5.0.4",
-    "url-parse": "^1.5.10"
+    "url-parse": "^1.5.10",
+    "webpack": "^5.81.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.3.1",
     "@types/node": "^18.15.13",
-    "babel-plugin-module-resolver": "^5.0.0"
+    "babel-plugin-module-resolver": "^5.0.0",
+    "cssnano": "^6.0.0",
+    "postcss-cli": "^10.1.0"
   }
 }

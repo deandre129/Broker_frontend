@@ -15,6 +15,8 @@ function ImageView({ value, sx, alt: originalAlt }) {
       sx={{
         margin: 0,
         borderRadius: 0,
+        width: '100%',
+        height: '100%',
         maxWidth: '100%',
         ...sx,
       }}
