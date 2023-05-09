@@ -2,7 +2,7 @@
 import { HtmlViewWrapper } from '@/components/shared/view/HtmlView';
 import i18n from '@/i18n';
 import { CardMedia, TableContainer } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic';
 // import Breadcrumb from '@/components/Breadcrumb';
@@ -28,8 +28,6 @@ import MaterialLink from '@mui/material/Link';
 import Link from 'next/link';
 import Image from 'next/image';
 import Spinner from '@/components/shared/Spinner';
-import LazyLoad from 'react-lazyload';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
@@ -46,8 +44,6 @@ const Layout = dynamic(() => import('@/components/Layout'));
 
 const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
   const router = useRouter();
-
-  console.log(allBroker);
 
   const [sorter, setSorter] =useState({
     field: 'name',

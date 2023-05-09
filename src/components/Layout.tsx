@@ -46,6 +46,7 @@ function Layout({
   noArticle = false,
   
 }) {
+  console.log("Meta Title: ", title);
   return (
     <PageLayout fixedNavBar={false} navigation={navigation} categoryFooter={ categoryFooter } topBroker={topBroker}>
       <Meta
@@ -73,9 +74,9 @@ function Layout({
               <Category category = { category }/>
               <FeaturedBrokers featuredBrokers = {featuredBrokers}/>
               <MostRead mostRead = {mostRead}/>
+              <Promotion promotion = {promotion}/>
               <ForexSchool forexSchool = { forexSchool }/>
               <ForexStrategy forexStrategy = {forexStrategy}/>
-              <Promotion promotion = {promotion}/>
             </Grid>
           </Grid>
         </Grid>

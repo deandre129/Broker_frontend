@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/MatomoImageTracker.js", "src/utils/piwik.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/MatomoImageTracker.js", "src/utils/piwik.js", "pages/_app.js", "src/components/Meta.js"],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 import { Alert, Grid, Snackbar, TextField } from '@mui/material';
 import i18n from '@/i18n';
 import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 // import MDButton from '@/mui/components/MDButton';
 // import MDTypography from '@/mui/components/MDTypography';
@@ -16,6 +16,7 @@ import { CKEditor } from 'ckeditor4-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
+import {useRouter} from 'next/router';
 
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
 const MDButton = dynamic(() => import('@/mui/components/MDButton'));
@@ -24,6 +25,7 @@ const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const SaveIcon = dynamic(() => import('@mui/icons-material/Save'));
 
 function Contact({ brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
+  const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({

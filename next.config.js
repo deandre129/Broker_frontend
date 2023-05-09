@@ -1,10 +1,6 @@
 const webpack = require('webpack');
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-    enabled: process.env.ANALYZE === "true",
-  });
-
-module.exports = withBundleAnalyzer({
+module.exports = {
     webpack(config) {
         config.plugins.push(
             new webpack.optimize.LimitChunkCountPlugin({
@@ -19,4 +15,4 @@ module.exports = withBundleAnalyzer({
 
         return config;
     },
-});
+};

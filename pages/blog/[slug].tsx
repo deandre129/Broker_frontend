@@ -27,6 +27,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
 import LazyLoad from 'react-lazyload'
+import { initPiwik } from '@/utils/piwik';
 
 const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), {loading: () => <Spinner />});
 const Layout = dynamic(() => import('@/components/Layout'));
@@ -45,6 +46,10 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
 
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
+  useEffect(() => {
+    initPiwik();
+  }, []);
 
   const pagination = {
     current: current ,

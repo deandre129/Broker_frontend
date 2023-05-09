@@ -1,9 +1,12 @@
 import Head from 'next/head';
+import {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import config from '@/config';
 import PropTypes from 'prop-types';
 
+import {initPiwik} from '@/utils/piwik';
 
+import MatomoImageTracker from '@/utils/MatomoImageTracker';
 
 function Meta({
   title,
@@ -14,6 +17,10 @@ function Meta({
   author,
 }) {
   const router = useRouter();
+
+  useEffect(() => {
+    // initPiwik();
+  }, [])
 
   return (
     <Head>
@@ -76,6 +83,25 @@ function Meta({
           })}}
         />
       )}
+
+      <script dangerouslySetInnerHTML={{ __html: `
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="https://broker-bewertungen.innocraft.cloud/";
+          _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '1']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.async=true; g.src='//cdn.innocraft.cloud/broker-bewertungen.innocraft.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+      ` }} />
+
+      <noscript 
+        dangerouslySetInnerHTML={{
+          __html: 
+          '<img referrerpolicy="no-referrer-when-downgrade" src="https://broker-bewertungen.innocraft.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" />' 
+      }} />
     </Head>
   );
 }

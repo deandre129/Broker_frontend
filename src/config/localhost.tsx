@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-const backendUrl = `http://localhost:8080/api`;
+const backendUrl = `https://broker-bewertungen.de/api`;
 
 // SwaggerUI Documentation URL
 // Leave black if documentation should be hidden
@@ -13,8 +13,8 @@ const reCaptchaV2SiteKey =
  * Frontend Url.
  */
 const frontendUrl = {
-  host: 'localhost:3000',
-  protocol: 'http',
+  host: 'broker-bewertungen.de',
+  protocol: 'https',
 };
 
 /**

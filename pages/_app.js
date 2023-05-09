@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import dynamic from 'next/dynamic';
 import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
 // @mui material components
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +10,7 @@ import { Provider } from 'react-redux'
 import { useStore } from '@/modules/store';
 import GlobalDndContext from '@/components/dnd-context';
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 
 // Material Dashboard 2 PRO React TS themes
 import theme from '@/mui/assets/theme';
@@ -28,10 +27,15 @@ function MyApp({Component, pageProps}) {
   const router = useRouter();
 
   useEffect(() => {
-    initPiwik();
+    router.events.on("routeChangeStart", url => {
+      if (window && window._paq) {
+        window._paq.push(["setCustomUrl", url]);
+        window._paq.push(["setDocumentTitle", document.title]);
+        window._paq.push(["trackPageView"]);
+      }
+    });
    // trackMatomo();
     document.documentElement.className = `${'info'}-scrollbar`;
-    
   },[]);
 
   return (

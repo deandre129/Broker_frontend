@@ -13,6 +13,7 @@ import config from '@/config';
 import authAxios from '@/modules/shared/axios/authAxios';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
+import { initPiwik } from '@/utils/piwik';
 
 const BrokerArticlePage = dynamic(() => import('@/components/BrokerArticlePage'), { loading: () => <Spinner />});
 const CategoryPage = dynamic(() => import('@/components/CategoryPage'), { loading: () => <Spinner />});
@@ -29,6 +30,10 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
   console.log(page);
 
   const path = router.asPath;
+  
+  useEffect(() => {
+    initPiwik();
+  }, []);
 
   useEffect(() => {
     const url = "/"+slug;
@@ -64,11 +69,11 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
   if (pageType=="category") {
     title = `${
       page.name
-    } Vergleich ${moment().year()} » 100% unabhängiger Test`;
+    } ${moment().year()} » 100% unabhängiger Test`;
       keywords = [page.name, 'Vergleich', 'Test'];
       description = `100% unabhängiger ${
         page.name
-      } Vergleich ✚✚ Über ${page.count ?? 0} ${
+      } ✚✚ Über ${page.count ?? 0} ${
         page.name
       } im Test mit Erfahrungsberichten von Tradern ➔ Jetzt lesen!`;
     }

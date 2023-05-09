@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import i18n from "@/i18n";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthorView from "@/components/shared/view/AuthorView";
 // import Breadcrumb from "@/components/Breadcrumb";
 // import BrokerCharacteristicsView from "@/components/broker/components/BrokerCharacteristicsView";
@@ -28,6 +28,7 @@ import config from "@/config";
 import dynamic from "next/dynamic";
 import Spinner from "@/components/shared/Spinner";
 import LazyLoad from 'react-lazyload'
+import { initPiwik } from '@/utils/piwik';
 
 const Layout = dynamic(() => import('@/components/Layout'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
@@ -67,6 +68,10 @@ const BrokerViewPage = ({
   let title = "";
   let keywords = ["erfahrungen", "bewertungen", "test"];
   let description = null;
+
+  useEffect(() => {
+    initPiwik();
+  }, []);
 
   if (record) {
     keywords.unshift(record.name);

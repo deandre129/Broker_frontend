@@ -24,6 +24,7 @@ import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
 // import Layout from '@/components/Layout';
 import LazyLoad from 'react-lazyload'
+import { initPiwik } from '@/utils/piwik';
 
 const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'), {loading: () => <Spinner />});
 const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'), {loading: () => <Spinner />});
@@ -42,6 +43,10 @@ const Layout = dynamic(() => import('@/components/Layout'));
 function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 
   const router = useRouter();
+
+  useEffect(() => {
+    initPiwik();
+  }, []);
 
   let brokerList = [] as Array<any>;
   for(var i = 0; allBroker.rows[i] ; i++) {

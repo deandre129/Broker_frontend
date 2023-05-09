@@ -74,7 +74,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
           navigation = {navigation}
           items={[
             {
-              name: `${category.name} Vergleich`,
+              name: `${category.name}`,
               route: category.link,
             },
           ]}

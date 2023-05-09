@@ -17,6 +17,8 @@ import axios from 'axios';
 import Spinner from '@/components/shared/Spinner';
 // import Image from 'next/image';
 import LazyLoad from 'react-lazyload';
+import { useEffect } from 'react';
+import {useRouter} from 'next/router';
 
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'), {});
@@ -42,6 +44,7 @@ function Index({
   categoryFooter,
   author
 }) {
+  const router = useRouter();
 
   return (
     <Layout
