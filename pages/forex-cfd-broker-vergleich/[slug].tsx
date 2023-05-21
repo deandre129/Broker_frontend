@@ -1,7 +1,7 @@
 import { Autocomplete, Box, Grid, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import i18n from '@/i18n';
 import CompareDetail from '@/components/broker/comparisons/CompareDetail';
 // import CompareOverview from '@/components/broker/comparisons/CompareOverview';
@@ -49,8 +49,12 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
   }, []);
 
   let brokerList = [] as Array<any>;
+  let count = 0;
   for(var i = 0; allBroker.rows[i] ; i++) {
-    brokerList[i] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
+    if(allBroker.rows[i].is_broker == true){
+      brokerList[count] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
+      count++;
+    }
   }
 
   const [valueA, setValueA] = useState({
@@ -161,7 +165,8 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                   disablePortal
                   id="brokerA"
                   options={brokerList}
-                  value={valueA.name}
+                  defaultValue={valueA}
+                  getOptionLabel={(option) => option.name}
                   onChange={(event: any, newValue: any) => {
                     if(newValue) {
                       setValueA({ id:newValue.id , name: newValue.name});
@@ -171,6 +176,7 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      variant="standard"
                     />
                   )}
                   renderOption={(props, option) => (
@@ -182,10 +188,11 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
               }
               childrenB={
                 <Autocomplete
-                  disablePortal
+                 // disablePortal
                   id="brokerB"
                   options={brokerList}
-                  value={valueB.name}
+                  defaultValue={valueB}
+                  getOptionLabel={(option) => option.name}
                   onChange={(event: any, newValue: any) => {
                     if(newValue) {
                       setValueB({ id:newValue.id , name: newValue.name});
@@ -194,6 +201,10 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      inputProps={{
+                        ...params.inputProps
+                      }}
+                      variant="standard"
                     />
                   )}
                   renderOption={(props, option) => (
@@ -216,7 +227,7 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
                     fontSize="inherit"
                     color="inherit"
                   >
-                    {i18n.entities.broker.comparison.compare}
+                    {i18n.entities.broker.comparison.compare.toUpperCase()}
                   </MDTypography>
                 </MDButton>
               }

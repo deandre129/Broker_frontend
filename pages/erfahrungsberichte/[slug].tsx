@@ -245,12 +245,29 @@ export async function getServerSideProps(context) {
   const { slug } = query;
   const url = slug;
 
+  const sortField = 'name';
+  const sortOrder = "asc";
+
+  const filter = {
+    activated: true,
+    category: 0
+  }
+
+  const params = {
+    filter: filter,
+    orderBy: sortField+"_"+sortOrder,
+    limit: null,
+    offset: 1,
+  }
+
   const [
     pageRes,
     baseRes,
+    allBrokerRes,
   ] = await Promise.all([
     axios.post(`${config.backendUrl}/broker`, { url }),
     axios.get(`${config.backendUrl}/base`),
+    axios.get(`${config.backendUrl}/broker`, {params}),
   ]);
   const page = pageRes.data;
   const topBroker = baseRes.data.brokerTop;
@@ -263,7 +280,7 @@ export async function getServerSideProps(context) {
   const navigation = baseRes.data.navigation;
   const categoryFooter = baseRes.data.footer;
   const author = baseRes.data.author;
-  const brokerComparable = baseRes.data.brokerComparable;
+  const brokerComparable = allBrokerRes.data;
 
   return {
     props: {

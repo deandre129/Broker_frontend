@@ -46,7 +46,6 @@ function Layout({
   noArticle = false,
   
 }) {
-  console.log("Meta Title: ", title);
   return (
     <PageLayout fixedNavBar={false} navigation={navigation} categoryFooter={ categoryFooter } topBroker={topBroker}>
       <Meta
@@ -66,7 +65,7 @@ function Layout({
             <Grid spacing={2} container>
               <TopBrokers topBroker = {topBroker}/>
               {Boolean(record) && (
-                <ComparableBrokers record={record} brokerComparable = {brokerComparable}/>
+                <ComparableBrokers record={record} brokerComparable = {brokerComparable} topBroker = {topBroker}/>
               )}
               {Boolean(record) && (
                 <Advisors record={record} />

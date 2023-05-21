@@ -42,16 +42,15 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
 
   const router = useRouter();
 
-  useEffect(() => {
-    initPiwik();
-  }, []);
+  let count = 0;
 
   let brokerList = [] as Array<any>;
   for(var i = 0; allBroker.rows[i] ; i++) {
-    brokerList[i] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
+    if(allBroker.rows[i].is_broker == true) {
+      brokerList[count] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
+      count++;
+    }
   }
-
-  console.log(brokerList);
 
   const [valueA, setValueA] = useState({
     id: recordA.name_normalized,
@@ -62,7 +61,6 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
     name: recordB.name
   });
 
-  console.log(valueB)
 
   const onSubmit = (values) => {
     router.push(
