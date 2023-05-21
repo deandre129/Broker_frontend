@@ -1073,7 +1073,7 @@ const i18n = {
           "ActivTrade's trader experiences",
         introduction: 'Broker Vorstellung',
         freeDemoAccount: 'kostenloses Demokonto',
-        nowTo: (x) => `Jetzt zu ${x}`,
+        nowTo: (x) => `Weiter zu ${x}`,
         portrait: 'Portrait',
         rating: (x,y,z) =>
           `${x} von ${y} Punkten aus ${z} Bewertungen von Tradern`,
