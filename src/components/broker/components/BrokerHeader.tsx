@@ -134,7 +134,7 @@ function BrokerHeader({ record }) {
             <MDButton
               variant="contained"
               href={record.meta?.homepage}
-              color="info"
+              color="warning"
               target="_blank"
               startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
               fullWidth
