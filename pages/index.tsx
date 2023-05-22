@@ -11,7 +11,7 @@ import config from '@/config';
 import { HtmlViewWrapper } from '@/components/shared/view/HtmlView';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
 // import PageContent from '@/components/shared/view/PageContent';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 // import Breadcrumb from '@/components/Breadcrumb';
 import axios from 'axios';
 import Spinner from '@/components/shared/Spinner';
@@ -29,7 +29,6 @@ const MDBox = dynamic(() => import('@/mui/components/MDBox'), {});
 const MDButton = dynamic(() => import('@/mui/components/MDButton'), {});
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {});
 // const TopBrokersView = dynamic(() => import('@/components/broker/components/TopBrokersView'));
-const Layout = dynamic(() => import('@/components/Layout'), {});
 
 function Index({
   brokerComparable, 
@@ -69,7 +68,7 @@ function Index({
       author={author}
       brokerComparable={brokerComparable}
       description="Ihr Bewertungsportal für Forex Broker und CFD Broker ✓Erfahrungen und Bewertungen ✓ Von Tradern für Trader ✓ Alles auf www.broker-bewertungen.de" 
-      record={undefined}>
+    >
       <PageContent>
         <MDBox display="none">
           <Breadcrumb

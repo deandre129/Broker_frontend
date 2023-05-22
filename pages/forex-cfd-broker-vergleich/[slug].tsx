@@ -22,7 +22,7 @@ import axios from 'axios';
 import config from '@/config';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 import LazyLoad from 'react-lazyload'
 import { initPiwik } from '@/utils/piwik';
 
@@ -38,7 +38,6 @@ const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
-const Layout = dynamic(() => import('@/components/Layout'));
 
 function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 
@@ -112,7 +111,6 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
       promotion={promotion}
       categoryFooter={categoryFooter}
       brokerComparable={brokerComparable} 
-      record={undefined}
     >
       <PageContent
         px={{

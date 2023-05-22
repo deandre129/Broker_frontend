@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic';
 // import Breadcrumb from '@/components/Breadcrumb';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 // import MDTypography from '@/mui/components/MDTypography';
 import moment from 'moment';
 // import PageContent from '@/components/shared/view/PageContent';
@@ -39,8 +39,6 @@ const RatingListItem = dynamic(() => import('@/components/shared/table/RatingLis
 const Table = dynamic(() => import('@mui/material/Table'), { loading: () => <Spinner />});
 const TableBody = dynamic(() => import('@mui/material/TableBody'), { loading: () => <Spinner />});
 const TableRow = dynamic(() => import('@mui/material/TableRow'), { loading: () => <Spinner />});
-const Layout = dynamic(() => import('@/components/Layout'));
-
 
 const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar,}) => {
   const router = useRouter();
@@ -84,7 +82,7 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
       promotion={promotionSidebar}
       categoryFooter={categoryFooterSidebar}
       description={`100% unabhängiger Broker Vergleich ✚✚ Über ${category?.count ?? 0} Broker Vergleich im Test mit Erfahrungsberichten von Tradern ➔ Jetzt lesen!`} 
-      record={undefined}>
+    >
       <MDBox display="flex" flexDirection="column" gap={2}>
         {category && (
           <PageContent>

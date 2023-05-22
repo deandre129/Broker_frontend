@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 // import BrokerArticlePage from '@/components/BrokerArticlePage';
 // import CategoryPage from '@/components/CategoryPage';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 import moment from 'moment';
 // import NormalPage from '@/components/NormalPage';
 import ScrollTo from '@/components/ScrollTo';
@@ -17,7 +17,6 @@ import { initPiwik } from '@/utils/piwik';
 
 const BrokerArticlePage = dynamic(() => import('@/components/BrokerArticlePage'), { loading: () => <Spinner />});
 const CategoryPage = dynamic(() => import('@/components/CategoryPage'), { loading: () => <Spinner />});
-const Layout = dynamic(() => import('@/components/Layout'));
 const NormalPage = dynamic(() => import('@/components/NormalPage'), { loading: () => <Spinner />});
 
 const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
@@ -108,7 +107,6 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
         promotion={promotion}
         categoryFooter={categoryFooter}
         brokerComparable={brokerComparable} 
-        record={undefined}
       >
         {pageType == "category" && (
           <CategoryPage category={page} topBroker={topBroker} navigation = {navigation} allBroker = {allBroker} author={author}/>

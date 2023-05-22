@@ -14,7 +14,7 @@ import i18n from '@/i18n';
 // import MDButton from '@/mui/components/MDButton';
 // import MDTypography from '@/mui/components/MDTypography';
 // import PageContent from '@/components/shared/view/PageContent';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 // import Breadcrumb from '@/components/Breadcrumb';
 // import MDBox from '@/mui/components/MDBox';
 import axios from 'axios';
@@ -35,7 +35,6 @@ const MDButton = dynamic(() => import('@/mui/components/MDButton'));
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
-const Layout = dynamic(() => import('@/components/Layout'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 
 function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
@@ -107,7 +106,6 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
       promotion={promotion}
       categoryFooter={categoryFooter}
       brokerComparable={brokerComparable} 
-      record={undefined}
     >
       <PageContent
         px={{

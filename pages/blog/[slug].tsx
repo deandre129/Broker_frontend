@@ -6,7 +6,7 @@ import { CKEditor } from 'ckeditor4-react';
 import { useRouter } from 'next/router';
 import AuthorView from '@/components/shared/view/AuthorView';
 // import HtmlView from '@/components/shared/view/HtmlView';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 // import MDBox from '@/mui/components/MDBox';
 // import PageContent from '@/components/shared/view/PageContent';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
@@ -30,7 +30,6 @@ import LazyLoad from 'react-lazyload'
 import { initPiwik } from '@/utils/piwik';
 
 const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), {loading: () => <Spinner />});
-const Layout = dynamic(() => import('@/components/Layout'));
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), {loading: () => <Spinner />});
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 const Pagination = dynamic(() => import('@/components/shared/table/Pagination'));
@@ -250,7 +249,6 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
         title={record?.name}
         keywords={[record?.metakeywords]}
         description={record?.metadescription}
-
         author={author}
         navigation={navigation}
         topBroker={topBroker}
@@ -262,7 +260,6 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
         promotion={promotion}
         categoryFooter={categoryFooter}
         brokerComparable={brokerComparable} 
-        record={undefined} 
       >
         {record && (
           <MDBox

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 // import HtmlView from '@/components/shared/view/HtmlView';
-// import Layout from '@/components/Layout';
+import Layout from '@/components/Layout';
 import MaterialLink from '@mui/material/Link';
 // import MDBox from '@/mui/components/MDBox';
 // import MDTypography from '@/mui/components/MDTypography';
@@ -17,7 +17,6 @@ import dynamic from 'next/dynamic';
 import Spinner from '@/components/shared/Spinner';
 import authAxios from '@/modules/shared/axios/authAxios';
 
-const Layout = dynamic(() => import('@/components/Layout'));
 const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), { loading: () => <Spinner />});
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
@@ -86,9 +85,6 @@ const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead,
       promotion={promotion}
       categoryFooter={categoryFooter}
       brokerComparable={brokerComparable} 
-      keywords={undefined} 
-      description={undefined} 
-      record={undefined}
     >
       <PageContent id="list-top-4-pagination">
         <MDBox display="none">

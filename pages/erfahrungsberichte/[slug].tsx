@@ -29,8 +29,7 @@ import dynamic from "next/dynamic";
 import Spinner from "@/components/shared/Spinner";
 import LazyLoad from 'react-lazyload'
 import { initPiwik } from '@/utils/piwik';
-
-const Layout = dynamic(() => import('@/components/Layout'));
+import Layout from "@/components/Layout";
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 const BrokerCharacteristicsView = dynamic(() => import('@/components/broker/components/BrokerCharacteristicsView'), { loading: () => <Spinner />});
 const BrokerHeader = dynamic(() => import('@/components/broker/components/BrokerHeader'), { loading: () => <Spinner />});
