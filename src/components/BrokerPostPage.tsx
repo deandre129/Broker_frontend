@@ -314,6 +314,7 @@ const BrokerPostPage = (props) => {
                         />
                       </svg>
                     }
+                    size="large"
                   />
                 </MDBox>
               </MDBox>

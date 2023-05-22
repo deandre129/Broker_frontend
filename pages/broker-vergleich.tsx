@@ -262,6 +262,7 @@ const ComparisonPage = ({ brokerComparable, allBroker,category, author, topBroke
                                 />
                               </svg>
                             }
+                            size="large"
                           />
                         </DataTableBodyCell>
                         <DataTableBodyCell width="auto" px={1}>

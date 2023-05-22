@@ -241,6 +241,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                               />
                             </svg>
                           }
+                          size="large"
                         />
                       </DataTableBodyCell>
                       <DataTableBodyCell width="auto" px={1}>

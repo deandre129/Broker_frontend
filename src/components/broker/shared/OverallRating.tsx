@@ -76,7 +76,7 @@ function OverallRating({
               />
             </svg>
           }
-          size="large"
+          size={size}
         />
       </MDBox>
       {!hideDescription && (
@@ -111,7 +111,7 @@ function OverallRating({
 OverallRating.defaultProps = {
   hideDescription: false,
   hidePercent: false,
-  size: 32,
+  size: 'large',
   gap: 0,
   compare: false,
 };
@@ -120,7 +120,7 @@ OverallRating.propTypes = {
   record: PropTypes.any.isRequired,
   hideDescription: PropTypes.bool,
   hidePercent: PropTypes.bool,
-  size: PropTypes.number,
+  size: PropTypes.any,
   gap: PropTypes.number,
   compare: PropTypes.bool,
 };

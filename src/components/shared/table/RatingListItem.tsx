@@ -20,16 +20,16 @@ function RatingListItem(props) {
 
   const SIZES = {
     SMALL: {
-      key: "s",
+      key: "small",
       size: 10
     },
     MEDIUM: {
-      key: "m",
-      size: 24
+      key: "medium",
+      size: 18
     },
     LARGE: {
-      key: "l",
-      size: 32
+      key: "large",
+      size: 28
     }
   };
 

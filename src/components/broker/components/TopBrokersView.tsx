@@ -119,7 +119,7 @@ function TopBrokersView({ topBrokers }) {
                       />
                     </svg>
                   }
-                  size="large"
+                  size="extra1"
                 />
                 <MDTypography
                   variant="button"

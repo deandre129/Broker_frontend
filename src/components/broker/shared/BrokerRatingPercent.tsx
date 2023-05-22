@@ -16,7 +16,7 @@ function BrokerRatingPercent({ value, size }) {
           : 'error'
       }
       color="white"
-      fontSize={(size * 5) / 6}
+      fontSize={(size/5)*6}
       borderRadius="md"
       alignItems="center"
       fontWeight="bold"

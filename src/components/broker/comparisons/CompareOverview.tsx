@@ -1,4 +1,5 @@
 import i18n from '@/i18n';
+import { useEffect, useState } from 'react';
 import AttrTypography from '../shared/AttrTypography';
 import BrokerAttrs from '../shared/BrokerAttrs';
 import BrokerLinks from '../shared/BrokerLinks';
@@ -14,6 +15,32 @@ import OverallRating from '../shared/OverallRating';
 import PropTypes from 'prop-types';
 
 function CompareOverview({ recordA, recordB }) {
+
+  const [ratingSize, setRatingSize] = useState('extra');
+  useEffect(() => {
+    const handleRatingSize = () => {
+      if (window.innerWidth > 1400) {
+        setRatingSize('large');
+      } else if (window.innerWidth > 1200) {
+        setRatingSize('large');
+      } else if (window.innerWidth > 990) {
+        setRatingSize('large');
+      } else if (window.innerWidth > 700) {
+        setRatingSize('large');
+      } else if (window.innerWidth > 600) {
+        setRatingSize('medium');
+      } else {
+        setRatingSize('medium');
+      }
+    };
+    window.addEventListener('resize', handleRatingSize);
+    handleRatingSize();
+    return () =>
+      window.removeEventListener(
+        'resize',
+        handleRatingSize,
+      );
+  }, []);
   return (
     <>
       <Grid spacing={2} container>
@@ -68,7 +95,7 @@ function CompareOverview({ recordA, recordB }) {
           childrenA={
             <OverallRating
               record={recordA}
-              size={30}
+              size={ratingSize}
               gap={1}
               compare
             />
@@ -76,7 +103,7 @@ function CompareOverview({ recordA, recordB }) {
           childrenB={
             <OverallRating
               record={recordB}
-              size={30}
+              size={ratingSize}
               gap={1}
               compare
             />

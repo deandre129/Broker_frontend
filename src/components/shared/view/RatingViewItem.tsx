@@ -3,6 +3,8 @@ import MDTypography from '@/mui/components/MDTypography';
 import OutOf from '../components/OutOf';
 import PropTypes from 'prop-types';
 import StyledRating from '../styles/StyledRating';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 
 function RatingViewItem(props) {
   const {
@@ -23,32 +25,40 @@ function RatingViewItem(props) {
   const nonFraction = Math.trunc(value);
   const fraction = Number((value - nonFraction).toFixed(2));
   const fractionPercent = fraction * 100;
-
+  
   let isShow = true;
   const getStar = (index) => {
     if (index <= nonFraction - 1) {
       isShow = true;
-      return "100%";
+      return 100;
     } else if (fractionPercent > 0 && isShow) {
       isShow = false;
-      return `${fractionPercent}%`;
+      return Math.round(fractionPercent);
     } else {
-      return "0%";
+      return 0;
     }
   };
 
   const SIZES = {
     SMALL: {
-      key: "s",
+      key: "small",
       size: 10
     },
     MEDIUM: {
-      key: "m",
+      key: "medium",
       size: 24
     },
     LARGE: {
-      key: "l",
+      key: "large",
+      size: 28
+    },
+    EXTRA1: {
+      key: "extra",
       size: 32
+    },
+    EXTRA2: {
+      key: "extra2",
+      size: 45
     }
   };
 
@@ -57,14 +67,18 @@ function RatingViewItem(props) {
       ? SIZES.SMALL.size
       : size === SIZES.MEDIUM.key
       ? SIZES.MEDIUM.size
-      : SIZES.LARGE.size;
+      : size === SIZES.LARGE.key
+      ? SIZES.LARGE.size
+      : size === SIZES.EXTRA1.key
+      ? SIZES.EXTRA1.size
+      : SIZES.EXTRA2.size;
 
   const withoutUserInteraction = (index) => {
     return (
-      <div style={{ position: "relative", alignItems:"center" }} key={index}>
-        <div
-          style={{
-            width: getStar(index),
+      <Box sx={{ position: "relative", alignItems:"center", width: '100%' }} key={index}>
+        <Box
+          sx={{
+            width: getStar(index)+'%',
             overflow: "hidden",
             position: "absolute"
           }}
@@ -85,7 +99,7 @@ function RatingViewItem(props) {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </Box>
         <svg
           width={iconSize}
           height={iconSize}
@@ -101,7 +115,7 @@ function RatingViewItem(props) {
             strokeLinejoin="round"
           />
         </svg>
-      </div>
+      </Box>
     )
   };
   return (
@@ -122,7 +136,7 @@ function RatingViewItem(props) {
           {label}
         </MDTypography>
       )}
-      <MDBox display="flex" alignItems="center" justifyContent={'center'}>
+      <MDBox display="flex" alignItems="center" width='100%'>
         {/* <StyledRating
           defaultValue={defaultValue}
           value={value}
