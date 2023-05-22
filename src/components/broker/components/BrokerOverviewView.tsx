@@ -8,6 +8,7 @@ import CheckboxViewItem from '../../shared/view/CheckboxViewItem';
 import HtmlView from '../../shared/view/HtmlView';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
+import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 
 function BrokerOverviewView({ record }) {
   return (
@@ -87,11 +88,21 @@ function BrokerOverviewView({ record }) {
           <MDTypography variant="h4" mt={2}>
             {i18n.entities.broker.fields.specialties}
           </MDTypography>
-          <BrokerAttrs
-            records={record.features}
-            attrs={{ link: 'url', title: 'feature' }}
-            noIndent
-          />
+          { record.features.length != 0 ?
+            <BrokerAttrs
+              records={record.features}
+              attrs={{ link: 'url', title: 'feature' }}
+              noIndent
+            />
+            : <RemoveSharpIcon
+              fontSize="medium"
+              color="secondary"
+              fontWeight="regular"
+              sx={{
+                opacity: 0.5,
+              }}
+            />
+          }
         </Grid>
       </Grid>
     </>
