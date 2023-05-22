@@ -44,11 +44,11 @@ function RatingViewItem(props) {
     },
     MEDIUM: {
       key: "m",
-      size: 18
+      size: 24
     },
     LARGE: {
       key: "l",
-      size: 28
+      size: 32
     }
   };
 
