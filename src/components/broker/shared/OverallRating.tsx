@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import i18n from '@/i18n';
+import { useEffect, useState } from 'react';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import BrokerRatingPercent from './BrokerRatingPercent';
@@ -15,6 +16,31 @@ function OverallRating({
   gap,
   compare,
 }) {
+  const [fontSize, setFontSize] = useState(28);
+  useEffect(() => {
+    const handleRatingSize = () => {
+      if (window.innerWidth > 1400) {
+        setFontSize(16);
+      } else if (window.innerWidth > 1200) {
+        setFontSize(16);
+      } else if (window.innerWidth > 990) {
+        setFontSize(16);
+      } else if (window.innerWidth > 700) {
+        setFontSize(14);
+      } else if (window.innerWidth > 600) {
+        setFontSize(14);
+      } else {
+        setFontSize(14);
+      }
+    };
+    window.addEventListener('resize', handleRatingSize);
+    handleRatingSize();
+    return () =>
+      window.removeEventListener(
+        'resize',
+        handleRatingSize,
+      );
+  }, []);
   return (
     <>
       <MDBox
@@ -82,7 +108,7 @@ function OverallRating({
       {!hideDescription && (
         <MDTypography
           variant="body2"
-          fontSize={size * 0.375}
+          fontSize={fontSize}
           color="text"
           fontWeight="regular"
           flexGrow={1}

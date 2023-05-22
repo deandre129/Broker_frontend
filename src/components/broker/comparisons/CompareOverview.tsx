@@ -20,17 +20,17 @@ function CompareOverview({ recordA, recordB }) {
   useEffect(() => {
     const handleRatingSize = () => {
       if (window.innerWidth > 1400) {
-        setRatingSize('large');
+        setRatingSize('large1');
       } else if (window.innerWidth > 1200) {
-        setRatingSize('large');
+        setRatingSize('large1');
       } else if (window.innerWidth > 990) {
-        setRatingSize('large');
+        setRatingSize('large1');
       } else if (window.innerWidth > 700) {
-        setRatingSize('large');
+        setRatingSize('large1');
       } else if (window.innerWidth > 600) {
-        setRatingSize('medium');
+        setRatingSize('large1');
       } else {
-        setRatingSize('medium');
+        setRatingSize('large');
       }
     };
     window.addEventListener('resize', handleRatingSize);

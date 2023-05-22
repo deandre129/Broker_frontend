@@ -96,7 +96,7 @@ function FeaturedBrokers({featuredBrokers}) {
                           />
                         </svg>
                       }
-                      size="large"
+                      size="large1"
                     />
                   </MDBox>
                   <MDTypography

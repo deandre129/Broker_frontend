@@ -34,7 +34,10 @@ function TopBrokersView({ topBrokers }) {
               alignItems="center"
               sx={{
                 '& > * + *': {
-                  ml: 2,
+                  ml: {
+                    xs: 0,
+                    md: 2,
+                  },
                   my: 1,
                 },
               }}
@@ -73,13 +76,14 @@ function TopBrokersView({ topBrokers }) {
               />
               <MDBox
                 display="flex"
-                flexDirection="column"
                 justifyContent="center"
-                sx={{
-                  '& > * + *': {
-                    mt: 1,
-                  },
-                }}
+                alignItems='center'
+                flexDirection="column"
+                // sx={{
+                //   '& > * + *': {
+                //     mt: 1,
+                //   },
+                // }}
               >
                 <RatingViewItem
                   value={row.rating?.overall_rating}
@@ -119,7 +123,7 @@ function TopBrokersView({ topBrokers }) {
                       />
                     </svg>
                   }
-                  size="extra1"
+                  size="extra2"
                 />
                 <MDTypography
                   variant="button"
@@ -127,6 +131,9 @@ function TopBrokersView({ topBrokers }) {
                   fontWeight="regular"
                   mt={1}
                   lineHeight={1}
+                  alignItems='center'
+                  display="flex"
+                  justifyContent={'center'}
                 >
                   <MaterialLink
                     component={Link}

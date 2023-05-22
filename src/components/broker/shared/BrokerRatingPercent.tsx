@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import MDBox from '@/mui/components/MDBox';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import MDButton from '@/mui/components/MDButton';
 
 function BrokerRatingPercent({ value, size }) {
   const percent = Number(((value / 5) * 100).toFixed(0));
@@ -16,7 +18,7 @@ function BrokerRatingPercent({ value, size }) {
           : 'error'
       }
       color="white"
-      fontSize={(size/5)*6}
+      fontSize={24}
       borderRadius="md"
       alignItems="center"
       fontWeight="bold"

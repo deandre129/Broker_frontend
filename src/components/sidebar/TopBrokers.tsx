@@ -139,7 +139,7 @@ function TopBrokers({topBroker}) {
                             />
                           </svg>
                         }
-                        size="large"
+                        size="large1"
                       />
                     </MDBox>
                     <MDTypography

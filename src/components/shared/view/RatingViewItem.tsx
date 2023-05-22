@@ -52,9 +52,13 @@ function RatingViewItem(props) {
       key: "large",
       size: 28
     },
+    LARGE1: {
+      key: "large1",
+      size: 32,
+    },
     EXTRA1: {
-      key: "extra",
-      size: 32
+      key: "extra1",
+      size: 42
     },
     EXTRA2: {
       key: "extra2",
@@ -69,7 +73,9 @@ function RatingViewItem(props) {
       ? SIZES.MEDIUM.size
       : size === SIZES.LARGE.key
       ? SIZES.LARGE.size
-      : size === SIZES.EXTRA1.key
+      : size === SIZES.LARGE1.key
+      ? SIZES.LARGE1.size
+      :size === SIZES.EXTRA1.key
       ? SIZES.EXTRA1.size
       : SIZES.EXTRA2.size;
 
