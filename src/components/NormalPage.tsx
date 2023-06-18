@@ -11,18 +11,17 @@ import TopBrokersView from './broker/components/TopBrokersView';
 import AuthorView from '@/components/shared/view/AuthorView';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import Spinner from "@/components/shared/Spinner";
 import LazyLoad from 'react-lazyload'
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'));
-const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
-const Breadcrumb = dynamic(() => import('./Breadcrumb'));
+const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
+const HtmlView = dynamic(() => import('./shared/view/HtmlView'), { loading: () => <Spinner />});
+const Breadcrumb = dynamic(() => import('./Breadcrumb'), { loading: () => <Spinner />});
 
 function NormalPage({ downloadPdf, page, topBroker, navigation, author }) {
   const colors = lColors;
-
-  console.log(downloadPdf);
 
   const handleDownloadPagePDF = () => {
     if (page?.navigation || page.link !== '') {
@@ -83,6 +82,7 @@ function NormalPage({ downloadPdf, page, topBroker, navigation, author }) {
             <HtmlView value={page.page_warning.body} />
           </>
         )}
+        <LazyLoad>
         {Boolean(page.pdf) && (
           <MDTypography
             variant="body2"
@@ -106,21 +106,23 @@ function NormalPage({ downloadPdf, page, topBroker, navigation, author }) {
             >
               {`${page.name} als PDF speichern`}
             </MaterialLink>
+            
           </MDTypography>
         )}
+        </LazyLoad>
       </PageContent>
-      <AuthorView author={author} />
-      <PageContent
-        display={{
-          xs: 'none',
-          lg: 'block',
-        }}
-      >
-        <MDTypography display="block" variant="h3" mb={2}>
-          {i18n.entities.home.top_brokers}
-        </MDTypography>
-        <TopBrokersView topBrokers={topBroker}/>
-      </PageContent>
+        <AuthorView author={author} />
+        <PageContent
+          display={{
+            xs: 'none',
+            lg: 'block',
+          }}
+        >
+          <MDTypography display="block" variant="h3" mb={2}>
+            {i18n.entities.home.top_brokers}
+          </MDTypography>
+          <TopBrokersView topBrokers={topBroker}/>
+        </PageContent>
     </MDBox>
   );
 }

@@ -8,6 +8,7 @@ import MaterialLink from '@mui/material/Link';
 // import RatingViewItem from '../shared/view/RatingViewItem';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import LazyLoad from 'react-lazyload'
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
@@ -58,6 +59,7 @@ function FeaturedBrokers({featuredBrokers}) {
                     />
                   </MaterialLink>
                   <MDBox mx="auto">
+                    <LazyLoad>
                     <RatingViewItem
                       value={row.rating?.overall_rating}
                       precision={0.1}
@@ -98,6 +100,7 @@ function FeaturedBrokers({featuredBrokers}) {
                       }
                       size="large1"
                     />
+                    </LazyLoad>
                   </MDBox>
                   <MDTypography
                     variant="body2"

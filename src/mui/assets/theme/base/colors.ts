@@ -94,6 +94,7 @@ interface Types {
   error: ColorsTypes | any;
   light: ColorsTypes | any;
   dark: ColorsTypes | any;
+  white1: ColorsTypes | any;
 
   /**VOR CUSTOM COLOURS */
   critical: ColorsTypes | any;
@@ -132,6 +133,7 @@ interface Types {
         error: GradientsTypes;
         light: GradientsTypes;
         dark: GradientsTypes;
+        white1: GradientsTypes;
       }
     | any;
   socialMediaColors:
@@ -160,6 +162,7 @@ interface Types {
         error: BadgeColorsTypes;
         light: BadgeColorsTypes;
         dark: BadgeColorsTypes;
+        white1: BadgeColorsTypes;
       }
     | any;
   coloredShadows:
@@ -239,6 +242,11 @@ const colors: Types = {
   light: {
     main: '#f0f2f5',
     focus: '#f0f2f5',
+  },
+
+  white1: {
+    main: '#ffffff',
+    focus: '#ffffff',
   },
 
   dark: {
@@ -387,6 +395,11 @@ const colors: Types = {
       main: '#42424a',
       state: '#191919',
     },
+
+    white1: {
+      main: '#FFFFFF',
+      state: '#CED4DA',
+    },
   },
 
   socialMediaColors: {
@@ -491,6 +504,11 @@ const colors: Types = {
       background: '#8097bf',
       text: '#1e2e4a',
     },
+
+    white1: {
+      background: '#ffffff',
+      text: '#c7d3de',
+    },
   },
 
   coloredShadows: {
@@ -502,6 +520,7 @@ const colors: Types = {
     error: '#f44336',
     light: '#adb5bd',
     dark: '#404040',
+    white1: '#adb5bd',
   },
 
   inputBorderColor: '#d2d6da',

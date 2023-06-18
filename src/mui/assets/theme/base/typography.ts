@@ -85,6 +85,20 @@ interface Types {
     color: string;
     lineHeight: number;
   };
+  h7: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
+  h8: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    color: string;
+    lineHeight: number;
+  };
   subtitle1: {
     fontFamily: string;
     fontSize: string;
@@ -218,6 +232,18 @@ const typography: Types = {
 
   h6: {
     fontSize: pxToRem(16),
+    lineHeight: 1.625,
+    ...baseHeadingProperties,
+  },
+
+  h7: {
+    fontSize: pxToRem(14),
+    lineHeight: 1.625,
+    ...baseHeadingProperties,
+  },
+
+  h8: {
+    fontSize: pxToRem(12),
     lineHeight: 1.625,
     ...baseHeadingProperties,
   },

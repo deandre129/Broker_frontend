@@ -36,19 +36,24 @@ const Pagination = dynamic(() => import('@/components/shared/table/Pagination'))
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDButton = dynamic(() => import('@/mui/components/MDButton'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
-const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
+const BlogDetailPage = ({ commentList, topbarList, brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) => {
   const router = useRouter();
-  const [rows, setRows] = useState([]);
-  const [count, setCount] = useState(0);
+  const record = blog;
+
+  const [rows, setRows] = useState(commentList.rows? commentList.rows: []);
+  const [count, setCount] = useState(commentList.count? commentList.count:0);
+
+  useEffect(() => {
+    if(!blog) {
+      router.push('/404');
+    }
+  }, [blog, router]);
 
 
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-
-  useEffect(() => {
-    initPiwik();
-  }, []);
 
   const pagination = {
     current: current ,
@@ -77,37 +82,11 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
     setRows(commentList.rows);
   };
 
-  useEffect(()=>{
-    setCurrent(1);
-    setPageSize(10);
-    const params = {
-      filter: {
-        spam: false,
-        review_required: false,
-        deleted: false,
-        blog_entry_id: blog.id
-      },
-      orderBy: "id_desc",
-      offset: 0,
-      limit: 10,
-    }
-    const commentListRes = axios.get(
-      `${config.backendUrl}/comment-list`, { params }
-    ).then(res => {
-      const commentList = res.data;
-      setRows(commentList.rows);
-      setCount(commentList.count);
-    }).catch(error => {
-    })
-  },[slug]);
-
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState({
     type: null,
     content: ""
   });
-
-  const record = blog;
 
   const [name, setName ] = useState('');
   const [editor, setEditor] = useState(null);
@@ -245,6 +224,9 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
 
   return (
     <>
+      {topbarList && topbarList.rows[0].data.activated  == true && (
+        <Topbar topbar = {topbarList} slug={slug}/>
+      )}
       <Layout
         title={record?.name}
         keywords={[record?.metakeywords]}
@@ -295,6 +277,7 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                   {i18n.common.comment + '(' + rows.length + ')'}
                 </MDTypography>
               </MDBox>
+              <LazyLoad>
               <MDBox
                 display="flex"
                 flexDirection="column"
@@ -352,6 +335,8 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                   </MDTypography>
                 )}
               </MDBox>
+              </LazyLoad>
+              <LazyLoad>
                 { rows && (
                   <MDBox mt={2}>
                     <Pagination
@@ -363,11 +348,13 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                     />
                   </MDBox>
                 )}
+              </LazyLoad>
                 <MDBox color="text" py={4}>
                   <MDTypography variant="body1" fontWeight="bold">
                     {i18n.common.toComment}
                   </MDTypography>
                 </MDBox>
+                <LazyLoad>
                 <Grid spacing={2} container>
                   <Grid item md={6} xs={12}>
                     <MDTypography
@@ -456,7 +443,17 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                       <CKEditor
                         initData={content}
                         config={ckeditorConfig}
-                        onChange={(evt) => { setEditor(evt.editor); setContent(evt.editor?.getData());}}
+                        onChange={(evt) => { 
+                          setEditor(evt.editor); 
+                          let data = evt.editor?.getData();
+                          if(data.includes("<img ")) {
+                            data =  data.replace("<img ", `<img loading="lazy" `);
+                          }
+                          if(data.includes("<iframe ")) {
+                            data =  data.replace("<iframe ", `<iframe loading="lazy" `);
+                          }
+                          setContent(data);
+                        }}
                       />
                       {errorContent!='' && (
                         <MDBox mt={0.75}>
@@ -502,6 +499,7 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                       )}
                   </Grid>
                 </Grid>
+                </LazyLoad>
                 <MDButton
                   variant="gradient"
                   color={'info'}
@@ -520,22 +518,22 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
                   `}</style>
                 </MDButton>
             </PageContent>
-            <AuthorView author={author} />
-            <PageContent
-              display={{
-                xs: 'none',
-                lg: 'block',
-              }}
-            >
-              <MDTypography
-                display="block"
-                variant="h3"
-                mb={2}
+              <AuthorView author={author} />
+              <PageContent
+                display={{
+                  xs: 'none',
+                  lg: 'block',
+                }}
               >
-                {i18n.entities.home.top_brokers}
-              </MDTypography>
-              <TopBrokersView topBrokers={topBroker}/>
-            </PageContent>
+                <MDTypography
+                  display="block"
+                  variant="h3"
+                  mb={2}
+                >
+                  {i18n.entities.home.top_brokers}
+                </MDTypography>
+                <TopBrokersView topBrokers={topBroker}/>
+              </PageContent>
           </MDBox>
         )}
         <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>
@@ -548,17 +546,30 @@ const BlogDetailPage = ({ brokerComparable, slug, author, blog, topBroker, categ
   );
 };
 
+export async function getStaticPaths() {
+  const res = await axios.get(`${config.backendUrl}/blogPath`);
+  const posts = await res.data;
+ 
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.allPaths.map((post) => ({
+    params: { slug: post },
+  }));
+ 
+  // We'll pre-render only these paths at build time.
+  // { fallback: 'blocking' } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: 'blocking' };
+}
 
-export async function getServerSideProps(context) {
-  const { query } = context
-  const { slug } = query;
+export async function getStaticProps({params}) {
+  const slug = params.slug;
   const url = slug
   
   const [
     baseRes,
     blogRes,
     ] = await Promise.all([
-      axios.get(`${config.backendUrl}/base`),
+    axios.get(`${config.backendUrl}/base`),
     axios.post(`${config.backendUrl}/individual-blog`, {url}),
   ])
   const topBroker = baseRes.data.brokerTop;
@@ -573,8 +584,55 @@ export async function getServerSideProps(context) {
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
   const blog = blogRes.data;
+  const topbarList = baseRes.data.topbarList;
+  const commentListRes = await axios.get(
+    `${config.backendUrl}/comment-list`, { params: {
+      filter: {
+        spam: false,
+        review_required: false,
+        deleted: false,
+        blog_entry_id: blog.id
+      },
+      orderBy: "id_desc",
+      offset: 0,
+      limit: 10,
+    } }
+  );
 
-  return { props: { brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  const commentList = commentListRes.data;
+
+  return { 
+    props: { commentList, topbarList, brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
+    revalidate: 10,
+  };
 };
+
+// export async function getServerSideProps(context) {
+//   const { query } = context
+//   const { slug } = query;
+//   const url = slug
+  
+//   const [
+//     baseRes,
+//     blogRes,
+//     ] = await Promise.all([
+//       axios.get(`${config.backendUrl}/base`),
+//     axios.post(`${config.backendUrl}/individual-blog`, {url}),
+//   ])
+//   const topBroker = baseRes.data.brokerTop;
+//   const category = baseRes.data.categorySidebar;
+//   const mostRead = baseRes.data.mostRead;
+//   const featuredBrokers = baseRes.data.brokerFeatured;
+//   const forexSchool = baseRes.data.forexSchool;  
+//   const forexStrategy = baseRes.data.forexStrategy;
+//   const promotion = baseRes.data.promotion;
+//   const navigation = baseRes.data.navigation;
+//   const categoryFooter = baseRes.data.footer;
+//   const author = baseRes.data.author;
+//   const brokerComparable = baseRes.data.brokerComparable;
+//   const blog = blogRes.data;
+
+//   return { props: { brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+// };
 
 export default BlogDetailPage;

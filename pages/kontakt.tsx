@@ -23,8 +23,9 @@ const MDButton = dynamic(() => import('@/mui/components/MDButton'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const SaveIcon = dynamic(() => import('@mui/icons-material/Save'));
+const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
-function Contact({ brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
+function Contact({ topbarList, brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -154,236 +155,251 @@ function Contact({ brokerComparable, topBroker, author, category, mostRead, feat
   ckeditorConfig.toolbarGroups = toolbars;
 
   return (
-    <Layout 
-      noIndex
-      author={author}
-      navigation = {navigation}
-      topBroker = {topBroker}
-      category = { category }
-      mostRead = { mostRead }
-      featuredBrokers = { featuredBrokers }
-      forexSchool = { forexSchool }
-      forexStrategy = { forexStrategy }
-      promotion = { promotion }
-      categoryFooter = { categoryFooter }
-      brokerComparable= {brokerComparable}
-    >
-      <PageContent>
-        <MDTypography variant="h3">
-          Kontakt zu broker-bewertungen.de aufnehmen
-        </MDTypography>
-        <MDTypography
-          variant="body2"
-          fontWeight="regular"
-          my={3}
-        >
-          Um uns eine Nachricht zukommen zu lassen benutzen
-          Sie bitte das Formular.
-        </MDTypography>
-        <MDTypography
-          variant="body1"
-          fontWeight="bold"
-          my={2}
-        >
-          Kontakt
-        </MDTypography>
-        <Grid spacing={2} container>
-          <Grid item xs={12}>
-            <MDTypography
-              variant="body2"
-              fontWeight="regular"
-            >
-              {i18n.entities.contact.fields.name} *
-            </MDTypography>
-            <>
-              <TextField
-                id={"name"}
-                name={"name"}
-                required={true}
-                onChange={(event) => {
-                  setName(event.target.value);
-                }}
-                fullWidth
-                variant={"standard"}
-                placeholder={undefined}
-                autoFocus={undefined}
-                autoComplete={undefined}
-                value={name}
-              />
-              {errorName!='' && (
-                <MDBox mt={0.75}>
-                  <MDTypography
-                    component="div"
-                    variant="caption"
-                    color="error"
-                    fontWeight="regular"
-                  >
-                    {errorName}
-                  </MDTypography>
-                </MDBox>
-              )}
-            </>
-          </Grid>
-          <Grid item xs={12}>
-            <MDTypography
-              variant="body2"
-              fontWeight="regular"
-            >
-              {i18n.entities.contact.fields.email}{' '}
-              *
-            </MDTypography>
-            <>
-              <TextField
-                id={"email"}
-                name={"email"}
-                required={true}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-                fullWidth
-                variant={"standard"}
-                placeholder={undefined}
-                autoFocus={undefined}
-                autoComplete={undefined}
-                type={"email"}
-                value={email}
-              />
-              {errorEmail!='' && (
-                <MDBox mt={0.75}>
-                  <MDTypography
-                    component="div"
-                    variant="caption"
-                    color="error"
-                    fontWeight="regular"
-                  >
-                    {errorEmail}
-                  </MDTypography>
-                </MDBox>
-              )}
-            </>
-          </Grid>
-          <Grid item xs={12}>
-            <MDTypography
-              variant="body2"
-              fontWeight="regular"
-            >
-              {i18n.entities.contact.fields.subject}{' '}
-              *
-            </MDTypography>
-            <>
-              <TextField
-                id={"subject"}
-                name={"subject"}
-                required={true}
-                onChange={(event) => {
-                  setSubject(event.target.value);
-                }}
-                fullWidth
-                variant={"standard"}
-                placeholder={undefined}
-                autoFocus={undefined}
-                autoComplete={undefined}
-                value={subject}
-              />
-              {errorSubject!='' && (
-                <MDBox mt={0.75}>
-                  <MDTypography
-                    component="div"
-                    variant="caption"
-                    color="error"
-                    fontWeight="regular"
-                  >
-                    {errorSubject}
-                  </MDTypography>
-                </MDBox>
-              )}
-            </>
-          </Grid>
-          <Grid item xs={12}>
-            <MDBox
-              pt={0}
-              position="relative"
-            >
-              <CKEditor
-                initData={content}
-                config={ckeditorConfig}
-                onChange={(evt) => { setEditor(evt.editor); setContent(evt.editor?.getData());}}
-              />
-              {errorContent!='' && (
-                <MDBox mt={0.75}>
-                  <MDTypography
-                    component="div"
-                    variant="caption"
-                    color="error"
-                    fontWeight="regular"
-                  >
-                    {errorContent}
-                  </MDTypography>
-                </MDBox>
-              )}
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} mb={2}>
-            <MDBox
-              display="flex"
-              justifyContent="center"
-              width="100%"
-            >
-              <ReCAPTCHA
-                onChange={(value) => {
-                  setRecaptcha(value);
-                }}
-                ref={recaptchaRef}
-                sitekey={config.reCaptchaV2SiteKey}
-                theme={'light'}
-              />
-            </MDBox>
-            {errorRecaptcha!='' && (
-              <MDBox mt={0.75}>
-                <MDTypography
-                  component="div"
-                  variant="caption"
-                  color="error"
-                  fontWeight="regular"
-                  textAlign="center"
-                >
-                  {errorRecaptcha}
-                </MDTypography>
+    <>
+      {topbarList && topbarList.rows[0].data.activated  == true && (
+          <Topbar topbar = {topbarList} slug={"kontakt"}/>
+        )}
+      <Layout 
+        noIndex
+        author={author}
+        navigation = {navigation}
+        topBroker = {topBroker}
+        category = { category }
+        mostRead = { mostRead }
+        featuredBrokers = { featuredBrokers }
+        forexSchool = { forexSchool }
+        forexStrategy = { forexStrategy }
+        promotion = { promotion }
+        categoryFooter = { categoryFooter }
+        brokerComparable= {brokerComparable}
+      >
+        <PageContent>
+          <MDTypography variant="h3">
+            Kontakt zu broker-bewertungen.de aufnehmen
+          </MDTypography>
+          <MDTypography
+            variant="body2"
+            fontWeight="regular"
+            my={3}
+          >
+            Um uns eine Nachricht zukommen zu lassen benutzen
+            Sie bitte das Formular.
+          </MDTypography>
+          <MDTypography
+            variant="body1"
+            fontWeight="bold"
+            my={2}
+          >
+            Kontakt
+          </MDTypography>
+          <Grid spacing={2} container>
+            <Grid item xs={12}>
+              <MDTypography
+                variant="body2"
+                fontWeight="regular"
+              >
+                {i18n.entities.contact.fields.name} *
+              </MDTypography>
+              <>
+                <TextField
+                  id={"name"}
+                  name={"name"}
+                  required={true}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
+                  fullWidth
+                  variant={"standard"}
+                  placeholder={undefined}
+                  autoFocus={undefined}
+                  autoComplete={undefined}
+                  value={name}
+                />
+                {errorName!='' && (
+                  <MDBox mt={0.75}>
+                    <MDTypography
+                      component="div"
+                      variant="caption"
+                      color="error"
+                      fontWeight="regular"
+                    >
+                      {errorName}
+                    </MDTypography>
+                  </MDBox>
+                )}
+              </>
+            </Grid>
+            <Grid item xs={12}>
+              <MDTypography
+                variant="body2"
+                fontWeight="regular"
+              >
+                {i18n.entities.contact.fields.email}{' '}
+                *
+              </MDTypography>
+              <>
+                <TextField
+                  id={"email"}
+                  name={"email"}
+                  required={true}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                  fullWidth
+                  variant={"standard"}
+                  placeholder={undefined}
+                  autoFocus={undefined}
+                  autoComplete={undefined}
+                  type={"email"}
+                  value={email}
+                />
+                {errorEmail!='' && (
+                  <MDBox mt={0.75}>
+                    <MDTypography
+                      component="div"
+                      variant="caption"
+                      color="error"
+                      fontWeight="regular"
+                    >
+                      {errorEmail}
+                    </MDTypography>
+                  </MDBox>
+                )}
+              </>
+            </Grid>
+            <Grid item xs={12}>
+              <MDTypography
+                variant="body2"
+                fontWeight="regular"
+              >
+                {i18n.entities.contact.fields.subject}{' '}
+                *
+              </MDTypography>
+              <>
+                <TextField
+                  id={"subject"}
+                  name={"subject"}
+                  required={true}
+                  onChange={(event) => {
+                    setSubject(event.target.value);
+                  }}
+                  fullWidth
+                  variant={"standard"}
+                  placeholder={undefined}
+                  autoFocus={undefined}
+                  autoComplete={undefined}
+                  value={subject}
+                />
+                {errorSubject!='' && (
+                  <MDBox mt={0.75}>
+                    <MDTypography
+                      component="div"
+                      variant="caption"
+                      color="error"
+                      fontWeight="regular"
+                    >
+                      {errorSubject}
+                    </MDTypography>
+                  </MDBox>
+                )}
+              </>
+            </Grid>
+            <Grid item xs={12}>
+              <MDBox
+                pt={0}
+                position="relative"
+              >
+                <CKEditor
+                  initData={content}
+                  config={ckeditorConfig}
+                  onChange={(evt) => { 
+                    setEditor(evt.editor); 
+                    let data = evt.editor?.getData();
+                    if(data.includes("<img ")) {
+                      data =  data.replace("<img ", `<img loading="lazy" `);
+                    }
+                    if(data.includes("<iframe ")) {
+                      data =  data.replace("<iframe ", `<iframe loading="lazy" `);
+                    }
+                    setContent(data);
+                  }}
+                />
+                {errorContent!='' && (
+                  <MDBox mt={0.75}>
+                    <MDTypography
+                      component="div"
+                      variant="caption"
+                      color="error"
+                      fontWeight="regular"
+                    >
+                      {errorContent}
+                    </MDTypography>
+                  </MDBox>
+                )}
               </MDBox>
-            )}
+            </Grid>
+            <Grid item xs={12} mb={2}>
+              <MDBox
+                display="flex"
+                justifyContent="center"
+                width="100%"
+              >
+                <ReCAPTCHA
+                  onChange={(value) => {
+                    setRecaptcha(value);
+                  }}
+                  ref={recaptchaRef}
+                  sitekey={config.reCaptchaV2SiteKey}
+                  theme={'light'}
+                />
+              </MDBox>
+              {errorRecaptcha!='' && (
+                <MDBox mt={0.75}>
+                  <MDTypography
+                    component="div"
+                    variant="caption"
+                    color="error"
+                    fontWeight="regular"
+                    textAlign="center"
+                  >
+                    {errorRecaptcha}
+                  </MDTypography>
+                </MDBox>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-        <MDButton
-          variant="gradient"
-          color={'info'}
-          type="button"
-          onClick={onSubmit}
-          startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}
-          size="small"
-        >
-          <div className='white-color'>
-            ABSENDEN
-          </div>
-          <style jsx>{`
-                .white-color {
-                  color: white;
-                }
-          `}</style>
-        </MDButton>
-      </PageContent>
-      <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>
-        <Alert onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}} severity={message.type} sx={{ width: '100%' }}>
-          {message.content}
-        </Alert>
-      </Snackbar>
-    </Layout>
+          <MDButton
+            variant="gradient"
+            color={'info'}
+            type="button"
+            onClick={onSubmit}
+            startIcon={<SaveIcon style={{fill: '#ffffff'}}/>}
+            size="small"
+          >
+            <div className='white-color'>
+              ABSENDEN
+            </div>
+            <style jsx>{`
+                  .white-color {
+                    color: white;
+                  }
+            `}</style>
+          </MDButton>
+        </PageContent>
+        <Snackbar open={open} autoHideDuration={3000} onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}}>
+          <Alert onClose = {(event: React.SyntheticEvent | Event, reason?: string) => {setOpen(false)}} severity={message.type} sx={{ width: '100%' }}>
+            {message.content}
+          </Alert>
+        </Snackbar>
+      </Layout>
+    </>
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
 
   const [
-    baseRes
+    baseRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/base`),
   ])
@@ -398,8 +414,12 @@ export async function getServerSideProps(context) {
   const categoryFooter = baseRes.data.footer;
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
+  const topbarList = baseRes.data.topbarList;
 
-  return { props: { brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { 
+    props: { topbarList, brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
+    revalidate: 10,
+  };
 } ;
 
 export default Contact;

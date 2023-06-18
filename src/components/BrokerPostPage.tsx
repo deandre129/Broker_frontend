@@ -29,8 +29,8 @@ import LazyLoad from 'react-lazyload'
 
 const BrokerPostPage = (props) => {
 
-  const [rows, setRows] = useState([]);
-  const [count, setCount] =useState(0);
+  const [rows, setRows] = useState(props.brokerPostList.rows);
+  const [count, setCount] =useState(props.brokerPostList.count);
   const colors = lColors;
 
   const recaptchaRef = useRef(null);
@@ -190,31 +190,6 @@ const BrokerPostPage = (props) => {
 
   };
 
-  useEffect(()=>{
-    setCurrent(1);
-    setPageSize(10);
-    const params = {
-      filter: {
-        spam: false,
-        review_required: false,
-        deleted: false,
-        broker: props.brokerId,
-      },
-      orderBy: "created_desc",
-      offset: 0,
-      limit: 10,
-    }
-    const brokerPostRes = axios.get(
-      `${config.backendUrl}/brokerPost-list`, { params }
-    ).then(res => {
-      const brokerPost = res.data;
-      setRows(brokerPost.rows);
-      setCount(brokerPost.count);
-      console.log('brokerpost', brokerPost.rows);
-    }).catch(error => {
-    })
-  },[props.slug]);
-
   return (
     <>
       <MDTypography
@@ -247,7 +222,7 @@ const BrokerPostPage = (props) => {
                 }}
               >
                 <MDBox>
-                  <MDTypography
+                  {/* <MDTypography
                     variant="h5"
                     color="warning"
                     fontSize={{
@@ -256,7 +231,26 @@ const BrokerPostPage = (props) => {
                     }}
                   >
                     {`${props.name} Erfahrungen von: ${post.name}`}
-                  </MDTypography>
+                  </MDTypography> */}
+
+                  <div className='post-name'>
+                    {`${props.name} Erfahrungen von: ${post.name}`}
+                  </div>
+                  <style jsx>{`
+                    .post-name {
+                      color: rgb(251, 140, 0);
+                      font-size: 20px;
+                      display: flex;
+                      line-height: 1.625;
+                      font-family: Roboto, Helvetica, Arial, sans-serif;
+                      font-weight: 700;
+                      opacity: 1;
+                      letter-spacing: 0em;
+                      text-transform: none;
+                      vertical-align: unset;
+                      text-decoration: none;
+                    }
+                  `}</style>
                   <MDTypography
                     variant="button"
                     color="info"
@@ -276,6 +270,7 @@ const BrokerPostPage = (props) => {
                   lineHeight={0}
                   gap={1}
                 >
+                  <LazyLoad>
                   <RatingViewItem
                     value={post.rating}
                     precision={0.1}
@@ -316,6 +311,7 @@ const BrokerPostPage = (props) => {
                     }
                     size="large"
                   />
+                  </LazyLoad>
                 </MDBox>
               </MDBox>
               <MDBox
@@ -415,6 +411,7 @@ const BrokerPostPage = (props) => {
           >
             {i18n.common.writeReview}
           </MDTypography>
+          <LazyLoad>
           <Grid spacing={2} container>
               <Grid item md={6} xs={12}>
                   <MDTypography
@@ -568,7 +565,14 @@ const BrokerPostPage = (props) => {
                           config={ckeditorConfig}
                           onChange={(evt) => { 
                               setEditor(evt.editor);
-                              setReview(evt.editor?.getData());
+                              let data = evt.editor?.getData();
+                              if(data.includes("<img ")) {
+                                data =  data.replace("<img ", `<img loading="lazy" `);
+                              }
+                              if(data.includes("<iframe ")) {
+                                data =  data.replace("<iframe ", `<iframe loading="lazy" `);
+                              }
+                              setReview(data);
                           }}
                       />
                       {errorReview!='' && (
@@ -615,6 +619,7 @@ const BrokerPostPage = (props) => {
               )}
               </Grid>
           </Grid>
+          </LazyLoad>
           <MDButton
               variant="gradient"
               color={'info'}

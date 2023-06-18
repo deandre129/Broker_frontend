@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { GetStaticPaths, GetStaticProps } from 'next';
 import i18n from "@/i18n";
 import { useState, useEffect } from "react";
 import AuthorView from "@/components/shared/view/AuthorView";
@@ -29,6 +30,7 @@ import dynamic from "next/dynamic";
 import Spinner from "@/components/shared/Spinner";
 import LazyLoad from 'react-lazyload'
 import { initPiwik } from '@/utils/piwik';
+import { useRouter } from 'next/router';
 import Layout from "@/components/Layout";
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
 const BrokerCharacteristicsView = dynamic(() => import('@/components/broker/components/BrokerCharacteristicsView'), { loading: () => <Spinner />});
@@ -46,8 +48,11 @@ const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), { lo
 const TabPanel = dynamic(() => import('@/components/shared/tab/TabPanel'));
 const BrokerPostPage = dynamic(() => import('@/components/BrokerPostPage'), { loading: () => <Spinner />});
 const BrokerForexSignaleView = dynamic(() => import('@/components/broker/components/BrokerForexSignaleView'));
+const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
 const BrokerViewPage = ({
+  topbarList,
+  brokerPostList,
   brokerComparable,
   slug,
   author,
@@ -62,15 +67,18 @@ const BrokerViewPage = ({
   navigation,
   categoryFooter,
 }) => {
+  const router = useRouter();
   const record = page;
+
+  useEffect(() => {
+    if(!page) {
+      router.push('/404');
+    }
+  }, [page, router]);
 
   let title = "";
   let keywords = ["erfahrungen", "bewertungen", "test"];
   let description = null;
-
-  useEffect(() => {
-    initPiwik();
-  }, []);
 
   if (record) {
     keywords.unshift(record.name);
@@ -92,6 +100,9 @@ const BrokerViewPage = ({
         )} aus ${
           record.rating?.overall_reviews ?? 0
         } Bewertungen ➔ Jetzt lesen!`;
+  } else {
+    //router.push('/404');
+   
   }
 
   const [tabValue, setTabValue] = useState(0);
@@ -110,153 +121,163 @@ const BrokerViewPage = ({
   const isBrowser = typeof window !== "undefined";
 
   return (
-    <Layout
-      title={title}
-      keywords={keywords}
-      description={description}
-      record={record}
-      noArticle
-      author={author}
-      navigation={navigation}
-      topBroker={topBroker}
-      category={category}
-      mostRead={mostRead}
-      featuredBrokers={featuredBrokers}
-      forexSchool={forexSchool}
-      forexStrategy={forexStrategy}
-      promotion={promotion}
-      categoryFooter={categoryFooter}
-      brokerComparable={brokerComparable}
-    >
-      {record && (
-        <MDBox
-          display="flex"
-          flexDirection="column"
-          sx={{
-            "& > * + *": {
-              mt: 2,
-            },
-          }}
-        >
-          <PageContent>
-            <Breadcrumb
-              navigation={navigation}
-              items={[
-                Boolean(record.categories[0]?.category) && {
-                  name: record.categories[0]?.category?.name,
-                  route: record.categories[0]?.category?.link,
-                },
-                {
-                  name: record.name,
-                  route: slug,
-                },
-              ].filter(Boolean)}
-            />
-            <BrokerHeader record={record} />
-            {record.expert_advisor ? null : record.forex_signale ? (
-              <BrokerForexSignaleView record={record} />
-            ) : (
-              <>
-                <MDBox py={2}>
-                  <BrokerTabs
-                    labels={[
-                      "overview",
-                      {
-                        raw: true,
-                        label: `${record.name} Erfahrungen`,
-                      },
-                      "characteristics",
-                      "platform",
-                      "markets",
-                      "spreads",
-                      "service",
-                    ]}
-                    value={tabValue}
-                    onChange={handleSetTabValue}
-                  />
-                </MDBox>
-                {tabValue !== 1 && (
+    <>
+      {topbarList && topbarList.rows[0].data.activated  == true && (
+        <Topbar topbar = {topbarList} slug={slug}/>
+      )}
+      <Layout
+        title={title}
+        keywords={keywords}
+        description={description}
+        record={record}
+        noArticle
+        author={author}
+        navigation={navigation}
+        topBroker={topBroker}
+        category={category}
+        mostRead={mostRead}
+        featuredBrokers={featuredBrokers}
+        forexSchool={forexSchool}
+        forexStrategy={forexStrategy}
+        promotion={promotion}
+        categoryFooter={categoryFooter}
+        brokerComparable={brokerComparable}
+      >
+        {record && (
+          <MDBox
+            display="flex"
+            flexDirection="column"
+            sx={{
+              "& > * + *": {
+                mt: 2,
+              },
+            }}
+          >
+            <PageContent>
+              <Breadcrumb
+                navigation={navigation}
+                items={[
+                  Boolean(record.categories[0]?.category) && {
+                    name: record.categories[0]?.category?.name,
+                    route: record.categories[0]?.category?.link,
+                  },
+                  {
+                    name: record.name,
+                    route: slug,
+                  },
+                ].filter(Boolean)}
+              />
+              <BrokerHeader record={record} />
+              {record.expert_advisor ? null : record.forex_signale ? (
+                <BrokerForexSignaleView record={record} />
+              ) : (
+                <>
                   <MDBox py={2}>
-                    <TabPanel value={tabValue} index={0} hideOnly>
-                      <BrokerOverviewView record={record} />
-                    </TabPanel>
-                    <TabPanel value={tabValue} index={2} hideOnly>
-                      <BrokerCharacteristicsView record={record} />
-                    </TabPanel>
-                    <TabPanel value={tabValue} index={3} hideOnly>
-                      <BrokerPlatformView record={record} />
-                    </TabPanel>
-                    <TabPanel value={tabValue} index={4} hideOnly>
-                      <BrokerMarketsView record={record} />
-                    </TabPanel>
-                    <TabPanel value={tabValue} index={5} hideOnly>
-                      <BrokerSpreadsView record={record} />
-                    </TabPanel>
-                    <TabPanel value={tabValue} index={6} hideOnly>
-                      <BrokerServiceView record={record} />
-                    </TabPanel>
+                    <BrokerTabs
+                      labels={[
+                        "overview",
+                        {
+                          raw: true,
+                          label: `${record.name} Erfahrungen`,
+                        },
+                        "characteristics",
+                        "platform",
+                        "markets",
+                        "spreads",
+                        "service",
+                      ]}
+                      value={tabValue}
+                      onChange={handleSetTabValue}
+                    />
                   </MDBox>
+                  {tabValue !== 1 && (
+                    <MDBox py={2}>
+                      <TabPanel value={tabValue} index={0} hideOnly>
+                        <BrokerOverviewView record={record} />
+                      </TabPanel>
+                      <TabPanel value={tabValue} index={2} hideOnly>
+                        <BrokerCharacteristicsView record={record} />
+                      </TabPanel>
+                      <TabPanel value={tabValue} index={3} hideOnly>
+                        <BrokerPlatformView record={record} />
+                      </TabPanel>
+                      <TabPanel value={tabValue} index={4} hideOnly>
+                        <BrokerMarketsView record={record} />
+                      </TabPanel>
+                      <TabPanel value={tabValue} index={5} hideOnly>
+                        <BrokerSpreadsView record={record} />
+                      </TabPanel>
+                      <TabPanel value={tabValue} index={6} hideOnly>
+                        <BrokerServiceView record={record} />
+                      </TabPanel>
+                    </MDBox>
+                  )}
+                  <BrokerHomepageUrls record={record} />
+                </>
+              )}
+            </PageContent>
+            {isBrowser && (
+              <>
+                  <PageContent pt={4}>
+                    <BrokerPostPage
+                      brokerId={record.id}
+                      name={record.name}
+                      middle={<BrokerHomepageUrls record={record} />}
+                      topBrokers={topBroker}
+                      brokerPostList = {brokerPostList}
+                      slug={slug}
+                    />
+                  </PageContent>
+                {Boolean(record.creteria) && Boolean(record.creteria.body) && (
+                  <PageContent>
+                    <MDBox fontSize="1rem">
+                      <HtmlView value={record.creteria?.body} />
+                    </MDBox>
+                  </PageContent>
                 )}
-                <BrokerHomepageUrls record={record} />
+                <AuthorView author={author} />
+                <PageContent
+                  display={{
+                    xs: "none",
+                    lg: "block",
+                  }}
+                >
+                  <MDTypography display="block" variant="h3" mb={2}>
+                    {i18n.entities.home.top_brokers}
+                  </MDTypography>
+                  <TopBrokersView topBrokers={topBroker} />
+                </PageContent>
               </>
             )}
-          </PageContent>
-          {isBrowser && (
-            <>
-                <PageContent pt={4}>
-                  <BrokerPostPage
-                    brokerId={record.id}
-                    name={record.name}
-                    middle={<BrokerHomepageUrls record={record} />}
-                    topBrokers={topBroker}
-                    slug={slug}
-                  />
-                </PageContent>
-              {Boolean(record.creteria) && Boolean(record.creteria.body) && (
-                <PageContent>
-                  <MDBox fontSize="1rem">
-                    <HtmlView value={record.creteria?.body} />
-                  </MDBox>
-                </PageContent>
-              )}
-              <AuthorView author={author} />
-              <PageContent
-                display={{
-                  xs: "none",
-                  lg: "block",
-                }}
-              >
-                <MDTypography display="block" variant="h3" mb={2}>
-                  {i18n.entities.home.top_brokers}
-                </MDTypography>
-                <TopBrokersView topBrokers={topBroker} />
-              </PageContent>
-            </>
-          )}
-        </MDBox>
-      )}
-    </Layout>
+          </MDBox>
+        )}
+      </Layout>
+    </>
   );
 };
 
-export async function getServerSideProps(context) {
-  const { query } = context;
-  const { slug } = query;
-  const url = slug;
+export async function getStaticPaths() {
+  const res = await axios.get(`${config.backendUrl}/brokerPath`);
+  const posts = await res.data;
+ 
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.allPaths.map((post) => ({
+    params: { slug: post },
+  }));
+ 
+  // We'll pre-render only these paths at build time.
+  // { fallback: 'blocking' } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: 'blocking' };
+}
 
-  const sortField = 'name';
-  const sortOrder = "asc";
+export async function getStaticProps({params}) {
+  const slug = params.slug;
+  const url = slug;
 
   const filter = {
     activated: true,
     category: 0
-  }
-
-  const params = {
-    filter: filter,
-    orderBy: sortField+"_"+sortOrder,
-    limit: null,
-    offset: 1,
   }
 
   const [
@@ -266,7 +287,12 @@ export async function getServerSideProps(context) {
   ] = await Promise.all([
     axios.post(`${config.backendUrl}/broker`, { url }),
     axios.get(`${config.backendUrl}/base`),
-    axios.get(`${config.backendUrl}/broker`, {params}),
+    axios.get(`${config.backendUrl}/broker`, {params:{
+      filter: filter,
+      orderBy: "name_asc",
+      limit: null,
+      offset: 1,
+    }}),
   ]);
   const page = pageRes.data;
   const topBroker = baseRes.data.brokerTop;
@@ -280,9 +306,26 @@ export async function getServerSideProps(context) {
   const categoryFooter = baseRes.data.footer;
   const author = baseRes.data.author;
   const brokerComparable = allBrokerRes.data;
+  const topbarList = baseRes.data.topbarList;
+  
+  const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
+    filter: {
+      spam: false,
+      review_required: false,
+      deleted: false,
+      broker: page.id,
+    },
+    orderBy: "created_desc",
+    offset: 0,
+    limit: 10,
+  } });
+
+  const brokerPostList = brokerPostListRes.data;
 
   return {
     props: {
+      topbarList,
+      brokerPostList,
       brokerComparable,
       slug,
       author,
@@ -297,7 +340,72 @@ export async function getServerSideProps(context) {
       navigation,
       categoryFooter,
     },
+    revalidate: 10,
   };
 }
+
+// export const getServerSideProps = async (context) =>  {
+//   const slug = context.query.slug;
+//   const url = slug;
+
+//   const sortField = 'name';
+//   const sortOrder = "asc";
+
+//   const filter = {
+//     activated: true,
+//     category: 0
+//   }
+
+//   const params = {
+//     filter: filter,
+//     orderBy: sortField+"_"+sortOrder,
+//     limit: null,
+//     offset: 1,
+//   }
+
+//   const [
+//     pageRes,
+//     baseRes,
+//     allBrokerRes,
+//     topbarListRes,
+//   ] = await Promise.all([
+//     axios.post(`${config.backendUrl}/broker`, { url }),
+//     axios.get(`${config.backendUrl}/base`),
+//     axios.get(`${config.backendUrl}/broker`, {params}),
+//     axios.get(`${config.backendUrl}/topbarList`),
+//   ]);
+//   const page = pageRes.data;
+//   const topBroker = baseRes.data.brokerTop;
+//   const category = baseRes.data.categorySidebar;
+//   const mostRead = baseRes.data.mostRead;
+//   const featuredBrokers = baseRes.data.brokerFeatured;
+//   const forexSchool = baseRes.data.forexSchool;  
+//   const forexStrategy = baseRes.data.forexStrategy;
+//   const promotion = baseRes.data.promotion;
+//   const navigation = baseRes.data.navigation;
+//   const categoryFooter = baseRes.data.footer;
+//   const author = baseRes.data.author;
+//   const brokerComparable = allBrokerRes.data;
+//   const topbarList = topbarListRes.data;
+
+//   return {
+//     props: {
+//       topbarList,
+//       brokerComparable,
+//       slug,
+//       author,
+//       page,
+//       topBroker,
+//       category,
+//       mostRead,
+//       featuredBrokers,
+//       forexSchool,
+//       forexStrategy,
+//       promotion,
+//       navigation,
+//       categoryFooter,
+//     },
+//   };
+// }
 
 export default BrokerViewPage;

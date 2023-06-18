@@ -3,6 +3,7 @@ import {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import config from '@/config';
 import PropTypes from 'prop-types';
+import Script from 'next/script';
 
 import {initPiwik} from '@/utils/piwik';
 
@@ -23,39 +24,51 @@ function Meta({
   }, [])
 
   return (
-    <Head>
-      <title>
-        {[title, config.frontendUrl.host]
-          .filter(Boolean)
-          .join(' | ')}
-      </title>
-      {Boolean(keywords && keywords.length) && (
+    <>
+      <Head>
+        <title>
+          {[title, config.frontendUrl.host]
+            .filter(Boolean)
+            .join(' | ')}
+        </title>
+        {Boolean(keywords && keywords.length) && (
+          <meta
+            name="keywords"
+            content={keywords.join(', ')}
+          />
+        )}
+        {Boolean(description) && (
+          <meta name="description" content={description} />
+        )}
         <meta
-          name="keywords"
-          content={keywords.join(', ')}
+          name="google-site-verification"
+          content="7VJfY7OIcOlKQG6IpURj9rYJhVsDv6v3D1gTdQSChpw"
         />
-      )}
-      {Boolean(description) && (
-        <meta name="description" content={description} />
-      )}
-      <meta
-        name="google-site-verification"
-        content="7VJfY7OIcOlKQG6IpURj9rYJhVsDv6v3D1gTdQSChpw"
-      />
-      {Boolean(noIndex) && (
-        <meta name="robots" content="noindex" />
-      )}
-      {Boolean(noIndex) && (
-        <meta name="googlebot" content="noindex" />
-      )}
-      {!noIndex && (
-        <meta name="robots" content="index,follow" />
-      )}
-      <link
-        rel="canonical"
-        href={`${config.frontendUrl.protocol}://${config.frontendUrl.host}${router.asPath}`}
-      />
-      <script type="application/ld+json"
+        {Boolean(noIndex) && (
+          <meta name="robots" content="noindex" />
+        )}
+        {Boolean(noIndex) && (
+          <meta name="googlebot" content="noindex" />
+        )}
+        {!noIndex && (
+          <meta name="robots" content="index,follow" />
+        )}
+        <link
+          rel="canonical"
+          href={`${config.frontendUrl.protocol}://${config.frontendUrl.host}${router.asPath}`}
+        />
+        
+
+        <noscript 
+          dangerouslySetInnerHTML={{
+            __html: 
+            `<img referrerpolicy="no-referrer-when-downgrade" src="https://broker-bewertungen.innocraft.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" width="200" height="200"/>`
+        }} />
+      </Head>
+      <Script 
+        strategy="afterInteractive"
+        id="name"
+        type="application/ld+json"
         dangerouslySetInnerHTML= {{
           __html: JSON.stringify({
           '@context': 'http://schema.org',
@@ -67,7 +80,10 @@ function Meta({
       />
 
       {!noArticle && Boolean(author) && (
-        <script type="application/ld+json"
+        <Script 
+        strategy="afterInteractive"
+        id="autor"
+        type="application/ld+json"
         dangerouslySetInnerHTML= {{
           __html: JSON.stringify({
             '@context': 'http://schema.org',
@@ -84,7 +100,10 @@ function Meta({
         />
       )}
 
-      <script dangerouslySetInnerHTML={{ __html: `
+      <Script
+        strategy="afterInteractive" 
+        id="matomo"
+        dangerouslySetInnerHTML={{ __html: `
         var _paq = window._paq = window._paq || [];
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
@@ -96,13 +115,7 @@ function Meta({
           g.async=true; g.src='//cdn.innocraft.cloud/broker-bewertungen.innocraft.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
       ` }} />
-
-      <noscript 
-        dangerouslySetInnerHTML={{
-          __html: 
-          '<img referrerpolicy="no-referrer-when-downgrade" src="https://broker-bewertungen.innocraft.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" />' 
-      }} />
-    </Head>
+    </>
   );
 }
 

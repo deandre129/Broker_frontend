@@ -18,21 +18,28 @@ import { initPiwik } from '@/utils/piwik';
 const BrokerArticlePage = dynamic(() => import('@/components/BrokerArticlePage'), { loading: () => <Spinner />});
 const CategoryPage = dynamic(() => import('@/components/CategoryPage'), { loading: () => <Spinner />});
 const NormalPage = dynamic(() => import('@/components/NormalPage'), { loading: () => <Spinner />});
+const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
-const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
+const GeneralPage = ({ broker, topbarList, downloadPdf, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
-  if(pageType == 'error'){
-    router.push('/404');
-  }
 
-  console.log(page);
+  const [record, setRecord] = useState(broker);
 
-  const path = router.asPath;
-  
   useEffect(() => {
-    initPiwik();
-  }, []);
+    if(!page) {
+      router.push('/404');
+    }
+    // if(pageType == 'article') {
+    //   const url = page.broker.name_normalized;
+    //   const recordRes = axios.post(`${config.backendUrl}/broker`, { url })
+    //   .then(res => {
+    //     setRecord(res.data)
+    //   })
+    // } else {
+    //   setRecord(null);
+    // }
+  }, [page, router.asPath]);
 
   useEffect(() => {
     const url = "/"+slug;
@@ -69,33 +76,35 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
     title = `${
       page.name
     } ${moment().year()} » 100% unabhängiger Test`;
-      keywords = [page.name, 'Vergleich', 'Test'];
-      description = `100% unabhängiger ${
-        page.name
-      } ✚✚ Über ${page.count ?? 0} ${
-        page.name
-      } im Test mit Erfahrungsberichten von Tradern ➔ Jetzt lesen!`;
-    }
-
-    if (pageType=="page") {
-      title = page.title;
-      keywords = [page.meta_keywords];
-      description = page.meta_description;
-    }
-
-    if (pageType=='article') {
-      title = page.pagetitle;
-      keywords = [page.metakeywords];
-      description = page.metadescription;
-    }
+    keywords = [page.name, 'Vergleich', 'Test'];
+    description = `100% unabhängiger ${
+      page.name
+    } ✚✚ Über ${page.count ?? 0} ${
+      page.name
+    } im Test mit Erfahrungsberichten von Tradern ➔ Jetzt lesen!`;
+  }else if (pageType=="page") {
+    title = page.title;
+    keywords = [page.meta_keywords];
+    description = page.meta_description;
+  }else if (pageType=='article') {
+    title = page.pagetitle;
+    keywords = [page.metakeywords];
+    description = page.metadescription;
+  } else {
+    //router.push('/404');
+   
+  }
 
   return (
     <>
+      {topbarList && topbarList.rows[0].data.activated  == true && (
+        <Topbar topbar = {topbarList} slug={slug[0]}/>
+      )}
       <Layout
         title={title}
         keywords={keywords}
         description={description}
-
+        record={record}
         author={author}
         navigation={navigation}
         topBroker={topBroker}
@@ -106,7 +115,6 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
         forexStrategy={forexStrategy}
         promotion={promotion}
         categoryFooter={categoryFooter}
-        brokerComparable={brokerComparable} 
       >
         {pageType == "category" && (
           <CategoryPage category={page} topBroker={topBroker} navigation = {navigation} allBroker = {allBroker} author={author}/>
@@ -127,11 +135,24 @@ const GeneralPage = ({ downloadPdf, brokerComparable, slug, author, allBroker, p
   );
 };
 
+export async function getStaticPaths() {
+  const res = await axios.get(`${config.backendUrl}/generalPath`);
+  const posts = await res.data;
+ 
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.allPaths.map((post) => ({
+    params: { slug: post.split('/') },
+  }));
+ 
+  // We'll pre-render only these paths at build time.
+  // { fallback: 'blocking' } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: 'blocking' };
+}
 
-export async function getServerSideProps(context) {
-  const { query } = context
-  const { slug } = query;
-  let url ="";
+export async function getStaticProps({params}) {
+  const slug = params.slug;
+  let url = "";
   for(let i=0; slug[i] ;i++){
     url+="/"+slug[i];
   }
@@ -142,7 +163,7 @@ export async function getServerSideProps(context) {
   const [
     categoryRes,
     generalPageRes,
-    articleRes
+    articleRes,
     ] = await Promise.all([
       authAxios.post(`${config.backendUrl}/category`,{url}),
       authAxios.post(`${config.backendUrl}/general-page`,{url}),
@@ -165,26 +186,23 @@ export async function getServerSideProps(context) {
   let downloadUrl;
   if(page?.navigation) {
     downloadUrl = page.navigation?.link + '.pdf';
-  } else if(page && page.link !== '') {
+  } else if(page && page?.link !== '') {
     downloadUrl = page.link  + '.pdf';
   } else {
     downloadUrl = "";
   }
-  
-  const sortField = query.field ? query.field : 'name';
-  const sortOrder = query.orderBy ? query.orderBy : "asc";
 
   const filter = {
-    activated: query.activated ? query.activated : true,
-    category: page.id? page.id : 0
+    activated: true,
+    category: page?.id? page?.id : 0
   }
   
-  const params = {
-    filter: filter,
-    orderBy: sortField+"_"+sortOrder,
-    limit: null,
-    offset: 1,
-  }
+  // const params = {
+  //   filter: filter,
+  //   orderBy: "name_asc",
+  //   limit: null,
+  //   offset: 1,
+  // }
 
   const [
     baseRes,
@@ -192,8 +210,13 @@ export async function getServerSideProps(context) {
     downloadPdfRes,
     ] = await Promise.all([
     axios.get(`${config.backendUrl}/base`),
-    axios.get(`${config.backendUrl}/broker`, {params}),
-    authAxios.post(`/general-page`, {url:downloadUrl})
+    axios.get(`${config.backendUrl}/broker`, {params: {
+      filter: filter,
+      orderBy: "name_asc",
+      limit: null,
+      offset: 1,
+    }}),
+    authAxios.post(`/general-page`, {url:downloadUrl}),
   ])
   const topBroker = baseRes.data.brokerTop;
   const category = baseRes.data.categorySidebar;
@@ -208,8 +231,109 @@ export async function getServerSideProps(context) {
   const brokerComparable = baseRes.data.brokerComparable;
   const allBroker = allBrokerRes.data;
   const downloadPdf = downloadPdfRes.data;
+  const topbarList = baseRes.data.topbarList;
+  let brokerRes;
+  let broker = null;
+  if(page && pageType == 'article') {
+    const url = page?.broker.name_normalized;
+    brokerRes = await axios.post(`${config.backendUrl}/broker`, { url });
+    broker = brokerRes.data;
+  }
 
-  return { props: { downloadPdf, brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { 
+    props: { broker, topbarList, downloadPdf, brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
+    revalidate: 10,
+  };
 };
+
+// export async function getServerSideProps(context) {
+//   const { query } = context
+//   const { slug } = query;
+//   let url ="";
+//   for(let i=0; slug[i] ;i++){
+//     url+="/"+slug[i];
+//   }
+  
+//   let page: any;
+//   let pageType : any;
+
+//   const [
+//     categoryRes,
+//     generalPageRes,
+//     articleRes,
+//     ] = await Promise.all([
+//       authAxios.post(`${config.backendUrl}/category`,{url}),
+//       authAxios.post(`${config.backendUrl}/general-page`,{url}),
+//       authAxios.post(`${config.backendUrl}/broker-article`,{url})
+//   ])
+
+//   if(categoryRes.data){
+//     page = categoryRes.data;
+//     pageType = "category";
+//   }
+//   else if(generalPageRes.data){
+//     page = generalPageRes.data;
+//     pageType = "page";
+//   }
+//   else if(articleRes.data){
+//     page = articleRes.data;
+//     pageType = "article";
+//   }
+
+//   let downloadUrl;
+//   if(page?.navigation) {
+//     downloadUrl = page.navigation?.link + '.pdf';
+//   } else if(page && page.link !== '') {
+//     downloadUrl = page.link  + '.pdf';
+//   } else {
+//     downloadUrl = "";
+//   }
+  
+//   const sortField = query.field ? query.field : 'name';
+//   const sortOrder = query.orderBy ? query.orderBy : "asc";
+
+//   const filter = {
+//     activated: query.activated ? query.activated : true,
+//     category: page.id? page.id : 0
+//   }
+  
+//   const params = {
+//     filter: filter,
+//     orderBy: sortField+"_"+sortOrder,
+//     limit: null,
+//     offset: 1,
+//   }
+
+//   const [
+//     baseRes,
+//     allBrokerRes,
+//     downloadPdfRes,
+//     generalRes,
+//     topbarListRes,
+//     ] = await Promise.all([
+//     axios.get(`${config.backendUrl}/base`),
+//     axios.get(`${config.backendUrl}/broker`, {params}),
+//     authAxios.post(`/general-page`, {url:downloadUrl}),
+//     axios.get(`${config.backendUrl}/generalPath`),
+//     axios.get(`${config.backendUrl}/topbarList`),
+//   ])
+//   const topBroker = baseRes.data.brokerTop;
+//   const category = baseRes.data.categorySidebar;
+//   const mostRead = baseRes.data.mostRead;
+//   const featuredBrokers = baseRes.data.brokerFeatured;
+//   const forexSchool = baseRes.data.forexSchool;  
+//   const forexStrategy = baseRes.data.forexStrategy;
+//   const promotion = baseRes.data.promotion;
+//   const navigation = baseRes.data.navigation;
+//   const categoryFooter = baseRes.data.footer;
+//   const author = baseRes.data.author;
+//   //const brokerComparable = baseRes.data.brokerComparable;
+//   const allBroker = allBrokerRes.data;
+//   const downloadPdf = downloadPdfRes.data;
+//   const allPath = generalRes.data;
+//   const topbarList = topbarListRes.data;
+
+//   return { props: { topbarList, allPath, downloadPdf, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+// };
 
 export default GeneralPage;

@@ -8,12 +8,13 @@ import TopBrokersView from './broker/components/TopBrokersView';
 import AuthorView from './shared/view/AuthorView';
 import dynamic from 'next/dynamic';
 import LazyLoad from 'react-lazyload'
+import Spinner from "@/components/shared/Spinner";
 
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const Breadcrumb = dynamic(() => import('./Breadcrumb'));
-const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
-const PageContent = dynamic(() => import('./shared/view/PageContent'));
+const Breadcrumb = dynamic(() => import('./Breadcrumb'), { loading: () => <Spinner />});
+const HtmlView = dynamic(() => import('./shared/view/HtmlView'), { loading: () => <Spinner />});
+const PageContent = dynamic(() => import('./shared/view/PageContent'), { loading: () => <Spinner />});
 
 function BrokerArticlePage({ brokerArticle, topBroker, navigation, author }) {
   return (

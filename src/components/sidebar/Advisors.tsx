@@ -27,7 +27,8 @@ function Advisors({ record }) {
               fontWeight="bold"
               lineHeight={1.35}
             >
-              Ratgeber
+              {`${record.name.replace(/\([\w\d\s]+\)/g, '')
+                .trim()} Ratgeber`}
             </MDTypography>
           }
           sx={{ pb: 1, px: 3, pt: 2 }}

@@ -8,12 +8,7 @@ import Grid from '@mui/material/Grid';
 function BrokerSection({ children, name, tooltip }) {
   return (
     <Grid md={4} xs={12} item>
-      <MDTypography
-        variant="h4"
-        color="text"
-        lineHeight="1.25"
-        py={1}
-      >
+      <div className='title'>
         {Boolean(children) && children}
         {!children &&
           Boolean(name) &&
@@ -29,7 +24,23 @@ function BrokerSection({ children, name, tooltip }) {
             <Help color="secondary">help</Help>
           </Tooltip>
         )}
-      </MDTypography>
+      </div>
+      <style jsx>{`
+        .title {
+          color: rgb(52,71,103);
+          font-size: 20px;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          display: flex;
+          line-height: 1.25;
+          font-family: Roboto, Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          opacity: 1;
+          text-transform: none;
+          vertical-align: unset;
+          text-decoration: none;
+        }
+      `}</style>
     </Grid>
   );
 }

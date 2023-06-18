@@ -23,13 +23,13 @@ const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
 const Pagination = dynamic(() => import('@/components/shared/table/Pagination'));
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
-const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
+const BlogListPage = ({ blog, topbarList, brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
 
   const router = useRouter();
-  const [rows, setRows] = useState([]);
-  const [count, setCount] = useState(0);
-
+  const [rows, setRows] = useState(blog.rows);
+  const [count, setCount] = useState(blog.count);
 
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -50,123 +50,116 @@ const BlogListPage = ({ brokerComparable, author, topBroker, category, mostRead,
     }
     const blogRes = await axios.get(`${config.backendUrl}/blog`, {params});
     const blogData = blogRes.data;
-    setRows(blogData.rows)
+    setRows(blogData.rows);
+    setCount(blogData.count)
   };
 
-  useEffect(()=>{
-    setCurrent(1);
-    setPageSize(10);
-    const params = {
-      limit: 10,
-      offset: 0,
-    }
-
-    const blogRes = axios.get(
-      `${config.backendUrl}/blog?limit=10&offset=0`, 
-    ).then(res => {
-      const blogData = res.data;
-      setRows(blogData.rows);
-      setCount(blogData.count);
-    }).catch(error => {
-    })
-  },[]);
-
   return (
-    <Layout 
-      title="Broker-Bewertungen Blog"
-      author={author}
-      navigation={navigation}
-      topBroker={topBroker}
-      category={category}
-      mostRead={mostRead}
-      featuredBrokers={featuredBrokers}
-      forexSchool={forexSchool}
-      forexStrategy={forexStrategy}
-      promotion={promotion}
-      categoryFooter={categoryFooter}
-      brokerComparable={brokerComparable} 
-    >
-      <PageContent id="list-top-4-pagination">
-        <MDBox display="none">
-          <Breadcrumb
-          navigation = {navigation}
-            items={[
-              {
-                name: i18n.entities.blog.title,
-                route: '/blog',
-              },
-            ]}
-          />
-        </MDBox>
-        <MDTypography variant="h1" pb={5}>
-          {i18n.entities.blog.title}
-        </MDTypography>
-        {rows && (
-          <>
-            <MDBox
-              display="flex"
-              flexDirection="column"
-              gap={5}
-            >
-              {rows.map((record) => (
-                // <LazyLoad key={record.id}>
-                <MDBox
-                  key={record.id}
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="start"
-                  gap={5}
-                >
-                  {record.blog_image[0] && record.blog_image[0].downloadUrl && (
-                    <ImageView
-                      value={record.blog_image}
-                      sx={{
-                        objectFit: 'contain',
-                        width: '150px',
-                      }}
-                    />
-                  )}
+    <>
+      {topbarList && topbarList.rows[0].data.activated  == true && (
+        <Topbar topbar = {topbarList} slug={"blog"}/>
+      )}
+      <Layout 
+        title="Broker-Bewertungen Blog"
+        author={author}
+        navigation={navigation}
+        topBroker={topBroker}
+        category={category}
+        mostRead={mostRead}
+        featuredBrokers={featuredBrokers}
+        forexSchool={forexSchool}
+        forexStrategy={forexStrategy}
+        promotion={promotion}
+        categoryFooter={categoryFooter}
+        brokerComparable={brokerComparable} 
+      >
+        <PageContent id="list-top-4-pagination">
+          <MDBox display="none">
+            <Breadcrumb
+            navigation = {navigation}
+              items={[
+                {
+                  name: i18n.entities.blog.title,
+                  route: '/blog',
+                },
+              ]}
+            />
+          </MDBox>
+          <MDTypography variant="h1" pb={5}>
+            {i18n.entities.blog.title}
+          </MDTypography>
+          {rows && (
+            <>
+              <MDBox
+                display="flex"
+                flexDirection="column"
+                gap={5}
+              >
+                {rows.map((record) => (
+                  // <LazyLoad key={record.id}>
+                  <MDBox
+                    key={record.id}
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="start"
+                    gap={5}
+                  >
+                    {record.blog_image[0] && record.blog_image[0].downloadUrl && (
+                      <ImageView
+                        value={record.blog_image}
+                        sx={{
+                          objectFit: 'contain',
+                          width: '150px',
+                        }}
+                      />
+                    )}
 
-                  <MDBox color="text">
-                    <MDTypography
-                      variant="body1"
-                      fontWeight="bold"
-                    >
-                      <MaterialLink
-                        component={Link}
-                        href={`/blog/${record.name_normalized}`}
-                        underline="hover"
+                    <MDBox color="text">
+                      <MDTypography
+                        variant="body1"
+                        fontWeight="bold"
                       >
-                        {record.name}
-                      </MaterialLink>
-                    </MDTypography>
-                    <HtmlView value={record.teaser} />
+                        <MaterialLink
+                          component={Link}
+                          href={`/blog/${record.name_normalized}`}
+                          underline="hover"
+                        >
+                          {record.name}
+                        </MaterialLink>
+                      </MDTypography>
+                      <HtmlView value={record.teaser} />
+                    </MDBox>
                   </MDBox>
-                </MDBox>
-                // </LazyLoad>
-              ))}
-            </MDBox>
+                  // </LazyLoad>
+                ))}
+              </MDBox>
 
-            <MDBox mt={2}>
-              <Pagination
-                onChange={doChangePagination}
-                pagination={paginationChange}
-                noPadding
-                entriesPerPage
-                showTotalEntries
-              />
-            </MDBox>
-          </>
-        )}
-      </PageContent>
-    </Layout>
+              <MDBox mt={2}>
+                <Pagination
+                  onChange={doChangePagination}
+                  pagination={paginationChange}
+                  noPadding
+                  entriesPerPage
+                  showTotalEntries
+                />
+              </MDBox>
+            </>
+          )}
+        </PageContent>
+      </Layout>
+    </>
   );
 };
 
-export async function getServerSideProps({ query }) {
+export async function getStaticProps() {
 
-  const [baseRes ] = await Promise.all([
+  const [
+    baseRes, 
+    blogRes,
+  ] = 
+  await Promise.all([
     axios.get(`${config.backendUrl}/base`),
+    axios.get(`${config.backendUrl}/blog?limit=10&offset=0`,)
   ])
   const topBroker = baseRes.data.brokerTop;
   const category = baseRes.data.categorySidebar;
@@ -179,8 +172,13 @@ export async function getServerSideProps({ query }) {
   const categoryFooter = baseRes.data.footer;
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
+  const topbarList = baseRes.data.topbarList;
+  const blog = blogRes.data;
 
-    return { props: { brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+    return { 
+      props: { blog, topbarList, brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }, 
+      revalidate: 10,
+    };
   } ;
 
 export default BlogListPage;

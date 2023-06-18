@@ -125,7 +125,7 @@ function BrokerHeader({ record }) {
           >
             <OverallRating
               record={record}
-              size={'extra2'} 
+              size={'extra1'} 
               hideDescription={undefined} 
               hidePercent={undefined} 
               gap={undefined} 

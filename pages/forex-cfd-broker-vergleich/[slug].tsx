@@ -38,14 +38,11 @@ const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
 const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
+const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
-function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
+function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
 
   const router = useRouter();
-
-  useEffect(() => {
-    initPiwik();
-  }, []);
 
   let brokerList = [] as Array<any>;
   let count = 0;
@@ -88,184 +85,189 @@ function BrokerComparePage({ brokerComparable, allBroker, author, recordA, recor
   }, [recordA, recordB]);
 
   return (
-    <Layout
-      title={title}
-      keywords={[
-        'forex',
-        'cfd',
-        'broker',
-        'vergleich',
-        recordA?.name_normalized,
-        recordB?.name_normalized,
-      ].filter(Boolean)}
-      description={description}
+    <>
+      {topbarList && topbarList.rows[0].data.activated  == true && (
+          <Topbar topbar = {topbarList} slug={"forex-cfd-broker-vergleich"}/>
+        )}
+      <Layout
+        title={title}
+        keywords={[
+          'forex',
+          'cfd',
+          'broker',
+          'vergleich',
+          recordA?.name_normalized,
+          recordB?.name_normalized,
+        ].filter(Boolean)}
+        description={description}
 
-      author={author}
-      navigation={navigation}
-      topBroker={topBroker}
-      category={category}
-      mostRead={mostRead}
-      featuredBrokers={featuredBrokers}
-      forexSchool={forexSchool}
-      forexStrategy={forexStrategy}
-      promotion={promotion}
-      categoryFooter={categoryFooter}
-      brokerComparable={brokerComparable} 
-    >
-      <PageContent
-        px={{
-          lg: 5,
-          xs: 2,
-        }}
+        author={author}
+        navigation={navigation}
+        topBroker={topBroker}
+        category={category}
+        mostRead={mostRead}
+        featuredBrokers={featuredBrokers}
+        forexSchool={forexSchool}
+        forexStrategy={forexStrategy}
+        promotion={promotion}
+        categoryFooter={categoryFooter}
+        brokerComparable={brokerComparable} 
       >
-        <MDBox display="none">
-          <Breadcrumb
-          navigation={navigation}
-            items={[
-              {
-                name: i18n.entities.broker.comparison.title,
-                route: '/forex-cfd-broker-vergleich',
-              },
-            ]}
-          />
-        </MDBox>
-        <MDTypography variant="h1">
-          {i18n.entities.broker.comparison.title}
-        </MDTypography>
-        <MDTypography
-          color="text"
-          fontWeight="regular"
-          variant="body2"
-          mb={2}
-        >
-          {i18n.entities.broker.comparison.description}
-        </MDTypography>
-        <MDBox
-          sx={{
-            '& > * + *': {
-              mt: 2,
-            },
-            '& > * + *:before': {
-              display: 'block',
-              content: '""',
-              borderTop:
-                '1px dotted rgba(128,128,128,.5)',
-              width: '100%',
-              ml: 2,
-            },
+        <PageContent
+          px={{
+            lg: 5,
+            xs: 2,
           }}
         >
-          <Grid container spacing={2} >
-            <CompareSection name="selectBrokers" />
-            <CompareDetail
-              childrenA={
-                <Autocomplete
-                  disablePortal
-                  id="brokerA"
-                  options={brokerList}
-                  defaultValue={valueA}
-                  getOptionLabel={(option) => option.name}
-                  onChange={(event: any, newValue: any) => {
-                    if(newValue) {
-                      setValueA({ id:newValue.id , name: newValue.name});
-                    }
-                    
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="standard"
-                    />
-                  )}
-                  renderOption={(props, option) => (
-                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                      {option.name}
-                    </Box>
-                  )}
-                />
-              }
-              childrenB={
-                <Autocomplete
-                 // disablePortal
-                  id="brokerB"
-                  options={brokerList}
-                  defaultValue={valueB}
-                  getOptionLabel={(option) => option.name}
-                  onChange={(event: any, newValue: any) => {
-                    if(newValue) {
-                      setValueB({ id:newValue.id , name: newValue.name});
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      inputProps={{
-                        ...params.inputProps
-                      }}
-                      variant="standard"
-                    />
-                  )}
-                  renderOption={(props, option) => (
-                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                      {option.name}
-                    </Box>
-                  )}
-                />
-              }
-              after={
-                <MDButton
-                  variant="contained"
-                  type="submit"
-                  onClick={onSubmit}
-                  color={'info'}
-                  fullWidth
-                >
-                  <MDTypography
-                    variant="h3"
-                    fontSize="inherit"
-                    color="inherit"
-                  >
-                    {i18n.entities.broker.comparison.compare.toUpperCase()}
-                  </MDTypography>
-                </MDButton>
-              }
+          <MDBox display="none">
+            <Breadcrumb
+            navigation={navigation}
+              items={[
+                {
+                  name: i18n.entities.broker.comparison.title,
+                  route: '/forex-cfd-broker-vergleich',
+                },
+              ]}
             />
-          </Grid>
-          {recordA && recordB && (
-            <>
-              <CompareOverview
-                recordA={recordA}
-                recordB={recordB}
+          </MDBox>
+          <MDTypography variant="h1">
+            {i18n.entities.broker.comparison.title}
+          </MDTypography>
+          <MDTypography
+            color="text"
+            fontWeight="regular"
+            variant="body2"
+            mb={2}
+          >
+            {i18n.entities.broker.comparison.description}
+          </MDTypography>
+          <MDBox
+            sx={{
+              '& > * + *': {
+                mt: 2,
+              },
+              '& > * + *:before': {
+                display: 'block',
+                content: '""',
+                borderTop:
+                  '1px dotted rgba(128,128,128,.5)',
+                width: '100%',
+                ml: 2,
+              },
+            }}
+          >
+            <Grid container spacing={2} >
+              <CompareSection name="selectBrokers" />
+              <CompareDetail
+                childrenA={
+                  <Autocomplete
+                    disablePortal
+                    id="brokerA"
+                    options={brokerList}
+                    defaultValue={valueA}
+                    getOptionLabel={(option) => option.name}
+                    onChange={(event: any, newValue: any) => {
+                      if(newValue) {
+                        setValueA({ id:newValue.id , name: newValue.name});
+                      }
+                      
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="standard"
+                      />
+                    )}
+                    renderOption={(props, option) => (
+                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                        {option.name}
+                      </Box>
+                    )}
+                  />
+                }
+                childrenB={
+                  <Autocomplete
+                  // disablePortal
+                    id="brokerB"
+                    options={brokerList}
+                    defaultValue={valueB}
+                    getOptionLabel={(option) => option.name}
+                    onChange={(event: any, newValue: any) => {
+                      if(newValue) {
+                        setValueB({ id:newValue.id , name: newValue.name});
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        inputProps={{
+                          ...params.inputProps
+                        }}
+                        variant="standard"
+                      />
+                    )}
+                    renderOption={(props, option) => (
+                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                        {option.name}
+                      </Box>
+                    )}
+                  />
+                }
+                after={
+                  <MDButton
+                    variant="contained"
+                    type="submit"
+                    onClick={onSubmit}
+                    color={'info'}
+                    fullWidth
+                  >
+                    <MDTypography
+                      variant="h3"
+                      fontSize="inherit"
+                      color="inherit"
+                    >
+                      {i18n.entities.broker.comparison.compare.toUpperCase()}
+                    </MDTypography>
+                  </MDButton>
+                }
               />
-              <CompareRegulation
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareProfile
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareTradable
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareSpreadsAndFees
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareTradingPlatforms
-                recordA={recordA}
-                recordB={recordB}
-              />
-              <CompareService
-                recordA={recordA}
-                recordB={recordB}
-              />
-            </>
-          )}
-        </MDBox>
-      </PageContent>
-    </Layout>
+            </Grid>
+            {recordA && recordB && (
+              <>
+                <CompareOverview
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+                <CompareRegulation
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+                <CompareProfile
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+                <CompareTradable
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+                <CompareSpreadsAndFees
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+                <CompareTradingPlatforms
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+                <CompareService
+                  recordA={recordA}
+                  recordB={recordB}
+                />
+              </>
+            )}
+          </MDBox>
+        </PageContent>
+      </Layout>
+    </>
   );
 }
 
@@ -308,6 +310,7 @@ export async function getServerSideProps(context) {
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
   const allBroker = allBrokerRes.data;
+  const topbarList = baseRes.data.topbarList;
 
   const recordAReq = slug.slice(0,index);
   const recordBReq = slug.slice(index+8,slug.length);
@@ -322,7 +325,9 @@ export async function getServerSideProps(context) {
   const recordA = recordARes.data;
   const recordB = recordBRes.data;
 
-  return { props: { brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+  return { 
+    props: { topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
+  };
 };
 
 export default BrokerComparePage;

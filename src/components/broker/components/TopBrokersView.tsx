@@ -9,6 +9,7 @@ import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
 import RatingViewItem from '../../shared/view/RatingViewItem';
 import Image from 'next/image';
+import LazyLoad from 'react-lazyload'
 
 function TopBrokersView({ topBrokers }) {
   return (
@@ -85,6 +86,7 @@ function TopBrokersView({ topBrokers }) {
                 //   },
                 // }}
               >
+                <LazyLoad>
                 <RatingViewItem
                   value={row.rating?.overall_rating}
                   precision={0.1}
@@ -125,6 +127,7 @@ function TopBrokersView({ topBrokers }) {
                   }
                   size="extra2"
                 />
+                </LazyLoad>
                 <MDTypography
                   variant="button"
                   color="text"

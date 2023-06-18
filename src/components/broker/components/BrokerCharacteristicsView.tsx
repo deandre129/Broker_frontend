@@ -21,12 +21,28 @@ function BrokerCharacteristicsView({ record }) {
           </MDTypography>
           <HtmlView value={record.meta?.description} />
         </Grid>
+       
         {record.video?.youtube_hash &&
           record.video?.youtube_hash.trim() !== '' && (
             <Grid xs={12} item>
-              <MDTypography variant="h4" mt={2}>
+              <div className='title'>
                 {i18n.entities.broker.text.introduction}
-              </MDTypography>
+              </div>
+              <style jsx>{`
+                .title {
+                  color: rgb(52,71,103);
+                  font-size: 20px;
+                  display: flex;
+                  line-height: 1.375;
+                  font-family: Roboto, Helvetica, Arial, sans-serif;
+                  font-weight: 700;
+                  opacity: 1;
+                  text-transform: none;
+                  vertical-align: unset;
+                  text-decoration: none;
+                }
+              `}</style>
+              <LazyLoad>
                 <MDBox position="relative" pb="56.25%">
                   <iframe
                     src={`https://www.youtube.com/embed/${record.video?.youtube_hash}`}
@@ -41,6 +57,7 @@ function BrokerCharacteristicsView({ record }) {
                     }}
                   />
                 </MDBox>
+              </LazyLoad>
             </Grid>
           )}
         <BrokerSection

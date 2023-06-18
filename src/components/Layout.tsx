@@ -64,7 +64,7 @@ function Layout({
           <Grid xl={3} lg={4} md={12} xs={12} item>
             <Grid spacing={2} container>
               <TopBrokers topBroker = {topBroker}/>
-              {Boolean(record) && (
+              {Boolean(record) && Boolean(brokerComparable) && (
                 <ComparableBrokers record={record} brokerComparable = {brokerComparable} topBroker = {topBroker}/>
               )}
               {Boolean(record) && (

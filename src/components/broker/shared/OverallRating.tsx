@@ -7,6 +7,7 @@ import BrokerRatingPercent from './BrokerRatingPercent';
 import RatingViewItem from '../../shared/view/RatingViewItem';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
+import LazyLoad from 'react-lazyload'
 
 function OverallRating({
   record,
@@ -61,9 +62,10 @@ function OverallRating({
         {!hidePercent && (
           <BrokerRatingPercent
             value={record.rating?.overall_rating}
-            size={size}
+            size={24}
           />
         )}
+        <LazyLoad>
         <RatingViewItem
           value={record.rating?.overall_rating}
           precision={0.1}
@@ -104,6 +106,7 @@ function OverallRating({
           }
           size={size}
         />
+        </LazyLoad>
       </MDBox>
       {!hideDescription && (
         <MDTypography

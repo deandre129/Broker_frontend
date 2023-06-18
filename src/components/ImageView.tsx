@@ -13,10 +13,10 @@ function ImageView({ value, sx, alt: originalAlt }) {
       alt={alt}
       title={alt}
       sx={{
+        width: 'auto',
+        height: '100%',
         margin: 0,
         borderRadius: 0,
-        width:'auto',
-        height: '100%',
         maxWidth: '100%',
         ...sx,
       }}

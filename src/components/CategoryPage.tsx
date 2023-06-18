@@ -18,44 +18,73 @@ import MaterialLink from '@mui/material/Link';
 // import TableBody from '@mui/material/TableBody';
 // import TableRow from '@mui/material/TableRow';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import LazyLoad from 'react-lazyload';
+import Spinner from "@/components/shared/Spinner";
+import axios, { all } from 'axios';
+import config from '@/config';
 
-const Breadcrumb = dynamic(() => import('./Breadcrumb'));
-const DefaultCategoryDescription = dynamic(() => import('./DefaultCategoryDescription'));
-const HtmlView = dynamic(() => import('./shared/view/HtmlView'));
+const Breadcrumb = dynamic(() => import('./Breadcrumb'), { loading: () => <Spinner />});
+const DefaultCategoryDescription = dynamic(() => import('./DefaultCategoryDescription'), { loading: () => <Spinner />});
+const HtmlView = dynamic(() => import('./shared/view/HtmlView'), { loading: () => <Spinner />});
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const PageContent = dynamic(() => import('./shared/view/PageContent'));
-const DashBorder = dynamic(() => import('./shared/DashBorder'));
-const RatingListItem = dynamic(() => import('@/components/shared/table/RatingListItem'));
-const Table = dynamic(() => import('@mui/material/Table'));
+const PageContent = dynamic(() => import('./shared/view/PageContent'), { loading: () => <Spinner />});
+const DashBorder = dynamic(() => import('./shared/DashBorder'), { loading: () => <Spinner />});
+const RatingListItem = dynamic(() => import('@/components/shared/table/RatingListItem'), { loading: () => <Spinner />});
+const Table = dynamic(() => import('@mui/material/Table'), { loading: () => <Spinner />});
 const TableBody = dynamic(() => import('@mui/material/TableBody'));
 const TableRow = dynamic(() => import('@mui/material/TableRow'));
 
-
-function CategoryPage({allBroker, category, navigation, author, topBroker }) {
+function CategoryPage({ allBroker, category, navigation, author, topBroker }) {
   const router = useRouter();
+
   const [sorter, setSorter] =useState({
     field: 'name',
-    order: 'asc',
+    orderBy: 'asc',
   });
+
+  const [rows, setRows] = useState(allBroker.rows);
+  const [count, setCount] = useState(allBroker.count);
 
   const doChangeSort = (field) => {
     const order =
-      sorter.field === field && sorter.order === 'asc'
+      sorter.field === field && sorter.orderBy === 'asc'
         ? 'desc'
         : 'asc';
 
-    setSorter({field: field, order: order})
+    setSorter({field: field, orderBy: order})
 
-    router.push({
-      pathname: router.pathname,
-      query: { field: field, orderBy: order, category: category.id}
-    })
+    // router.push({
+    //   pathname: router.pathname,
+    //   query: { field: field, orderBy: order, category: category.id}
+    // })
+    const sortField = field ? field : 'name';
+    const sortOrder = order ? order : "asc";
+
+    const filter = {
+      activated: true,
+      category: category.id
+    }
+    
+    const params = {
+      filter: filter,
+      orderBy: sortField+"_"+sortOrder,
+      limit: null,
+      offset: 1,
+    }
+
+    const allBrokerRes = axios.get(
+      `${config.backendUrl}/broker`, {params}
+      ).then(res => {
+        const allBroker = res.data;
+        setRows(allBroker.rows);
+        setCount(allBroker.count);
+      }).catch(error => {
+      })
   };
 
   return (
@@ -119,7 +148,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                       )
                     }
                     sorted={
-                      sorter.order === 'asc'
+                      sorter.orderBy === 'asc'
                         ? 'desc'
                         : 'asc'
                     }
@@ -134,7 +163,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                       )
                     }
                     sorted={
-                      sorter.order === 'asc'
+                      sorter.orderBy === 'asc'
                         ? 'desc'
                         : 'asc'
                     }
@@ -148,7 +177,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                     px={1}
                     onClick={() => doChangeSort('name')}
                     sorted={
-                      sorter.order === 'asc'
+                      sorter.orderBy === 'asc'
                         ? 'desc'
                         : 'asc'
                     }
@@ -158,7 +187,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                 </TableRow>
               </MDBox>
               <TableBody>
-                {!allBroker && (
+                {!rows && (
                   <TableRow>
                     <DataTableBodyCell
                       align="center"
@@ -170,9 +199,10 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                     </DataTableBodyCell>
                   </TableRow>
                 )}
-                {allBroker.rows.map((row) => (
+                {rows.map((row) => (
                     <TableRow key={row.id}>
                       <DataTableBodyCell width="auto" px={1}>
+                        <LazyLoad>
                         <MaterialLink
                           href={row.meta?.homepage}
                           target="_blank"
@@ -193,6 +223,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                             }}
                           />
                         </MaterialLink>
+                        </LazyLoad>
                       </DataTableBodyCell>
                       <DataTableBodyCell width="auto" px={1}>
                         {row.meta?.minimum_deposit}
@@ -201,6 +232,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                         {row.rating?.overall_reviews}
                       </DataTableBodyCell>
                       <DataTableBodyCell width="auto" px={1}>
+                        <LazyLoad>
                         <RatingListItem
                           precision={0.1}
                           value={
@@ -243,6 +275,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
                           }
                           size="large"
                         />
+                        </LazyLoad>
                       </DataTableBodyCell>
                       <DataTableBodyCell width="auto" px={1}>
                         {(row.regulatory_authorities || [])
@@ -272,7 +305,7 @@ function CategoryPage({allBroker, category, navigation, author, topBroker }) {
             <DefaultCategoryDescription />
           )}
       </PageContent>
-      <AuthorView author={author} />
+        <AuthorView author={author} />
     </MDBox>
   );
 }
