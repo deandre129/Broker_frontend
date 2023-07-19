@@ -340,7 +340,7 @@ export async function getStaticProps({params}) {
       navigation,
       categoryFooter,
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 }
 
@@ -348,31 +348,24 @@ export async function getStaticProps({params}) {
 //   const slug = context.query.slug;
 //   const url = slug;
 
-//   const sortField = 'name';
-//   const sortOrder = "asc";
-
 //   const filter = {
 //     activated: true,
 //     category: 0
-//   }
-
-//   const params = {
-//     filter: filter,
-//     orderBy: sortField+"_"+sortOrder,
-//     limit: null,
-//     offset: 1,
 //   }
 
 //   const [
 //     pageRes,
 //     baseRes,
 //     allBrokerRes,
-//     topbarListRes,
 //   ] = await Promise.all([
 //     axios.post(`${config.backendUrl}/broker`, { url }),
 //     axios.get(`${config.backendUrl}/base`),
-//     axios.get(`${config.backendUrl}/broker`, {params}),
-//     axios.get(`${config.backendUrl}/topbarList`),
+//     axios.get(`${config.backendUrl}/broker`, {params:{
+//       filter: filter,
+//       orderBy: "name_asc",
+//       limit: null,
+//       offset: 1,
+//     }}),
 //   ]);
 //   const page = pageRes.data;
 //   const topBroker = baseRes.data.brokerTop;
@@ -386,11 +379,26 @@ export async function getStaticProps({params}) {
 //   const categoryFooter = baseRes.data.footer;
 //   const author = baseRes.data.author;
 //   const brokerComparable = allBrokerRes.data;
-//   const topbarList = topbarListRes.data;
+//   const topbarList = baseRes.data.topbarList;
+  
+//   const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
+//     filter: {
+//       spam: false,
+//       review_required: false,
+//       deleted: false,
+//       broker: page.id,
+//     },
+//     orderBy: "created_desc",
+//     offset: 0,
+//     limit: 10,
+//   } });
+
+//   const brokerPostList = brokerPostListRes.data;
 
 //   return {
 //     props: {
 //       topbarList,
+//       brokerPostList,
 //       brokerComparable,
 //       slug,
 //       author,
@@ -404,7 +412,7 @@ export async function getStaticProps({params}) {
 //       promotion,
 //       navigation,
 //       categoryFooter,
-//     },
+//     }
 //   };
 // }
 

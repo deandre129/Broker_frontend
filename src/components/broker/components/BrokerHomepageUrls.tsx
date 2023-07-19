@@ -3,6 +3,8 @@ import i18n from '@/i18n';
 import MDButton from '@/mui/components/MDButton';
 import PropTypes from 'prop-types';
 import SendIcon from '@mui/icons-material/Send';
+import MDBox from '@/mui/components/MDBox';
+import MDTypography from '@/mui/components/MDTypography';
 
 function BrokerHomepageUrls({ record }) {
   return (
@@ -19,57 +21,79 @@ function BrokerHomepageUrls({ record }) {
               fullWidth
             >
               <div className='white-color'>
-                  {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
-                </div>
-                <style jsx>{`
-                  .white-color {
-                    color: white;
-                  }
-                `}</style>
+                {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
+              </div>
             </MDButton>
           </Grid>
         ) : (
           <>
             <Grid md={6} xs={12} item>
-              <MDButton
-                variant="contained"
-                href={record.meta?.homepage}
-                target="_blank"
-                color="warning"
-                startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
-                fullWidth
-              >
-                <div className='white-color'>
-                  {i18n.entities.broker.text.nowTo(record.name,).toUpperCase()}
+              <MDBox
+               display={"flex"} 
+               flexGrow={1}
+               flexDirection="column"
+               flexWrap="wrap"
+               alignItems="center">
+                <MDButton
+                  variant="contained"
+                  href={record.meta?.homepage}
+                  target="_blank"
+                  color="warning"
+                  startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
+                  fullWidth
+                >
+                  <div className='white-color'>
+                    {i18n.entities.broker.text.nowTo(record.name,).toUpperCase()}
+                  </div>
+                </MDButton>
+                <div className='text-desc'>
+                  {record.desc}
                 </div>
-                <style jsx>{`
-                  .white-color {
-                    color: white;
-                  }
-                `}</style>
-              </MDButton>
+              </MDBox>
             </Grid>
             <Grid md={6} xs={12} item>
-              <MDButton
-                variant="contained"
-                target="_blank"
-                href={record.meta?.demo_url}
-                color="info"
-                startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
-                fullWidth
-              >
-                <div className='white-color'>
-                  {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
+              <MDBox
+               display={"flex"} 
+               flexGrow={1}
+               flexDirection="column"
+               flexWrap="wrap"
+               alignItems="center">
+                <MDButton
+                  variant="contained"
+                  target="_blank"
+                  href={record.meta?.demo_url}
+                  color="info"
+                  startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
+                  fullWidth
+                >
+                  <div className='white-color'>
+                    {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
+                  </div>
+                </MDButton>
+                <div className='text-desc'>
+                  {record.desc}
                 </div>
-                <style jsx>{`
-                  .white-color {
-                    color: white;
-                  }
-                `}</style>
-              </MDButton>
+              </MDBox>
             </Grid>
           </>
         )}
+        <style jsx>{`
+          .text-desc {
+            color: #939393;
+            margin-right: auto;
+            margin-left: auto;
+            text-transform: none;
+            font-weight: 400;
+            font-size: 0.625rem;
+            line-height: 1;
+            margin-top: 8px;
+            text-align: center;
+            font-family: "Roboto","Helvetica","Arial",sans-serif;
+          },
+          .white-color {
+            color: white;
+          }
+        `}</style>
       </Grid>
     </>
   );

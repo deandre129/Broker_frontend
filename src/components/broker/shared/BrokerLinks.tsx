@@ -20,12 +20,6 @@ function BrokerLinks({ record }) {
         <div className='white-color'>
           DEMO-KONTO
         </div>
-        <style jsx>{`
-          .white-color {
-            color: white;
-          }
-        `}</style>
-        
       </MDButton>
       <MDButton
         variant="contained"
@@ -37,13 +31,13 @@ function BrokerLinks({ record }) {
       >
         <div className='white-color'>
           ZUM BROKER
-        </div>
-        <style jsx>{`
-          .white-color {
-            color: white;
-          }
-        `}</style>    
+        </div> 
       </MDButton>
+      <style jsx>{`
+        .white-color {
+          color: white;
+        }
+      `}</style>
     </MDBox>
   );
 }

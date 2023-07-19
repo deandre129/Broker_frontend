@@ -14,7 +14,7 @@ const MDButton = dynamic(() => import('@/mui/components/MDButton'));
 const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
 import OverallRating from './broker/shared/OverallRating';
 import BrokerRatingPercent from './broker/shared/BrokerRatingPercent';
-import RatingViewItem from './shared/view/RatingViewItem';
+import RatingView from './RatingView';
 import listItemText from '@/mui/assets/theme/components/list/listItemText';
 import LazyLoad from 'react-lazyload'
 import pxToRem from '@/mui/assets/theme/functions/pxToRem';
@@ -166,6 +166,10 @@ const Topbar = ({topbar, slug}) => {
       justifyContent="center"
       alignItems='center'
       flexShrink={0}
+      zIndex={99}
+      position="fixed"
+      left="0rem"
+      bottom="0rem"
       href={topbarData.account}
       sx={{
         width:'100%', 
@@ -180,10 +184,13 @@ const Topbar = ({topbar, slug}) => {
       shadow="sm"
       position="fixed"
       zIndex={99}
+      left="0rem"
+      bottom="0rem"
       flexDirection="row"
       sx={{
         width:'100%', 
-        height:"70px"}}
+        height:"70px"
+      }}
     >
       
         <Grid spacing={0} container sx={{ justifyContent:"center", alignItems:"center", width:'100%'}}>
@@ -201,68 +208,12 @@ const Topbar = ({topbar, slug}) => {
                 pl:7,
                 py:1
               }}>
-              {/* <MDTypography
-                variant={titleTextSize}
-                color="text"
-                fontWeight="regular"
-                lineHeight={1}
-                alignItems='center'
-                display="flex"
-                justifyContent={'center'}
-              >
-                {`${topbarData.title}`}
-              </MDTypography> */}
               <div className='title'>
                 {`${topbarData.title}`}
               </div>
-              <style jsx>{`
-                .title {
-                  color: rgb(52,71,103);
-                  font-size: ${titleTextSize.fontSize};
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  line-height: 1;
-                  font-family: Roboto, Helvetica, Arial, sans-serif;
-                  font-weight: 700;
-                  opacity: 1;
-                  text-transform: none;
-                  vertical-align: unset;
-                  text-decoration: none;
-                }
-              `}</style>
-              {/* <MDTypography
-                variant={subtitleTextSize}
-                color="text"
-                fontWeight="regular"
-                mt={1}
-                lineHeight={1}
-                alignItems='center' 
-                display="flex"
-                justifyContent={'center'}
-              >
-                {`${topbarData.subtitle}`}
-              </MDTypography> */}
               <div className='subtitle'>
                 {`${topbarData.subtitle}`}
               </div>
-              <style jsx>{`
-                .subtitle {
-                  margin-top: 8px;
-                  color: rgb(52,71,103);
-                  font-size: ${subtitleTextSize.fontSize};
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  line-height: 1;
-                  font-family: Roboto, Helvetica, Arial, sans-serif;
-                  font-weight: 700;
-                  opacity: 1;
-                  text-transform: none;
-                  vertical-align: unset;
-                  text-decoration: none;
-                }
-              `}</style>
             </MDBox>
           </Grid>
 
@@ -363,46 +314,7 @@ const Topbar = ({topbar, slug}) => {
                     size={ratingPercent}
                   />
                   <LazyLoad>
-                  <RatingViewItem
-                    value={topbarRating.overall_rating}
-                    precision={0.1}
-                    emptyIcon={
-                      <svg
-                        width={36}
-                        height={32}
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12.1053 3.68421L14.7074 8.95579L20.5263 9.80632L16.3158 13.9074L17.3095 19.7011L12.1053 16.9642L6.90105 19.7011L7.89473 13.9074L3.6842 9.80632L9.50315 8.95579L12.1053 3.68421Z"
-                          fill="#FCFBF8"
-                          stroke="#E2E0DA"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    }
-                    icon={
-                      <svg
-                        width={36}
-                        height={32}
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 4.5L14.3175 9.195L19.5 9.9525L15.75 13.605L16.635 18.765L12 16.3275L7.365 18.765L8.25 13.605L4.5 9.9525L9.6825 9.195L12 4.5Z"
-                          fill="#EBC03F"
-                          stroke="#EBC03F"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    }
-                    size={ratingStarSize}
-                  />
+                    <RatingView value={topbarRating.overall_rating} width={36} height={32} size={ratingStarSize}/>
                   </LazyLoad>
                 </MDBox>
                   <MDTypography
@@ -422,6 +334,37 @@ const Topbar = ({topbar, slug}) => {
           </Grid>
         </Grid> 
       </MDBox>
+      <style jsx>{`
+        .title {
+          color: rgb(52,71,103);
+          font-size: ${titleTextSize.fontSize};
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          font-family: Roboto, Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          opacity: 1;
+          text-transform: none;
+          vertical-align: unset;
+          text-decoration: none;
+        },
+        .subtitle {
+          margin-top: 8px;
+          color: rgb(52,71,103);
+          font-size: ${subtitleTextSize.fontSize};
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          font-family: Roboto, Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          opacity: 1;
+          text-transform: none;
+          vertical-align: unset;
+          text-decoration: none;
+        }
+      `}</style>
     </MaterialLink>
   );
 };

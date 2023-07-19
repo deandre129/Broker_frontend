@@ -133,26 +133,38 @@ function BrokerHeader({ record }) {
             />
             <MDButton
               variant="contained"
+              target="_blank"
               href={record.meta?.homepage}
               color="warning"
-              target="_blank"
               startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
               fullWidth
-              size="small"
-              
             >
               <div className='white-color'>
-                {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
+              {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
               </div>
-              <style jsx>{`
-                .white-color {
-                  color: white;
-                }
-              `}</style>
             </MDButton>
+            <div className='text-desc'>
+              {record.desc}
+            </div>
           </MDBox>
         </Grid>
       </Grid>
+      <style jsx>{`
+        .text-desc {
+          color: #939393;
+          margin-right: auto;
+          margin-left: auto;
+          text-transform: none;
+          font-weight: 400;
+          font-size: 0.625rem;
+          line-height: 1;
+          text-align: center;
+          font-family: "Roboto","Helvetica","Arial",sans-serif;
+        },
+        .white-color {
+          color: white;
+        }
+      `}</style>
     </MDBox>
   );
 }

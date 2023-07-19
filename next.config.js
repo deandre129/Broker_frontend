@@ -1,14 +1,4 @@
-const webpack = require('webpack');
-const withPlugins = require('next-compose-plugins')
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true',
-  })
-
 const withOffline = require('next-offline');
-
-// module.exports = withPlugins([
-//     [withBundleAnalyzer],
-// ])
 
 const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
@@ -49,7 +39,7 @@ module.exports = withOffline({
         commons: {
           name: 'commons',
           chunks: 'all',
-          minChunks: 2,
+          minChunks: 1,
         },
       };
 
@@ -61,7 +51,7 @@ module.exports = withOffline({
           filename: '[path][base].gz',
           algorithm: 'gzip',
           // test: /\.js$|\.css$|\.html$/,
-          test: /\.(js|css|html|svg)$/,
+          test: /\.(js|css|html|svg|png)$/,
           threshold: 8192,
           minRatio: 0.8,
         }),

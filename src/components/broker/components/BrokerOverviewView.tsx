@@ -18,66 +18,21 @@ function BrokerOverviewView({ record }) {
           <HtmlView value={record.meta?.teaser} />
         </Grid>
         <Grid md={6} xs={12} item>
-          <div className='upsides'>
+          <div className='title'>
             {i18n.entities.broker.text.upsides}
           </div>
-          <style jsx>{`
-            .upsides {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <BrokerUpsides record={record} />
 
-          <div className='minimum_deposit'>
+          <div className='title'>
             {i18n.entities.broker.fields.minimum_deposit}
           </div>
-          <style jsx>{`
-            .minimum_deposit {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <AttrTypography noIndent>
             {record.meta?.minimum_deposit}
           </AttrTypography>
 
-          <div className='scalping_allowed'>
+          <div className='title'>
             {i18n.entities.broker.fields.scalping_allowed}
           </div>
-          <style jsx>{`
-            .scalping_allowed {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <MDBox position="relative" my={1}>
             <CheckboxViewItem
               checked={record.meta?.scalping_allowed}
@@ -85,47 +40,17 @@ function BrokerOverviewView({ record }) {
           </MDBox>
 
 
-          <div className='regulation'>
+          <div className='title'>
             {i18n.entities.broker.fields.regulation}
           </div>
-          <style jsx>{`
-            .regulation {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <BrokerAttrs
             records={record.regulatory_authorities}
             noIndent
           />
 
-          <div className='deposit_guarantees'>
+          <div className='title'>
             {i18n.entities.broker.fields.deposit_guarantees}
           </div>
-          <style jsx>{`
-            .deposit_guarantees {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <BrokerAttrs
             records={record.deposit_guarantees}
             renderFn={(v) => `${v.name} ${v.text}`}
@@ -133,69 +58,24 @@ function BrokerOverviewView({ record }) {
           />
         </Grid>
         <Grid md={6} xs={12} item>
-          <div className='broker_type'>
+          <div className='title'>
             {i18n.entities.broker.fields.broker_type}
           </div>
-          <style jsx>{`
-            .broker_type {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <AttrTypography noIndent>
             {i18n.entities.broker.enumerators.meta.broker_type[record.meta?.broker_type]}
           </AttrTypography>
 
-          <div className='certificates'>
+          <div className='title'>
             {i18n.entities.broker.fields.certificates}
           </div>
-          <style jsx>{`
-            .certificates {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <BrokerImages
             records={record.certificates}
             noIndent
           />
 
-          <div className='spreads'>
+          <div className='title'>
             {i18n.entities.broker.fields.spreads}
           </div>
-          <style jsx>{`
-            .spreads {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
           <BrokerAttrs
             records={record.spreads}
             attrs={{
@@ -206,24 +86,10 @@ function BrokerOverviewView({ record }) {
             noIndent
           />
 
-          <div className='specialties'>
+          <div className='title'>
             {i18n.entities.broker.fields.specialties}
           </div>
-          <style jsx>{`
-            .specialties {
-              color: rgb(52,71,103);
-              font-size: 20px;
-              display: flex;
-              line-height: 1.375;
-              font-family: Roboto, Helvetica, Arial, sans-serif;
-              font-weight: 700;
-              opacity: 1;
-              margin-top: 16px;
-              text-transform: none;
-              vertical-align: unset;
-              text-decoration: none;
-            }
-          `}</style>
+          
           { record.features.length != 0 ?
             <BrokerAttrs
               records={record.features}
@@ -241,6 +107,21 @@ function BrokerOverviewView({ record }) {
           }
         </Grid>
       </Grid>
+      <style jsx>{`
+        .title {
+          color: rgb(52,71,103);
+          font-size: 20px;
+          display: flex;
+          line-height: 1.375;
+          font-family: Roboto, Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          opacity: 1;
+          margin-top: 16px;
+          text-transform: none;
+          vertical-align: unset;
+          text-decoration: none;
+        }
+      `}</style>
     </>
   );
 }

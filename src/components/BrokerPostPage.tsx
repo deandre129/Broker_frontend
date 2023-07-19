@@ -5,17 +5,15 @@ import { DEFAULT_MOMENT_FORMAT_DATE_ONLY } from '@/config/common';
 import { Alert, Grid, Snackbar, TextField } from '@mui/material';
 import i18n from '@/i18n';
 import { useEffect, useRef, useState } from 'react';
-import HtmlView from '@/components/shared/view/HtmlView';
-import MDBox from '@/mui/components/MDBox';
-import MDButton from '@/mui/components/MDButton';
-import MDTypography from '@/mui/components/MDTypography';
+// import MDBox from '@/mui/components/MDBox';
+// import MDButton from '@/mui/components/MDButton';
+// import MDTypography from '@/mui/components/MDTypography';
 import moment from 'moment';
 import Pagination from '@/components/shared/table/Pagination';
-import SaveIcon from '@mui/icons-material/Save';
 import TopBrokersView from '@/components/broker/components/TopBrokersView';
 import lColors from '@/mui/assets/theme/base/colors';
-import FieldSetViewItem from '@/components/shared/view/FieldSetViewItem';
-import RatingViewItem from './shared/view/RatingViewItem';
+// import FieldSetViewItem from '@/components/shared/view/FieldSetViewItem';
+// import RatingViewItem from './shared/view/RatingViewItem';
 import config from '@/config';
 import ReCAPTCHA from 'react-google-recaptcha';
 import axios from 'axios';
@@ -23,9 +21,19 @@ import AuthCurrentTenant from '@/modules/auth/authCurrentTenant';
 import { CKEditor } from 'ckeditor4-react';
 import { AuthToken } from '@/modules/auth/authToken';
 import StyledRating from './shared/styles/StyledRating';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import LazyLoad from 'react-lazyload'
+import Spinner from '@/components/shared/Spinner';
+
+const Image = dynamic(() => import('next/image'), {});
+const MDBox = dynamic(() => import('@/mui/components/MDBox'), {});
+const MDButton = dynamic(() => import('@/mui/components/MDButton'), {});
+const MDTypography = dynamic(() => import('@/mui/components/MDTypography'), {});
+const SaveIcon = dynamic(() => import('@mui/icons-material/Save'), {});
+const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), { loading: () => <Spinner />});
+const FieldSetViewItem = dynamic(() => import('@/components/shared/view/FieldSetViewItem'), {});
+const RatingViewItem = dynamic(() => import('./shared/view/RatingViewItem'), {});
+const RatingView = dynamic(() => import('./RatingView'), {});
 
 const BrokerPostPage = (props) => {
 
@@ -271,46 +279,7 @@ const BrokerPostPage = (props) => {
                   gap={1}
                 >
                   <LazyLoad>
-                  <RatingViewItem
-                    value={post.rating}
-                    precision={0.1}
-                    emptyIcon={
-                      <svg
-                        width={27}
-                        height={24}
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12.1053 3.68421L14.7074 8.95579L20.5263 9.80632L16.3158 13.9074L17.3095 19.7011L12.1053 16.9642L6.90105 19.7011L7.89473 13.9074L3.6842 9.80632L9.50315 8.95579L12.1053 3.68421Z"
-                          fill="#FCFBF8"
-                          stroke="#E2E0DA"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    }
-                    icon={
-                      <svg
-                        width={27}
-                        height={24}
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 4.5L14.3175 9.195L19.5 9.9525L15.75 13.605L16.635 18.765L12 16.3275L7.365 18.765L8.25 13.605L4.5 9.9525L9.6825 9.195L12 4.5Z"
-                          fill="#EBC03F"
-                          stroke="#EBC03F"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    }
-                    size="large"
-                  />
+                    <RatingView value={post.rating} width={27} height={24} size={"large"}/>
                   </LazyLoad>
                 </MDBox>
               </MDBox>

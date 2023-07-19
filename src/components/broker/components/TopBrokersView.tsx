@@ -7,7 +7,7 @@ import MaterialLink from '@mui/material/Link';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';
-import RatingViewItem from '../../shared/view/RatingViewItem';
+import RatingView from '../../RatingView';
 import Image from 'next/image';
 import LazyLoad from 'react-lazyload'
 
@@ -43,23 +43,49 @@ function TopBrokersView({ topBrokers }) {
                 },
               }}
             >
-              <MaterialLink
-                display="block"
-                flexShrink={0}
-                href={row.meta?.homepage}
-                target="_blank"
+              <MDBox 
+                display={"flex"} 
+                flexGrow={1}
+                flexDirection="column"
+                flexWrap="wrap"
+                alignItems="center"
               >
-                <ImageView
-                  value={
-                    row.broker_image_broker_detail_logo
+                <MaterialLink
+                  display="block"
+                  flexShrink={0}
+                  href={row.meta?.homepage}
+                  target="_blank"
+                >
+                  <ImageView
+                    value={
+                      row.broker_image_broker_detail_logo
+                    }
+                    alt={row.name}
+                    sx={{
+                      height: '70px',
+                      objectFit: 'contain',
+                    }}
+                  />
+                </MaterialLink>
+                <div className='text-desc'>
+                  {row.desc}
+                </div>
+                <style jsx>{`
+                  .text-desc {
+                    color: #939393;
+                    margin-right: auto;
+                    margin-left: auto;
+                    text-transform: none;
+                    font-weight: 400;
+                    font-size: 0.625rem;
+                    line-height: 1;
+                    text-align: center;
+                    margin-top: 8px;
+                    font-family: "Roboto","Helvetica","Arial",sans-serif;
                   }
-                  alt={row.name}
-                  sx={{
-                    height: '70px',
-                    objectFit: 'contain',
-                  }}
-                />
-              </MaterialLink>
+                `}</style>
+              </MDBox>
+              
               <ImageView
                 value={
                   row.broker_image_broker_regulation_image
@@ -87,46 +113,7 @@ function TopBrokersView({ topBrokers }) {
                 // }}
               >
                 <LazyLoad>
-                <RatingViewItem
-                  value={row.rating?.overall_rating}
-                  precision={0.1}
-                  emptyIcon={
-                    <svg
-                      width={36}
-                      height={32}
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.1053 3.68421L14.7074 8.95579L20.5263 9.80632L16.3158 13.9074L17.3095 19.7011L12.1053 16.9642L6.90105 19.7011L7.89473 13.9074L3.6842 9.80632L9.50315 8.95579L12.1053 3.68421Z"
-                        fill="#FCFBF8"
-                        stroke="#E2E0DA"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  }
-                  icon={
-                    <svg
-                      width={36}
-                      height={32}
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 4.5L14.3175 9.195L19.5 9.9525L15.75 13.605L16.635 18.765L12 16.3275L7.365 18.765L8.25 13.605L4.5 9.9525L9.6825 9.195L12 4.5Z"
-                        fill="#EBC03F"
-                        stroke="#EBC03F"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  }
-                  size="extra2"
-                />
+                  <RatingView value={row.rating?.overall_rating} width={36} height={32} size={"extra2"}/>
                 </LazyLoad>
                 <MDTypography
                   variant="button"

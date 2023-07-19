@@ -603,7 +603,7 @@ export async function getStaticProps({params}) {
 
   return { 
     props: { commentList, topbarList, brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 

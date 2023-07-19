@@ -278,7 +278,7 @@ export async function getServerSideProps(context) {
 
   const sortField = 'name';
   const sortOrder = "asc";
-
+  
   const filter = {
     activated: true,
     category: 0
@@ -324,6 +324,8 @@ export async function getServerSideProps(context) {
   ])
   const recordA = recordARes.data;
   const recordB = recordBRes.data;
+
+  console.log()
 
   return { 
     props: { topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },

@@ -242,7 +242,7 @@ export async function getStaticProps({params}) {
 
   return { 
     props: { broker, topbarList, downloadPdf, brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 
@@ -333,7 +333,15 @@ export async function getStaticProps({params}) {
 //   const allPath = generalRes.data;
 //   const topbarList = topbarListRes.data;
 
-//   return { props: { topbarList, allPath, downloadPdf, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+//   let brokerRes;
+//   let broker = null;
+//   if(page && pageType == 'article') {
+//     const url = page?.broker.name_normalized;
+//     brokerRes = await axios.post(`${config.backendUrl}/broker`, { url });
+//     broker = brokerRes.data;
+//   }
+
+//   return { props: { broker, topbarList, allPath, downloadPdf, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 // };
 
 export default GeneralPage;

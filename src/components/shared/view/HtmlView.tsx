@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import MDBox from '@/mui/components/MDBox';
+import Image from 'next/image';
 
 const HtmlStyled = styled('div')(() => ({
   fontSize: '1rem',
@@ -47,6 +48,10 @@ const HtmlStyled = styled('div')(() => ({
     maxWidth: '100% !important',
   },
   '& img': {
+    maxWidth: '100% !important',
+    height: 'auto !important',
+  },
+  '& Image': {
     maxWidth: '100% !important',
     height: 'auto !important',
   },

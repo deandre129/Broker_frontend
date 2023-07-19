@@ -39,15 +39,16 @@ const ScrollTop = () => {
       width="3.25rem"
       height="3.25rem"
       bgColor={lightColors.white.main}
-      shadow="sm"
+      shadow="md"
       borderRadius="50%"
       position="fixed"
       right="6rem"
-      bottom="2rem"
+      bottom="6rem"
       zIndex={99}
       color="text"
       sx={{ cursor: 'pointer' }}
       onClick={scrollTop}
+
     >
       <KeyboardArrowUpIcon fontSize="medium" color="inherit">
         keyboard_arrow_up

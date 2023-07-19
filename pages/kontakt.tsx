@@ -418,7 +418,7 @@ export async function getStaticProps() {
 
   return { 
     props: { topbarList, brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 10,
+    revalidate: 300,
   };
 } ;
 
