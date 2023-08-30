@@ -37,8 +37,10 @@ const RatingView = dynamic(() => import('./RatingView'), {});
 
 const BrokerPostPage = (props) => {
 
-  const [rows, setRows] = useState(props.brokerPostList.rows);
-  const [count, setCount] =useState(props.brokerPostList.count);
+  console.log("brokerPostList", props.brokerPostList)
+
+  let rows = props.brokerPostList.rows;
+  const count = props.brokerPostList.count;
   const colors = lColors;
 
   const recaptchaRef = useRef(null);
@@ -166,36 +168,24 @@ const BrokerPostPage = (props) => {
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const pagination = {
+  let pagination = {
     current: current,
     pageSize: pageSize,
     total: count
   }
 
-  const doChangePagination = async (pagination) => {
+  const doChangePagination = (paginationChange) => {
 
-    setCurrent(pagination.current);
-    setPageSize(pagination.pageSize);
-
-    const params = {
-      filter: {
-        spam: false,
-        review_required: false,
-        deleted: false,
-        broker: props.brokerId,
-      },
-      orderBy: "created_desc",
-      offset: (pagination.current - 1)*pagination.pageSize,
-      limit: pagination.pageSize,
+    setCurrent(paginationChange.current);
+    setPageSize(paginationChange.pageSize);
+    pagination = {
+      current: paginationChange.current,
+      pageSize: paginationChange.pageSize,
+      total: count
     }
-    const brokerPostRes = axios.get(
-      `${config.backendUrl}/brokerPost-list`, { params }
-    ).then(res => {
-      const brokerPost = res.data;
-      setRows(brokerPost.rows);
-    }).catch(error => {
-    })
-
+    // localStorage.setItem("pageSize", pagination.pageSize);
+    // localStorage.setItem("current", pagination.current);
+    props.onChange(paginationChange.current, paginationChange.pageSize);
   };
 
   return (

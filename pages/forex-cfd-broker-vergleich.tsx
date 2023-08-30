@@ -270,7 +270,7 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
   const sortField = 'name';
   const sortOrder = "asc";
@@ -323,7 +323,6 @@ export async function getStaticProps() {
 
   return { 
     props: { topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 300,
   };
 };
 

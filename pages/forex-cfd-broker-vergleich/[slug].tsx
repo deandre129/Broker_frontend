@@ -325,8 +325,6 @@ export async function getServerSideProps(context) {
   const recordA = recordARes.data;
   const recordB = recordBRes.data;
 
-  console.log()
-
   return { 
     props: { topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
   };

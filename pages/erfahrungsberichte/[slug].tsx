@@ -52,7 +52,7 @@ const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
 const BrokerViewPage = ({
   topbarList,
-  brokerPostList,
+  brokerPost,
   brokerComparable,
   slug,
   author,
@@ -69,12 +69,35 @@ const BrokerViewPage = ({
 }) => {
   const router = useRouter();
   const record = page;
+  const [brokerPostList, setBrokerPostList] = useState(brokerPost);
 
   useEffect(() => {
     if(!page) {
       router.push('/404');
     }
   }, [page, router]);
+
+
+  const changeBrokerPost = async (current, pageSize) => {
+  //   let pageSize : any = localStorage.getItem("pageSize") || 10;
+  //   let current : any = localStorage.getItem("current") || 1;
+    const params = {
+      filter: {
+        spam: false,
+        review_required: false,
+        deleted: false,
+        broker: record.id,
+      },
+      orderBy: "created_desc",
+      offset: (current - 1) * pageSize,
+      limit: pageSize,
+    }
+
+    const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
+    const brokerPostData = brokerPostRes.data;
+    console.log(brokerPostData);
+    setBrokerPostList(brokerPostData);
+  }
 
   let title = "";
   let keywords = ["erfahrungen", "bewertungen", "test"];
@@ -88,7 +111,7 @@ const BrokerViewPage = ({
       i < Number((record.rating?.overall_rating ?? 0).toFixed(0));
       i++, stars.push("✪")
     );
-    title = `${record.name} Erfahrungen ${moment().year()} » unabhängiger Test`;
+    title = `${record.name} Erfahrungen ${moment().year()} » 100% unabhängiger Test`;
     description = record.is_broker
       ? `${record.name} Erfahrungen » Fazit von Tradern: ${stars.join(
           ""
@@ -226,6 +249,7 @@ const BrokerViewPage = ({
                       topBrokers={topBroker}
                       brokerPostList = {brokerPostList}
                       slug={slug}
+                      onChange = {changeBrokerPost}
                     />
                   </PageContent>
                 {Boolean(record.creteria) && Boolean(record.creteria.body) && (
@@ -380,8 +404,8 @@ export async function getStaticProps({params}) {
 //   const author = baseRes.data.author;
 //   const brokerComparable = allBrokerRes.data;
 //   const topbarList = baseRes.data.topbarList;
-  
-//   const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
+
+//     const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
 //     filter: {
 //       spam: false,
 //       review_required: false,
@@ -393,12 +417,12 @@ export async function getStaticProps({params}) {
 //     limit: 10,
 //   } });
 
-//   const brokerPostList = brokerPostListRes.data;
+//   const brokerPost = brokerPostListRes.data;
 
 //   return {
 //     props: {
 //       topbarList,
-//       brokerPostList,
+//       brokerPost,
 //       brokerComparable,
 //       slug,
 //       author,
