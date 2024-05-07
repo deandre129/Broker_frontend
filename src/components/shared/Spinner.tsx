@@ -1,5 +1,4 @@
 import { CircularProgress } from '@mui/material';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 
 interface SpinnerProps {
   size?: number;

@@ -1,4 +1,3 @@
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import CheckSharpIcon from '@mui/icons-material/CheckSharp';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';

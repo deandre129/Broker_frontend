@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Autocomplete, Icon } from '@mui/material';
 import i18n from '@/i18n';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 // import MDBox from '@/mui/components/MDBox';
 // import MDInput from '@/mui/components/MDInput';
 // import MDPagination from '@/mui/components/MDPagination';

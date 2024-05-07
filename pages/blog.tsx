@@ -56,8 +56,8 @@ const BlogListPage = ({ blog, topbarList, brokerComparable, author, topBroker, c
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={"blog"}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={"blog"} topBroker={topBroker}/>
       )}
       <Layout 
         title="Broker-Bewertungen Blog"
@@ -177,7 +177,7 @@ export async function getStaticProps() {
 
     return { 
       props: { blog, topbarList, brokerComparable, author, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter }, 
-      revalidate: 300,
+      revalidate: 10,
     };
   } ;
 

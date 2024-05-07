@@ -4,7 +4,6 @@ import MaterialLink from '@mui/material/Link';
 import i18n from '@/i18n';
 // import MDBox from '@/mui/components/MDBox';
 // import MDTypography from '@/mui/components/MDTypography';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 const MDBox = dynamic(() => import('@/mui/components/MDBox'));

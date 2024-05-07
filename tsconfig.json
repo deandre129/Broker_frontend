@@ -17,10 +17,11 @@
     "noImplicitAny": false,
     "strictNullChecks": false,
     "noImplicitThis": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/MatomoImageTracker.js", "src/utils/piwik.js", "pages/_app.js", "src/components/Meta.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/MatomoImageTracker.js", "src/utils/piwik.js", "pages/_app.js", "src/components/Meta.js", "src/context/BrokerContext.js"],
   "exclude": ["node_modules"]
 }

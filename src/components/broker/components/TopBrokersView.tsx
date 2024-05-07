@@ -82,6 +82,7 @@ function TopBrokersView({ topBrokers }) {
                     text-align: center;
                     margin-top: 8px;
                     font-family: "Roboto","Helvetica","Arial",sans-serif;
+                    max-width: 320px;
                   }
                 `}</style>
               </MDBox>

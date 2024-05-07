@@ -1,4 +1,3 @@
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import lColors from '@/mui/assets/theme/base/colors';
 import MDBox from '@/mui/components/MDBox';
 

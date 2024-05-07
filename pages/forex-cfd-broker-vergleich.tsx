@@ -86,8 +86,8 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={"forex-cfd-broker-vergleich"}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={"forex-cfd-broker-vergleich"} topBroker={topBroker}/>
       )}
       <Layout
         title={title}

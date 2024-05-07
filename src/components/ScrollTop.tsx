@@ -1,6 +1,5 @@
 import { Icon } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import lightColors from '@/mui/assets/theme/base/colors';
 // import MDBox from '@/mui/components/MDBox';
 // import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';

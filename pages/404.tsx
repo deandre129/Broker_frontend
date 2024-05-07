@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import i18n from '@/i18n';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import MDButton from '@/mui/components/MDButton';
 import { Card } from '@mui/material';
 import { BrandLogo } from '@/assets/resources';

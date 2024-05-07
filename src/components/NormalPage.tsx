@@ -1,5 +1,4 @@
 import i18n from '@/i18n';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 // import Breadcrumb from './Breadcrumb';
 // import HtmlView from './shared/view/HtmlView';
 import lColors from '@/mui/assets/theme/base/colors';

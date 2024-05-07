@@ -1,6 +1,5 @@
 import { Alert, Grid, Snackbar, TextField } from '@mui/material';
 import i18n from '@/i18n';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import { useRef, useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 // import MDButton from '@/mui/components/MDButton';
@@ -156,8 +155,8 @@ function Contact({ topbarList, brokerComparable, topBroker, author, category, mo
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-          <Topbar topbar = {topbarList} slug={"kontakt"}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+          <Topbar topbar = {topbarList} slug={"kontakt"} topBroker={topBroker}/>
         )}
       <Layout 
         noIndex
@@ -418,7 +417,7 @@ export async function getStaticProps() {
 
   return { 
     props: { topbarList, brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 300,
+    revalidate: 10,
   };
 } ;
 

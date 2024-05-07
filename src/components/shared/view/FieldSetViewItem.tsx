@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import MDBox from '@/mui/components/MDBox';
 import MDTypography from '@/mui/components/MDTypography';
 import PropTypes from 'prop-types';

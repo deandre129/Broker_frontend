@@ -224,8 +224,8 @@ const BlogDetailPage = ({ commentList, topbarList, brokerComparable, slug, autho
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={slug}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={slug} topBroker={topBroker}/>
       )}
       <Layout
         title={record?.name}
@@ -603,7 +603,7 @@ export async function getStaticProps({params}) {
 
   return { 
     props: { commentList, topbarList, brokerComparable, slug, author, blog, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 300,
+    revalidate: 10,
   };
 };
 

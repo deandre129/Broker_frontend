@@ -1,7 +1,6 @@
 import { Icon } from '@mui/material';
 import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 import lightColors from '@/mui/assets/theme/base/colors';
 import i18n from '@/i18n';
 import { CardMedia } from '@mui/material';
@@ -19,26 +18,31 @@ import listItemText from '@/mui/assets/theme/components/list/listItemText';
 import LazyLoad from 'react-lazyload'
 import pxToRem from '@/mui/assets/theme/functions/pxToRem';
 
-const Topbar = ({topbar, slug}) => {
+const Topbar = ({topbar, slug, topBroker}) => {
   const [showTopbar, setShowTopbar] = useState(false);
 
   let topbarData;
   let topbarLogo;
   let topbarRating;
   let topbarLink;
-  for(let i = 1; i< topbar.count;i++) {
-    if(slug && slug === topbar.rows[i].name_normalized) {
+  for(let i = 0; i< topbar.count;i++) {
+    if(slug === topbar.rows[i].name_normalized) {
       topbarData = topbar.rows[i].data;
       topbarLogo = topbar.rows[i].detailLogo;
       topbarRating = topbar.rows[i].rating;
       topbarLink = slug;
-    }
+    } 
   }
+
   if(!topbarData) {
-    topbarData = topbar.rows[0].data;
-    topbarLogo = topbar.rows[0].detailLogo;
-    topbarRating = topbar.rows[0].rating;
-    topbarLink = topbar.rows[0].name_normalized;
+    for(let i = 0; i< topbar.count;i++) {
+      if(topBroker.rows[0].name_normalized  === topbar.rows[i].name_normalized){
+        topbarData = topbar.rows[i].data;
+        topbarLogo = topbar.rows[i].detailLogo;
+        topbarRating = topbar.rows[i].rating;
+        topbarLink = topBroker.rows[0].name_normalized;
+      }
+    }
   }
 
   const [titleTextSize, setTitleTextSize] = useState({
@@ -173,7 +177,7 @@ const Topbar = ({topbar, slug}) => {
       href={topbarData.account}
       sx={{
         width:'100%', 
-        height:"70px"
+        height:"90px"
       }}
     >
     <MDBox
@@ -348,6 +352,7 @@ const Topbar = ({topbar, slug}) => {
           text-transform: none;
           vertical-align: unset;
           text-decoration: none;
+          text-align: center;
         },
         .subtitle {
           margin-top: 8px;
@@ -363,6 +368,7 @@ const Topbar = ({topbar, slug}) => {
           text-transform: none;
           vertical-align: unset;
           text-decoration: none;
+          text-align: center;
         }
       `}</style>
     </MaterialLink>

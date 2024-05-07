@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors'
 // import MDBox from '@/mui/components/MDBox';
 // import MDButton from '@/mui/components/MDButton';
 // import MDTypography from '@/mui/components/MDTypography';
@@ -47,8 +46,8 @@ function Index({
   
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={""}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={""} topBroker={topBroker}/>
       )}
       <Layout
         title={i18n.entities.home.title}
@@ -789,7 +788,7 @@ export const getStaticProps = async () => {
 
   return { 
     props: { topbarList, brokerComparable, topBroker, author, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 300,
+    revalidate: 10,
   };
 } ;
 

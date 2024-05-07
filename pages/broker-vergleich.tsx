@@ -94,8 +94,8 @@ const ComparisonPage = ({ allBroker, topbarList, brokerComparable, category, aut
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={"broker-vergleich"}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={"broker-vergleich"} topBroker={topBrokerSidebar}/>
       )}
       <Layout
         title={`Broker Vergleich ${moment().year()} » 100% unabhängiger Test`}
@@ -391,7 +391,7 @@ export async function getStaticProps() {
   
   return { 
     props: { allBroker, topbarList, brokerComparable, author, topBrokerSidebar, categorySidebar, mostReadSidebar, featuredBrokersSidebar, forexSchoolSidebar, forexStrategySidebar, promotionSidebar, navigationSidebar, categoryFooterSidebar, category },
-    revalidate: 300,
+    revalidate: 10,
   };
 } ;
 

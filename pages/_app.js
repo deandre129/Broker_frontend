@@ -6,7 +6,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import { Provider } from 'react-redux'
-import { useStore } from '@/modules/store';
 import GlobalDndContext from '@/components/dnd-context';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
@@ -22,7 +21,6 @@ import {initPiwik} from '@/utils/piwik';
 import MatomoImageTracker from '@/utils/MatomoImageTracker';
 
 function MyApp({Component, pageProps}) {
-  const store = useStore({});
   const router = useRouter();
 
   useEffect(() => {
@@ -37,16 +35,12 @@ function MyApp({Component, pageProps}) {
   },[]);
 
   return (
-    <GlobalDndContext>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-          <ScrollTop />
-          <MatomoImageTracker/>
-        </ThemeProvider>
-      </Provider>
-    </GlobalDndContext>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Component {...pageProps} />
+      <ScrollTop />
+      <MatomoImageTracker/>
+    </ThemeProvider>
   )
 }
 

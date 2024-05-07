@@ -37,10 +37,8 @@ const RatingView = dynamic(() => import('./RatingView'), {});
 
 const BrokerPostPage = (props) => {
 
-  console.log("brokerPostList", props.brokerPostList)
-
   let rows = props.brokerPostList.rows;
-  const count = props.brokerPostList.count;
+  let count = props.brokerPostList.count;
   const colors = lColors;
 
   const recaptchaRef = useRef(null);
@@ -168,13 +166,18 @@ const BrokerPostPage = (props) => {
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
+  useEffect(() => {
+    setCurrent(1);
+    setPageSize(10);
+  }, [props.slug])
+
   let pagination = {
     current: current,
     pageSize: pageSize,
     total: count
   }
 
-  const doChangePagination = (paginationChange) => {
+  const doChangePagination = async (paginationChange) => {
 
     setCurrent(paginationChange.current);
     setPageSize(paginationChange.pageSize);
@@ -185,7 +188,23 @@ const BrokerPostPage = (props) => {
     }
     // localStorage.setItem("pageSize", pagination.pageSize);
     // localStorage.setItem("current", pagination.current);
-    props.onChange(paginationChange.current, paginationChange.pageSize);
+    // props.onChange(paginationChange.current, paginationChange.pageSize);
+    // const params = {
+    //   filter: {
+    //     spam: false,
+    //     review_required: false,
+    //     deleted: false,
+    //     broker: props.brokerId,
+    //   },
+    //   orderBy: "created_desc",
+    //   offset: (current - 1) * pageSize,
+    //   limit: pageSize,
+    // }
+
+    // const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
+    // const brokerPostData = brokerPostRes.data;
+    // rows = brokerPostData.rows;
+    // count = brokerPostData.count;
   };
 
   return (
@@ -204,7 +223,9 @@ const BrokerPostPage = (props) => {
         color="text"
       >
         {rows &&
-          rows.map((post, idx, arr) => (
+          rows
+          .slice((current-1)*pageSize, current*pageSize)
+          .map((post, idx, arr) => (
             // <LazyLoad key={post.id}>
             <MDBox
               key={post.id}

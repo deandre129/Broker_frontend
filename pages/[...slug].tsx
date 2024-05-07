@@ -21,7 +21,6 @@ const NormalPage = dynamic(() => import('@/components/NormalPage'), { loading: (
 const Topbar = dynamic(() => import('@/components/Topbar'), {});
 
 const GeneralPage = ({ broker, topbarList, downloadPdf, slug, author, allBroker, pageType, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) => {
-
   const router = useRouter();
 
   const [record, setRecord] = useState(broker);
@@ -97,8 +96,8 @@ const GeneralPage = ({ broker, topbarList, downloadPdf, slug, author, allBroker,
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={slug[0]}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={slug[0]} topBroker={topBroker}/>
       )}
       <Layout
         title={title}
@@ -213,8 +212,6 @@ export async function getStaticProps({params}) {
     axios.get(`${config.backendUrl}/broker`, {params: {
       filter: filter,
       orderBy: "name_asc",
-      limit: null,
-      offset: 1,
     }}),
     authAxios.post(`/general-page`, {url:downloadUrl}),
   ])
@@ -242,7 +239,7 @@ export async function getStaticProps({params}) {
 
   return { 
     props: { broker, topbarList, downloadPdf, brokerComparable, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
-    revalidate: 300,
+    revalidate: 10,
   };
 };
 
@@ -299,22 +296,18 @@ export async function getStaticProps({params}) {
   
 //   const params = {
 //     filter: filter,
-//     orderBy: sortField+"_"+sortOrder,
-//     limit: null,
-//     offset: 1,
+//     orderBy: sortField+"_"+sortOrder
 //   }
 
 //   const [
 //     baseRes,
 //     allBrokerRes,
 //     downloadPdfRes,
-//     generalRes,
 //     topbarListRes,
 //     ] = await Promise.all([
 //     axios.get(`${config.backendUrl}/base`),
 //     axios.get(`${config.backendUrl}/broker`, {params}),
 //     authAxios.post(`/general-page`, {url:downloadUrl}),
-//     axios.get(`${config.backendUrl}/generalPath`),
 //     axios.get(`${config.backendUrl}/topbarList`),
 //   ])
 //   const topBroker = baseRes.data.brokerTop;
@@ -327,10 +320,8 @@ export async function getStaticProps({params}) {
 //   const navigation = baseRes.data.navigation;
 //   const categoryFooter = baseRes.data.footer;
 //   const author = baseRes.data.author;
-//   //const brokerComparable = baseRes.data.brokerComparable;
 //   const allBroker = allBrokerRes.data;
 //   const downloadPdf = downloadPdfRes.data;
-//   const allPath = generalRes.data;
 //   const topbarList = topbarListRes.data;
 
 //   let brokerRes;
@@ -341,7 +332,7 @@ export async function getStaticProps({params}) {
 //     broker = brokerRes.data;
 //   }
 
-//   return { props: { broker, topbarList, allPath, downloadPdf, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
+//   return { props: { broker, topbarList, downloadPdf, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
 // };
 
 export default GeneralPage;

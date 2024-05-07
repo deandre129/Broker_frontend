@@ -21,9 +21,6 @@ import { Theme } from '@mui/material/styles';
 // Material Dashboard 2 PRO React TS components
 import MDBox from '@/mui/components/MDBox';
 
-// for MUI 2 Dashboard
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
-
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 

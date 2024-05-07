@@ -69,7 +69,7 @@ const BrokerViewPage = ({
 }) => {
   const router = useRouter();
   const record = page;
-  const [brokerPostList, setBrokerPostList] = useState(brokerPost);
+  let brokerPostList = brokerPost;
 
   useEffect(() => {
     if(!page) {
@@ -79,24 +79,6 @@ const BrokerViewPage = ({
 
 
   const changeBrokerPost = async (current, pageSize) => {
-  //   let pageSize : any = localStorage.getItem("pageSize") || 10;
-  //   let current : any = localStorage.getItem("current") || 1;
-    const params = {
-      filter: {
-        spam: false,
-        review_required: false,
-        deleted: false,
-        broker: record.id,
-      },
-      orderBy: "created_desc",
-      offset: (current - 1) * pageSize,
-      limit: pageSize,
-    }
-
-    const brokerPostRes = await axios.get(`${config.backendUrl}/brokerPost-list`, {params});
-    const brokerPostData = brokerPostRes.data;
-    console.log(brokerPostData);
-    setBrokerPostList(brokerPostData);
   }
 
   let title = "";
@@ -145,8 +127,8 @@ const BrokerViewPage = ({
 
   return (
     <>
-      {topbarList && topbarList.rows[0].data.activated  == true && (
-        <Topbar topbar = {topbarList} slug={slug}/>
+      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
+        <Topbar topbar = {topbarList} slug={slug} topBroker={topBroker}/>
       )}
       <Layout
         title={title}
@@ -314,8 +296,6 @@ export async function getStaticProps({params}) {
     axios.get(`${config.backendUrl}/broker`, {params:{
       filter: filter,
       orderBy: "name_asc",
-      limit: null,
-      offset: 1,
     }}),
   ]);
   const page = pageRes.data;
@@ -331,25 +311,23 @@ export async function getStaticProps({params}) {
   const author = baseRes.data.author;
   const brokerComparable = allBrokerRes.data;
   const topbarList = baseRes.data.topbarList;
-  
+
   const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
     filter: {
       spam: false,
       review_required: false,
       deleted: false,
-      broker: page.id,
+      broker: page?.id ? page?.id : 0,
     },
     orderBy: "created_desc",
-    offset: 0,
-    limit: 10,
   } });
 
-  const brokerPostList = brokerPostListRes.data;
+  const brokerPost = brokerPostListRes.data;
 
   return {
     props: {
       topbarList,
-      brokerPostList,
+      brokerPost,
       brokerComparable,
       slug,
       author,
@@ -364,7 +342,7 @@ export async function getStaticProps({params}) {
       navigation,
       categoryFooter,
     },
-    revalidate: 300,
+    revalidate: 10,
   };
 }
 
@@ -372,26 +350,34 @@ export async function getStaticProps({params}) {
 //   const slug = context.query.slug;
 //   const url = slug;
 
+//   const pageRes = await axios.post(`${config.backendUrl}/broker`, { url });
+//   const page = pageRes?.data;
+
 //   const filter = {
 //     activated: true,
 //     category: 0
 //   }
 
 //   const [
-//     pageRes,
 //     baseRes,
 //     allBrokerRes,
+//     brokerPostListRes
 //   ] = await Promise.all([
-//     axios.post(`${config.backendUrl}/broker`, { url }),
 //     axios.get(`${config.backendUrl}/base`),
 //     axios.get(`${config.backendUrl}/broker`, {params:{
 //       filter: filter,
 //       orderBy: "name_asc",
-//       limit: null,
-//       offset: 1,
 //     }}),
+//     axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
+//       filter: {
+//         spam: false,
+//         review_required: false,
+//         deleted: false,
+//         broker: page?.id,
+//       },
+//       orderBy: "created_desc",
+//     } })
 //   ]);
-//   const page = pageRes.data;
 //   const topBroker = baseRes.data.brokerTop;
 //   const category = baseRes.data.categorySidebar;
 //   const mostRead = baseRes.data.mostRead;
@@ -404,19 +390,6 @@ export async function getStaticProps({params}) {
 //   const author = baseRes.data.author;
 //   const brokerComparable = allBrokerRes.data;
 //   const topbarList = baseRes.data.topbarList;
-
-//     const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
-//     filter: {
-//       spam: false,
-//       review_required: false,
-//       deleted: false,
-//       broker: page.id,
-//     },
-//     orderBy: "created_desc",
-//     offset: 0,
-//     limit: 10,
-//   } });
-
 //   const brokerPost = brokerPostListRes.data;
 
 //   return {

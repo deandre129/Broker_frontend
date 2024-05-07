@@ -47,8 +47,7 @@ function CategoryPage({ allBroker, category, navigation, author, topBroker }) {
     orderBy: 'asc',
   });
 
-  const [rows, setRows] = useState(allBroker.rows);
-  const [count, setCount] = useState(allBroker.count);
+  let rows = allBroker.rows;
 
   const doChangeSort = (field) => {
     const order =
@@ -81,8 +80,7 @@ function CategoryPage({ allBroker, category, navigation, author, topBroker }) {
       `${config.backendUrl}/broker`, {params}
       ).then(res => {
         const allBroker = res.data;
-        setRows(allBroker.rows);
-        setCount(allBroker.count);
+        rows = allBroker.rows;
       }).catch(error => {
       })
   };
@@ -118,14 +116,14 @@ function CategoryPage({ allBroker, category, navigation, author, topBroker }) {
             value={i18n.entities.category.placeholders.description(category.name)}
           />
         )}
-        <DashBorder my={2} pb={2} borderTop borderBottom>
-          <MDTypography display="block" variant="h3" my={2}>
-            {i18n.entities.home.top_brokers}
-          </MDTypography>
-          {category.topBrokers && (
-            <TopBrokersView topBrokers={topBroker} />
-          )}
-        </DashBorder>
+        {category.topBrokers && (
+          <DashBorder my={2} pb={2} borderTop borderBottom>
+            <MDTypography display="block" variant="h3" my={2}>
+              {i18n.entities.home.top_brokers}
+            </MDTypography>
+            <TopBrokersView topBrokers={{ rows: category.topBrokers }} />
+          </DashBorder>
+        )}        
         <MDBox my={3}>
           <TableContainer
             id="list-top-4-pagination"

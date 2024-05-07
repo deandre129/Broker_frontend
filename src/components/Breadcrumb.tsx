@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { selectMuiSettings } from '@/modules/mui/muiSelectors';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import config from '@/config';
 import MaterialLink from '@mui/material/Link';
