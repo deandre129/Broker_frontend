@@ -43,6 +43,16 @@ function NormalPage({ downloadPdf, page, topBroker, navigation, author }) {
       <PageContent>
         <Breadcrumb navigation={navigation} items={undefined}/>
         <HtmlView value={page.body} />
+        {(page.link.includes("/forex-schule/") ||
+          page.link.includes("/forex-strategien/")) &&
+          page.body2 !== null && (
+            <>
+              <MDBox py={5}>
+                <TopBrokersView topBrokers={topBroker} />
+              </MDBox>
+              <HtmlView value={page.body2} />
+            </>
+          )}
         {Boolean(page.related_links.length) && (
           <MDBox
             py={2}

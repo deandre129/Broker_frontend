@@ -268,6 +268,14 @@ const BlogDetailPage = ({ commentList, topbarList, brokerComparable, slug, autho
                 ]}
               />
               <HtmlView value={record.content} />
+              {record.content2 !== null && (
+                <>
+                  <MDBox py={5}>
+                    <TopBrokersView topBrokers={topBroker} />
+                  </MDBox>
+                  <HtmlView value={record.content2} />
+                </>
+              )}
               <MDBox py={4}>
                 <MDTypography
                   id="list-top-4-pagination"
