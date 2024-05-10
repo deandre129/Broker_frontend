@@ -267,15 +267,23 @@ const BlogDetailPage = ({ commentList, topbarList, brokerComparable, slug, autho
                   },
                 ]}
               />
-              <HtmlView value={record.content} />
-              {record.content2 !== null && (
+              {(record.content2 !== null && record.content2 !== "") && (
                 <>
-                  <MDBox py={5}>
+                  <HtmlView value={record.content2} />
+                  <MDBox
+                    py={5}
+                    my={5}
+                    sx={{
+                      borderTop: "1px dotted rgba(128,128,128,.5)",
+                      borderBottom: "1px dotted rgba(128,128,128,.5)",
+                      width: "100%",
+                    }}
+                  >
                     <TopBrokersView topBrokers={topBroker} />
                   </MDBox>
-                  <HtmlView value={record.content2} />
                 </>
               )}
+              <HtmlView value={record.content} />
               <MDBox py={4}>
                 <MDTypography
                   id="list-top-4-pagination"
