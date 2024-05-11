@@ -56,6 +56,9 @@ function NormalPage({ downloadPdf, page, topBroker, navigation, author }) {
                   width: "100%",
                 }}
               >
+                <MDTypography display="block" variant="h3" mb={2}>
+                  {i18n.entities.home.top_brokers}
+                </MDTypography>
                 <TopBrokersView topBrokers={topBroker} />
               </MDBox>
             </>
