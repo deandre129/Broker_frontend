@@ -41,6 +41,25 @@ function BrokerArticlePage({ brokerArticle, topBroker, navigation, author }) {
             },
           ]}
         />
+        {brokerArticle.content2 && brokerArticle.content2 !== null && brokerArticle.content2 !== "" && (
+          <>
+            <HtmlView value={brokerArticle.content2} />
+            <MDBox
+              py={5}
+              my={5}
+              sx={{
+                borderTop: "1px dotted rgba(128,128,128,.5)",
+                borderBottom: "1px dotted rgba(128,128,128,.5)",
+                width: "100%",
+              }}
+            >
+              <MDTypography display="block" variant="h3" mb={2}>
+                {i18n.entities.home.top_brokers}
+              </MDTypography>
+              <TopBrokersView topBrokers={topBroker} />
+            </MDBox>
+          </>
+        )}
         <HtmlView value={brokerArticle.content} />
       </PageContent>
       <AuthorView author={author} />
