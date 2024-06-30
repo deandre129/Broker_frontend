@@ -164,7 +164,9 @@ function Contact({
 
   return (
     <>
-      {topbarList && <Topbar topbar={topbarList} slug={"kontakt"} />}
+      {topbarList && topbarList.count > 0 && (
+        <Topbar topbar={topbarList} slug={"kontakt"} />
+      )}
       <Layout
         noIndex
         author={author}

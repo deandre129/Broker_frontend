@@ -330,38 +330,36 @@ const Topbar = ({ topbar, slug }) => {
               paddingRight: "10px",
             }}
           >
-            <MaterialLink href={topbarData?.account} target="_blank">
-              <MDButton
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="center"
-                variant="contained"
-                color="warning"
-                flexWrap={1}
-                sx={{
-                  paddingX: "30px",
-                  paddingY: "15px",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open = topbarData?.account;
-                }}
+            <MDButton
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="center"
+              variant="contained"
+              color="warning"
+              flexWrap={1}
+              sx={{
+                paddingX: "30px",
+                paddingY: "15px",
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open = topbarData?.account;
+              }}
+            >
+              <TrendingFlatIcon style={{ fill: "#ffffff" }} />
+              <MDTypography
+                variant="body2"
+                fontSize={15}
+                color="text"
+                fontWeight="bold"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ color: "#fff" }}
               >
-                <TrendingFlatIcon style={{ fill: "#ffffff" }} />
-                <MDTypography
-                  variant="body2"
-                  fontSize={15}
-                  color="text"
-                  fontWeight="bold"
-                  flexGrow={1}
-                  lineHeight={1}
-                  sx={{ color: "#fff" }}
-                >
-                  Jetzt testen!
-                </MDTypography>
-              </MDButton>
-            </MaterialLink>
+                Jetzt testen!
+              </MDTypography>
+            </MDButton>
             <MDTypography
               variant="body2"
               fontSize={11}

@@ -240,7 +240,9 @@ const BlogDetailPage = ({
 
   return (
     <>
-      {topbarList && <Topbar topbar={topbarList} slug={slug} />}
+      {topbarList && topbarList.count > 0 && (
+        <Topbar topbar={topbarList} slug={slug} />
+      )}
       <Layout
         title={record?.name}
         keywords={[record?.metakeywords]}

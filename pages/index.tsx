@@ -49,7 +49,9 @@ function Index({
 }) {
   return (
     <>
-      {topbarList && <Topbar topbar={topbarList} slug={""} />}
+      {topbarList && topbarList.count > 0 && (
+        <Topbar topbar={topbarList} slug={""} />
+      )}
       <Layout
         title={i18n.entities.home.title}
         keywords={[

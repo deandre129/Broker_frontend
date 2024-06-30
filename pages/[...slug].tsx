@@ -108,7 +108,9 @@ const GeneralPage = ({
 
   return (
     <>
-      {topbarList && <Topbar topbar={topbarList} slug={slug[0]} />}
+      {topbarList && topbarList.count > 0 && (
+        <Topbar topbar={topbarList} slug={slug[0]} />
+      )}
       <Layout
         title={title}
         keywords={keywords}
