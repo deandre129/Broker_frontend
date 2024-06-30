@@ -29,11 +29,6 @@ const Topbar = ({ topbar, slug, topBroker }) => {
   const [topbarRating, setTopbarRating] = useState(null);
   const [topbarLink, setTopbarLink] = useState(null);
 
-  // let topbarData;
-  // let topbarBrokerData;
-  // let topbarLogo;
-  // let topbarRating;
-  // let topbarLink;
   useEffect(() => {
     for (let i = 0; i < topbar.count; i++) {
       if (slug === topbar.rows[i].name_normalized) {
