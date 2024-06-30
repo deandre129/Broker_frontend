@@ -21,13 +21,12 @@ import CheckIcon from "@mui/icons-material/Check";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import CloseIcon from "@mui/icons-material/Close";
 
-const Topbar = ({ topbar, slug, topBroker }) => {
+const Topbar = ({ topbar, slug }) => {
   const [showTopbar, setShowTopbar] = useState(true);
   const [topbarData, setTopbarData] = useState(null);
   const [topbarBrokerData, setTopbarBrokerData] = useState(null);
   const [topbarLogo, setTopbarLogo] = useState(null);
   const [topbarRating, setTopbarRating] = useState(null);
-  const [topbarLink, setTopbarLink] = useState(null);
   const [isTopbarTitleShow, setTopbarTitleShow] = useState(false);
 
   useEffect(() => {
@@ -37,16 +36,14 @@ const Topbar = ({ topbar, slug, topBroker }) => {
         setTopbarLogo(topbar.rows[i].detailLogo);
         setTopbarRating(topbar.rows[i].rating);
         setTopbarBrokerData(topbar.rows[i].broker);
-        if (
-          topBroker.rows[0].name_normalized === topbar.rows[i].name_normalized
-        ) {
-          setTopbarLink(topBroker.rows[0].name_normalized);
-        } else {
-          setTopbarLink(slug);
-        }
+      } else {
+        setTopbarData(topbar.rows[0].data);
+        setTopbarLogo(topbar.rows[0].detailLogo);
+        setTopbarRating(topbar.rows[0].rating);
+        setTopbarBrokerData(topbar.rows[0].broker);
       }
     }
-  }, []);
+  }, [slug]);
 
   const [ratingStarSize, setRatingStarSize] = useState("large");
   const [isFeatureShow, setFeatureShow] = useState(true);
