@@ -28,22 +28,21 @@ const Topbar = ({ topbar, slug }) => {
   const [topbarLogo, setTopbarLogo] = useState(null);
   const [topbarRating, setTopbarRating] = useState(null);
   const [isTopbarTitleShow, setTopbarTitleShow] = useState(false);
-
   useEffect(() => {
+    let index = 0;
     for (let i = 0; i < topbar.count; i++) {
-      if (slug === topbar.rows[i].name_normalized) {
-        setTopbarData(topbar.rows[i].data);
-        setTopbarLogo(topbar.rows[i].detailLogo);
-        setTopbarRating(topbar.rows[i].rating);
-        setTopbarBrokerData(topbar.rows[i].broker);
+      if (slug === topbar.rows[i].broker.name_normalized) {
+        index = i;
+        break;
       } else {
-        setTopbarData(topbar.rows[0].data);
-        setTopbarLogo(topbar.rows[0].detailLogo);
-        setTopbarRating(topbar.rows[0].rating);
-        setTopbarBrokerData(topbar.rows[0].broker);
+        index = 0;
       }
     }
-  }, [slug]);
+    setTopbarData(topbar.rows[index].data);
+    setTopbarLogo(topbar.rows[index].detailLogo);
+    setTopbarRating(topbar.rows[index].rating);
+    setTopbarBrokerData(topbar.rows[index].broker);
+  }, [slug, topbar]);
 
   const [ratingStarSize, setRatingStarSize] = useState("large");
   const [isFeatureShow, setFeatureShow] = useState(true);
