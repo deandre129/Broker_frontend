@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from "next";
 import i18n from "@/i18n";
 import { useState, useEffect } from "react";
 import AuthorView from "@/components/shared/view/AuthorView";
@@ -28,27 +28,60 @@ import config from "@/config";
 //import BrokerPostPage from "@/components/BrokerPostPage";
 import dynamic from "next/dynamic";
 import Spinner from "@/components/shared/Spinner";
-import LazyLoad from 'react-lazyload'
-import { initPiwik } from '@/utils/piwik';
-import { useRouter } from 'next/router';
+import LazyLoad from "react-lazyload";
+import { initPiwik } from "@/utils/piwik";
+import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
-const BrokerCharacteristicsView = dynamic(() => import('@/components/broker/components/BrokerCharacteristicsView'), { loading: () => <Spinner />});
-const BrokerHeader = dynamic(() => import('@/components/broker/components/BrokerHeader'), { loading: () => <Spinner />});
-const BrokerHomepageUrls = dynamic(() => import('@/components/broker/components/BrokerHomepageUrls'), { loading: () => <Spinner />});
-const BrokerMarketsView = dynamic(() => import('@/components/broker/components/BrokerMarketsView'), { loading: () => <Spinner />});
-const BrokerOverviewView = dynamic(() => import('@/components/broker/components/BrokerOverviewView'), { loading: () => <Spinner />});
-const BrokerPlatformView = dynamic(() => import('@/components/broker/components/BrokerPlatformView'), { loading: () => <Spinner />});
-const BrokerServiceView = dynamic(() => import('@/components/broker/components/BrokerServiceView'), { loading: () => <Spinner />});
-const BrokerSpreadsView = dynamic(() => import('@/components/broker/components/BrokerSpreadsView'), { loading: () => <Spinner />});
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
-const HtmlView = dynamic(() => import('@/components/shared/view/HtmlView'), { loading: () => <Spinner />});
-const TabPanel = dynamic(() => import('@/components/shared/tab/TabPanel'));
-const BrokerPostPage = dynamic(() => import('@/components/BrokerPostPage'), { loading: () => <Spinner />});
-const BrokerForexSignaleView = dynamic(() => import('@/components/broker/components/BrokerForexSignaleView'));
-const Topbar = dynamic(() => import('@/components/Topbar'), {});
+const Breadcrumb = dynamic(() => import("@/components/Breadcrumb"));
+const BrokerCharacteristicsView = dynamic(
+  () => import("@/components/broker/components/BrokerCharacteristicsView"),
+  { loading: () => <Spinner /> },
+);
+const BrokerHeader = dynamic(
+  () => import("@/components/broker/components/BrokerHeader"),
+  { loading: () => <Spinner /> },
+);
+const BrokerHomepageUrls = dynamic(
+  () => import("@/components/broker/components/BrokerHomepageUrls"),
+  { loading: () => <Spinner /> },
+);
+const BrokerMarketsView = dynamic(
+  () => import("@/components/broker/components/BrokerMarketsView"),
+  { loading: () => <Spinner /> },
+);
+const BrokerOverviewView = dynamic(
+  () => import("@/components/broker/components/BrokerOverviewView"),
+  { loading: () => <Spinner /> },
+);
+const BrokerPlatformView = dynamic(
+  () => import("@/components/broker/components/BrokerPlatformView"),
+  { loading: () => <Spinner /> },
+);
+const BrokerServiceView = dynamic(
+  () => import("@/components/broker/components/BrokerServiceView"),
+  { loading: () => <Spinner /> },
+);
+const BrokerSpreadsView = dynamic(
+  () => import("@/components/broker/components/BrokerSpreadsView"),
+  { loading: () => <Spinner /> },
+);
+const MDBox = dynamic(() => import("@/mui/components/MDBox"));
+const MDTypography = dynamic(() => import("@/mui/components/MDTypography"));
+const PageContent = dynamic(
+  () => import("@/components/shared/view/PageContent"),
+  { loading: () => <Spinner /> },
+);
+const HtmlView = dynamic(() => import("@/components/shared/view/HtmlView"), {
+  loading: () => <Spinner />,
+});
+const TabPanel = dynamic(() => import("@/components/shared/tab/TabPanel"));
+const BrokerPostPage = dynamic(() => import("@/components/BrokerPostPage"), {
+  loading: () => <Spinner />,
+});
+const BrokerForexSignaleView = dynamic(
+  () => import("@/components/broker/components/BrokerForexSignaleView"),
+);
+const Topbar = dynamic(() => import("@/components/Topbar"), {});
 
 const BrokerViewPage = ({
   topbarList,
@@ -72,14 +105,12 @@ const BrokerViewPage = ({
   let brokerPostList = brokerPost;
 
   useEffect(() => {
-    if(!page) {
-      router.push('/404');
+    if (!page) {
+      router.push("/404");
     }
   }, [page, router]);
 
-
-  const changeBrokerPost = async (current, pageSize) => {
-  }
+  const changeBrokerPost = async (current, pageSize) => {};
 
   let title = "";
   let keywords = ["erfahrungen", "bewertungen", "test"];
@@ -93,21 +124,22 @@ const BrokerViewPage = ({
       i < Number((record.rating?.overall_rating ?? 0).toFixed(0));
       i++, stars.push("✪")
     );
-    title = `${record.name} Erfahrungen ${moment().year()} » 100% unabhängiger Test`;
+    title = `${
+      record.name
+    } Erfahrungen ${moment().year()} » 100% unabhängiger Test`;
     description = record.is_broker
       ? `${record.name} Erfahrungen » Fazit von Tradern: ${stars.join(
-          ""
+          "",
         )} aus ${
           record.rating?.overall_reviews ?? 0
         } Bewertungen » Unser Test zu Spreads ✚ Plattform ✚ Service ➔ Jetzt lesen!`
       : `${record.name} Erfahrungen & Test » Fazit von Tradern: ${stars.join(
-          ""
+          "",
         )} aus ${
           record.rating?.overall_reviews ?? 0
         } Bewertungen ➔ Jetzt lesen!`;
   } else {
     //router.push('/404');
-   
   }
 
   const [tabValue, setTabValue] = useState(0);
@@ -127,9 +159,7 @@ const BrokerViewPage = ({
 
   return (
     <>
-      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
-        <Topbar topbar = {topbarList} slug={slug} topBroker={topBroker}/>
-      )}
+      {topbarList && <Topbar topbar={topbarList} slug={slug} />}
       <Layout
         title={title}
         keywords={keywords}
@@ -223,17 +253,17 @@ const BrokerViewPage = ({
             </PageContent>
             {isBrowser && (
               <>
-                  <PageContent pt={4}>
-                    <BrokerPostPage
-                      brokerId={record.id}
-                      name={record.name}
-                      middle={<BrokerHomepageUrls record={record} />}
-                      topBrokers={topBroker}
-                      brokerPostList = {brokerPostList}
-                      slug={slug}
-                      onChange = {changeBrokerPost}
-                    />
-                  </PageContent>
+                <PageContent pt={4}>
+                  <BrokerPostPage
+                    brokerId={record.id}
+                    name={record.name}
+                    middle={<BrokerHomepageUrls record={record} />}
+                    topBrokers={topBroker}
+                    brokerPostList={brokerPostList}
+                    slug={slug}
+                    onChange={changeBrokerPost}
+                  />
+                </PageContent>
                 {Boolean(record.creteria) && Boolean(record.creteria.body) && (
                   <PageContent>
                     <MDBox fontSize="1rem">
@@ -265,45 +295,43 @@ const BrokerViewPage = ({
 export async function getStaticPaths() {
   const res = await axios.get(`${config.backendUrl}/brokerPath`);
   const posts = await res.data;
- 
+
   // Get the paths we want to pre-render based on posts
   const paths = posts.allPaths.map((post) => ({
     params: { slug: post },
   }));
- 
+
   // We'll pre-render only these paths at build time.
   // { fallback: 'blocking' } will server-render pages
   // on-demand if the path doesn't exist.
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: "blocking" };
 }
 
-export async function getStaticProps({params}) {
+export async function getStaticProps({ params }) {
   const slug = params.slug;
   const url = slug;
 
   const filter = {
     activated: true,
-    category: 0
-  }
+    category: 0,
+  };
 
-  const [
-    pageRes,
-    baseRes,
-    allBrokerRes,
-  ] = await Promise.all([
+  const [pageRes, baseRes, allBrokerRes] = await Promise.all([
     axios.post(`${config.backendUrl}/broker`, { url }),
     axios.get(`${config.backendUrl}/base`),
-    axios.get(`${config.backendUrl}/broker`, {params:{
-      filter: filter,
-      orderBy: "name_asc",
-    }}),
+    axios.get(`${config.backendUrl}/broker`, {
+      params: {
+        filter: filter,
+        orderBy: "name_asc",
+      },
+    }),
   ]);
   const page = pageRes.data;
   const topBroker = baseRes.data.brokerTop;
   const category = baseRes.data.categorySidebar;
   const mostRead = baseRes.data.mostRead;
   const featuredBrokers = baseRes.data.brokerFeatured;
-  const forexSchool = baseRes.data.forexSchool;  
+  const forexSchool = baseRes.data.forexSchool;
   const forexStrategy = baseRes.data.forexStrategy;
   const promotion = baseRes.data.promotion;
   const navigation = baseRes.data.navigation;
@@ -312,15 +340,20 @@ export async function getStaticProps({params}) {
   const brokerComparable = allBrokerRes.data;
   const topbarList = baseRes.data.topbarList;
 
-  const brokerPostListRes = await axios.get(`${config.backendUrl}/brokerPost-list`, { params: {
-    filter: {
-      spam: false,
-      review_required: false,
-      deleted: false,
-      broker: page?.id ? page?.id : 0,
+  const brokerPostListRes = await axios.get(
+    `${config.backendUrl}/brokerPost-list`,
+    {
+      params: {
+        filter: {
+          spam: false,
+          review_required: false,
+          deleted: false,
+          broker: page?.id ? page?.id : 0,
+        },
+        orderBy: "created_desc",
+      },
     },
-    orderBy: "created_desc",
-  } });
+  );
 
   const brokerPost = brokerPostListRes.data;
 
@@ -382,7 +415,7 @@ export async function getStaticProps({params}) {
 //   const category = baseRes.data.categorySidebar;
 //   const mostRead = baseRes.data.mostRead;
 //   const featuredBrokers = baseRes.data.brokerFeatured;
-//   const forexSchool = baseRes.data.forexSchool;  
+//   const forexSchool = baseRes.data.forexSchool;
 //   const forexStrategy = baseRes.data.forexStrategy;
 //   const promotion = baseRes.data.promotion;
 //   const navigation = baseRes.data.navigation;

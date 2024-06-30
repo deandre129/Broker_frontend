@@ -1,9 +1,9 @@
-import { Autocomplete, Box, Grid, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import i18n from '@/i18n';
- import CompareDetail from '@/components/broker/comparisons/CompareDetail';
- import CompareSection from '@/components/broker/comparisons/CompareSection';
+import { Autocomplete, Box, Grid, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import i18n from "@/i18n";
+import CompareDetail from "@/components/broker/comparisons/CompareDetail";
+import CompareSection from "@/components/broker/comparisons/CompareSection";
 // import CompareOverview from '@/components/broker/comparisons/CompareOverview';
 // import CompareProfile from '@/components/broker/comparisons/CompareProfile';
 // import CompareRegulation from '@/components/broker/comparisons/CompareRegulation';
@@ -14,88 +14,131 @@ import i18n from '@/i18n';
 // import MDButton from '@/mui/components/MDButton';
 // import MDTypography from '@/mui/components/MDTypography';
 // import PageContent from '@/components/shared/view/PageContent';
-import Layout from '@/components/Layout';
+import Layout from "@/components/Layout";
 // import Breadcrumb from '@/components/Breadcrumb';
 // import MDBox from '@/mui/components/MDBox';
-import axios from 'axios';
-import config from '@/config';
-import dynamic from 'next/dynamic';
-import Spinner from '@/components/shared/Spinner';
-import LazyLoad from 'react-lazyload';
-import { initPiwik } from '@/utils/piwik';
+import axios from "axios";
+import config from "@/config";
+import dynamic from "next/dynamic";
+import Spinner from "@/components/shared/Spinner";
+import LazyLoad from "react-lazyload";
+import { initPiwik } from "@/utils/piwik";
 
-const CompareOverview = dynamic(() => import('@/components/broker/comparisons/CompareOverview'), { loading: () => <Spinner />});
-const CompareProfile = dynamic(() => import('@/components/broker/comparisons/CompareProfile'), { loading: () => <Spinner />});
-const CompareRegulation = dynamic(() => import('@/components/broker/comparisons/CompareRegulation'), { loading: () => <Spinner />});
-const CompareService = dynamic(() => import('@/components/broker/comparisons/CompareService'), { loading: () => <Spinner />});
-const CompareSpreadsAndFees = dynamic(() => import('@/components/broker/comparisons/CompareSpreadsAndFees'), { loading: () => <Spinner />});
-const CompareTradable = dynamic(() => import('@/components/broker/comparisons/CompareTradable'), { loading: () => <Spinner />});
-const CompareTradingPlatforms = dynamic(() => import('@/components/broker/comparisons/CompareTradingPlatforms'), { loading: () => <Spinner />});
-const MDButton = dynamic(() => import('@/mui/components/MDButton'));
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
-const PageContent = dynamic(() => import('@/components/shared/view/PageContent'), { loading: () => <Spinner />});
-const Breadcrumb = dynamic(() => import('@/components/Breadcrumb'));
-const Topbar = dynamic(() => import('@/components/Topbar'), {});
+const CompareOverview = dynamic(
+  () => import("@/components/broker/comparisons/CompareOverview"),
+  { loading: () => <Spinner /> },
+);
+const CompareProfile = dynamic(
+  () => import("@/components/broker/comparisons/CompareProfile"),
+  { loading: () => <Spinner /> },
+);
+const CompareRegulation = dynamic(
+  () => import("@/components/broker/comparisons/CompareRegulation"),
+  { loading: () => <Spinner /> },
+);
+const CompareService = dynamic(
+  () => import("@/components/broker/comparisons/CompareService"),
+  { loading: () => <Spinner /> },
+);
+const CompareSpreadsAndFees = dynamic(
+  () => import("@/components/broker/comparisons/CompareSpreadsAndFees"),
+  { loading: () => <Spinner /> },
+);
+const CompareTradable = dynamic(
+  () => import("@/components/broker/comparisons/CompareTradable"),
+  { loading: () => <Spinner /> },
+);
+const CompareTradingPlatforms = dynamic(
+  () => import("@/components/broker/comparisons/CompareTradingPlatforms"),
+  { loading: () => <Spinner /> },
+);
+const MDButton = dynamic(() => import("@/mui/components/MDButton"));
+const MDBox = dynamic(() => import("@/mui/components/MDBox"));
+const MDTypography = dynamic(() => import("@/mui/components/MDTypography"));
+const PageContent = dynamic(
+  () => import("@/components/shared/view/PageContent"),
+  { loading: () => <Spinner /> },
+);
+const Breadcrumb = dynamic(() => import("@/components/Breadcrumb"));
+const Topbar = dynamic(() => import("@/components/Topbar"), {});
 
-function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter}) {
-
+function BrokerComparePage({
+  topbarList,
+  brokerComparable,
+  allBroker,
+  author,
+  recordA,
+  recordB,
+  topBroker,
+  category,
+  mostRead,
+  featuredBrokers,
+  forexSchool,
+  forexStrategy,
+  promotion,
+  navigation,
+  categoryFooter,
+}) {
   const router = useRouter();
 
   let count = 0;
 
   let brokerList = [] as Array<any>;
-  for(var i = 0; allBroker.rows[i] ; i++) {
-    if(allBroker.rows[i].is_broker == true) {
-      brokerList[count] = { name: allBroker.rows[i].name, id: allBroker.rows[i].name_normalized };
+  for (var i = 0; allBroker.rows[i]; i++) {
+    if (allBroker.rows[i].is_broker == true) {
+      brokerList[count] = {
+        name: allBroker.rows[i].name,
+        id: allBroker.rows[i].name_normalized,
+      };
       count++;
     }
   }
 
   const [valueA, setValueA] = useState({
     id: recordA.name_normalized,
-    name: recordA.name
+    name: recordA.name,
   });
   const [valueB, setValueB] = useState({
     id: recordB.name_normalized,
-    name: recordB.name
+    name: recordB.name,
   });
 
-
   const onSubmit = (values) => {
-    router.push(
-      `/forex-cfd-broker-vergleich/${valueA.id}-versus-${valueB.id}`,
-    );
+    router.push(`/forex-cfd-broker-vergleich/${valueA.id}-versus-${valueB.id}`);
   };
 
-  const [title, setTitle] = useState(
-    i18n.entities.broker.comparison.title,
-  );
+  const [title, setTitle] = useState(i18n.entities.broker.comparison.title);
   const [description, setDescription] = useState(
     i18n.entities.broker.comparison.metaDescription,
   );
 
   useEffect(() => {
     setTitle(
-      i18n.entities.broker.comparison.vsTitle( recordA?.name || '-', recordB?.name || '-' ),
+      i18n.entities.broker.comparison.vsTitle(
+        recordA?.name || "-",
+        recordB?.name || "-",
+      ),
     );
     setDescription(
-      i18n.entities.broker.comparison.metaVsDescription(recordA?.name || '-', recordB?.name || '-'),
+      i18n.entities.broker.comparison.metaVsDescription(
+        recordA?.name || "-",
+        recordB?.name || "-",
+      ),
     );
   }, [recordA, recordB]);
 
   return (
     <>
-      {topbarList && topbarList.rows.filter((item) => item.data.activated === true).length !== 0 && (
-        <Topbar topbar = {topbarList} slug={"forex-cfd-broker-vergleich"} topBroker={topBroker}/>
+      {topbarList && (
+        <Topbar topbar={topbarList} slug={"forex-cfd-broker-vergleich"} />
       )}
       <Layout
         title={title}
         keywords={[
-          'forex',
-          'cfd',
-          'broker',
-          'vergleich',
+          "forex",
+          "cfd",
+          "broker",
+          "vergleich",
           recordA?.name_normalized,
           recordB?.name_normalized,
         ].filter(Boolean)}
@@ -110,7 +153,7 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
         forexStrategy={forexStrategy}
         promotion={promotion}
         categoryFooter={categoryFooter}
-        brokerComparable={brokerComparable} 
+        brokerComparable={brokerComparable}
       >
         <PageContent
           px={{
@@ -120,11 +163,11 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
         >
           <MDBox display="none">
             <Breadcrumb
-            navigation={navigation}
+              navigation={navigation}
               items={[
                 {
                   name: i18n.entities.broker.comparison.title,
-                  route: '/forex-cfd-broker-vergleich',
+                  route: "/forex-cfd-broker-vergleich",
                 },
               ]}
             />
@@ -142,20 +185,19 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
           </MDTypography>
           <MDBox
             sx={{
-              '& > * + *': {
+              "& > * + *": {
                 mt: 2,
               },
-              '& > * + *:before': {
-                display: 'block',
+              "& > * + *:before": {
+                display: "block",
                 content: '""',
-                borderTop:
-                  '1px dotted rgba(128,128,128,.5)',
-                width: '100%',
+                borderTop: "1px dotted rgba(128,128,128,.5)",
+                width: "100%",
                 ml: 2,
               },
             }}
           >
-            <Grid container spacing={2} >
+            <Grid container spacing={2}>
               <CompareSection name="selectBrokers" />
               <CompareDetail
                 childrenA={
@@ -166,19 +208,19 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
                     defaultValue={valueA}
                     getOptionLabel={(option) => option.name}
                     onChange={(event: any, newValue: any) => {
-                      if(newValue) {
-                        setValueA({ id:newValue.id , name: newValue.name});
+                      if (newValue) {
+                        setValueA({ id: newValue.id, name: newValue.name });
                       }
-                      
                     }}
                     renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="standard"
-                      />
+                      <TextField {...params} variant="standard" />
                     )}
                     renderOption={(props, option) => (
-                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <Box
+                        component="li"
+                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                        {...props}
+                      >
                         {option.name}
                       </Box>
                     )}
@@ -186,27 +228,31 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
                 }
                 childrenB={
                   <Autocomplete
-                  // disablePortal
+                    // disablePortal
                     id="brokerB"
                     options={brokerList}
                     defaultValue={valueB}
                     getOptionLabel={(option) => option.name}
                     onChange={(event: any, newValue: any) => {
-                      if(newValue) {
-                        setValueB({ id:newValue.id , name: newValue.name});
+                      if (newValue) {
+                        setValueB({ id: newValue.id, name: newValue.name });
                       }
                     }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
                         inputProps={{
-                          ...params.inputProps
+                          ...params.inputProps,
                         }}
                         variant="standard"
                       />
                     )}
                     renderOption={(props, option) => (
-                      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <Box
+                        component="li"
+                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                        {...props}
+                      >
                         {option.name}
                       </Box>
                     )}
@@ -217,7 +263,7 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
                     variant="contained"
                     type="submit"
                     onClick={onSubmit}
-                    color={'info'}
+                    color={"info"}
                     fullWidth
                   >
                     <MDTypography
@@ -233,34 +279,13 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
             </Grid>
             {recordA && recordB && (
               <>
-                <CompareOverview
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-                <CompareRegulation
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-                <CompareProfile
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-                <CompareTradable
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-                <CompareSpreadsAndFees
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-                <CompareTradingPlatforms
-                  recordA={recordA}
-                  recordB={recordB}
-                />
-                <CompareService
-                  recordA={recordA}
-                  recordB={recordB}
-                />
+                <CompareOverview recordA={recordA} recordB={recordB} />
+                <CompareRegulation recordA={recordA} recordB={recordB} />
+                <CompareProfile recordA={recordA} recordB={recordB} />
+                <CompareTradable recordA={recordA} recordB={recordB} />
+                <CompareSpreadsAndFees recordA={recordA} recordB={recordB} />
+                <CompareTradingPlatforms recordA={recordA} recordB={recordB} />
+                <CompareService recordA={recordA} recordB={recordB} />
               </>
             )}
           </MDBox>
@@ -271,34 +296,30 @@ function BrokerComparePage({ topbarList, brokerComparable, allBroker, author, re
 }
 
 export async function getServerSideProps() {
-
-  const sortField = 'name';
+  const sortField = "name";
   const sortOrder = "asc";
 
   const filter = {
     activated: true,
-    category: 0
-  }
+    category: 0,
+  };
 
   const params = {
     filter: filter,
-    orderBy: sortField+"_"+sortOrder,
+    orderBy: sortField + "_" + sortOrder,
     limit: null,
     offset: 1,
-  }
+  };
 
-  const [
-    baseRes,
-    allBrokerRes,
-    ] = await Promise.all([
+  const [baseRes, allBrokerRes] = await Promise.all([
     axios.get(`${config.backendUrl}/base`),
-    axios.get(`${config.backendUrl}/broker`, {params}),
-  ])
+    axios.get(`${config.backendUrl}/broker`, { params }),
+  ]);
   const topBroker = baseRes.data.brokerTop;
   const category = baseRes.data.categorySidebar;
   const mostRead = baseRes.data.mostRead;
   const featuredBrokers = baseRes.data.brokerFeatured;
-  const forexSchool = baseRes.data.forexSchool;  
+  const forexSchool = baseRes.data.forexSchool;
   const forexStrategy = baseRes.data.forexStrategy;
   const promotion = baseRes.data.promotion;
   const navigation = baseRes.data.navigation;
@@ -311,19 +332,32 @@ export async function getServerSideProps() {
   const recordAReq = topBroker.rows[0].name_normalized;
   const recordBReq = topBroker.rows[1].name_normalized;
 
-  const [
-    recordARes,
-    recordBRes,
-    ] = await Promise.all([
-      axios.post(`${config.backendUrl}/broker`,{url: recordAReq}),
-      axios.post(`${config.backendUrl}/broker`,{url: recordBReq})
-  ])
+  const [recordARes, recordBRes] = await Promise.all([
+    axios.post(`${config.backendUrl}/broker`, { url: recordAReq }),
+    axios.post(`${config.backendUrl}/broker`, { url: recordBReq }),
+  ]);
   const recordA = recordARes.data;
   const recordB = recordBRes.data;
 
-  return { 
-    props: { topbarList, brokerComparable, allBroker, author, recordA, recordB, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter },
+  return {
+    props: {
+      topbarList,
+      brokerComparable,
+      allBroker,
+      author,
+      recordA,
+      recordB,
+      topBroker,
+      category,
+      mostRead,
+      featuredBrokers,
+      forexSchool,
+      forexStrategy,
+      promotion,
+      navigation,
+      categoryFooter,
+    },
   };
-};
+}
 
 export default BrokerComparePage;

@@ -49,11 +49,7 @@ function Index({
 }) {
   return (
     <>
-      {topbarList &&
-        topbarList.rows.filter((item) => item.data.activated === true)
-          .length !== 0 && (
-          <Topbar topbar={topbarList} slug={""} topBroker={topBroker} />
-        )}
+      {topbarList && <Topbar topbar={topbarList} slug={""} />}
       <Layout
         title={i18n.entities.home.title}
         keywords={[
