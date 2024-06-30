@@ -41,7 +41,7 @@ const ScrollTop = () => {
       } else if (window.innerWidth >= 768) {
         setBottomPos("12rem");
       } else {
-        setBottomPos("7rem");
+        setBottomPos("9rem");
       }
     };
     window.addEventListener("resize", handleBottomPosition);

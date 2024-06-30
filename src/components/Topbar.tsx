@@ -28,12 +28,8 @@ const Topbar = ({ topbar, slug, topBroker }) => {
   const [topbarLogo, setTopbarLogo] = useState(null);
   const [topbarRating, setTopbarRating] = useState(null);
   const [topbarLink, setTopbarLink] = useState(null);
+  const [isTopbarTitleShow, setTopbarTitleShow] = useState(false);
 
-  // let topbarData;
-  // let topbarBrokerData;
-  // let topbarLogo;
-  // let topbarRating;
-  // let topbarLink;
   useEffect(() => {
     for (let i = 0; i < topbar.count; i++) {
       if (slug === topbar.rows[i].name_normalized) {
@@ -61,37 +57,30 @@ const Topbar = ({ topbar, slug, topBroker }) => {
       }
     }
   }, [topbarData]);
-  const [ratingStarSize, setRatingStarSize] = useState("extra2");
+  const [ratingStarSize, setRatingStarSize] = useState("large");
   const [isFeatureShow, setFeatureShow] = useState(true);
   const [topbarPaddingX, setTopbarPaddingX] = useState(100);
-  const [buttonPaddingX, setbuttonPaddingX] = useState("30px");
 
   useEffect(() => {
     const handleMobileResponsive = () => {
       if (window.innerWidth > 1400) {
-        setRatingStarSize("extra2");
+        setRatingStarSize("large");
         setTopbarPaddingX(100);
-        setbuttonPaddingX("50px");
       } else if (window.innerWidth > 1200) {
-        setRatingStarSize("large1");
+        setRatingStarSize("large");
         setTopbarPaddingX(50);
-        setbuttonPaddingX("30px");
       } else if (window.innerWidth > 990) {
-        setRatingStarSize("large1");
+        setRatingStarSize("large");
         setTopbarPaddingX(20);
-        setbuttonPaddingX("20px");
       } else if (window.innerWidth > 700) {
         setRatingStarSize("large");
         setTopbarPaddingX(20);
-        setbuttonPaddingX("30px");
       } else if (window.innerWidth > 600) {
         setRatingStarSize("large");
         setTopbarPaddingX(20);
-        setbuttonPaddingX("20px");
       } else {
         setRatingStarSize("medium");
         setTopbarPaddingX(10);
-        setbuttonPaddingX("10px");
       }
     };
     window.addEventListener("resize", handleMobileResponsive);
@@ -103,8 +92,10 @@ const Topbar = ({ topbar, slug, topBroker }) => {
     const handleFeatureContent = () => {
       if (window.innerWidth >= 768) {
         setFeatureShow(true);
+        setTopbarTitleShow(false);
       } else {
         setFeatureShow(false);
+        setTopbarTitleShow(true);
       }
     };
     window.addEventListener("resize", handleFeatureContent);
@@ -141,7 +132,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
       shadow="sm"
       left="0rem"
       bottom="0rem"
-      flexDirection="row"
+      flexDirection="column"
       sx={{
         width: "100%",
         height: "fit",
@@ -150,78 +141,10 @@ const Topbar = ({ topbar, slug, topBroker }) => {
       }}
     >
       <MDBox
-        display="flex"
-        flexDirection="column"
-        justifyContent="start"
-        alignItems="center"
-        sx={{
-          height: "100%",
-          width: "50%",
-        }}
-      >
-        <CardMedia
-          component={"img"}
-          src={`https://broker-bewertungen.de/api/file/download?privateUrl=${topbarLogo?.privateUrl}`}
-          alt={topbarData?.name}
-          title={topbarData?.name}
-          loading="lazy"
-          sx={{
-            margin: 0,
-            borderRadius: 0,
-            maxWidth: "100%",
-            height: "50px",
-            width: "auto",
-            loading: "lazy",
-            objectFit: "contain",
-          }}
-        />
-        <MDBox
-          flexDirection="row"
-          display="flex"
-          alignItems="center"
-          flexGrow={1}
-          gap={{
-            xs: 1,
-            md: "5px",
-            lg: "5px",
-            xl: "2px",
-          }}
-          sx={{
-            marginTop: "5px",
-          }}
-        >
-          <LazyLoad>
-            <RatingView
-              value={topbarRating?.overall_rating}
-              width={36}
-              height={32}
-              size={ratingStarSize}
-            />
-          </LazyLoad>
-          <MDTypography
-            variant="body2"
-            fontSize={16}
-            color="text"
-            fontWeight="bold"
-            flexGrow={1}
-            lineHeight={1}
-            sx={{
-              width: "50px",
-            }}
-          >
-            {topbarRating?.overall_rating.toFixed(1) + " / 5"}
-          </MDTypography>
-        </MDBox>
-      </MDBox>
-      <MDBox
-        display={isFeatureShow ? "flex" : "none"}
-        flexDirection="column"
-        justifyContent="start"
-        alignItems="start"
-        sx={{
-          height: "100%",
-          width: "100%",
-        }}
+        display={isTopbarTitleShow ? "flex" : "none"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        sx={{ width: "100%", marginBottom: "10px" }}
       >
         <MDTypography
           variant="body2"
@@ -233,148 +156,243 @@ const Topbar = ({ topbar, slug, topBroker }) => {
         >
           {topbarBrokerData?.name + ": " + topbarData?.title}
         </MDTypography>
+      </MDBox>
+      <MDBox
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        flexDirection={"row"}
+        sx={{ width: "100%", height: "100%" }}
+      >
         <MDBox
           display="flex"
-          flexWrap={"wrap"}
-          flex={"1"}
-          justifyContent="center"
+          flexDirection="column"
+          justifyContent="start"
           alignItems="center"
           sx={{
             height: "100%",
-            width: "80%",
+            width: "50%",
           }}
         >
-          <MDTypography
-            variant="body2"
-            fontSize={14}
-            color="text"
-            fontWeight="regular"
+          <CardMedia
+            component={"img"}
+            src={`https://broker-bewertungen.de/api/file/download?privateUrl=${topbarLogo?.privateUrl}`}
+            alt={topbarData?.name}
+            title={topbarData?.name}
+            loading="lazy"
+            sx={{
+              margin: 0,
+              borderRadius: 0,
+              maxWidth: "100%",
+              height: "60px",
+              width: "auto",
+              loading: "lazy",
+              objectFit: "contain",
+            }}
+          />
+          <MDBox
+            flexDirection="row"
+            display="flex"
+            alignItems="center"
             flexGrow={1}
-            lineHeight={1}
-            sx={{ marginY: "5px" }}
+            gap={{
+              xs: 1,
+              md: "5px",
+              lg: "5px",
+              xl: "2px",
+            }}
+            sx={{
+              marginTop: "5px",
+            }}
           >
-            <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-            {topbarData?.feature1}
-          </MDTypography>
-          <MDTypography
-            variant="body2"
-            fontSize={14}
-            color="text"
-            fontWeight="regular"
-            flexGrow={1}
-            lineHeight={1}
-            sx={{ marginY: "5px" }}
-          >
-            <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-            {topbarData?.feature2}
-          </MDTypography>
-          <MDTypography
-            variant="body2"
-            fontSize={14}
-            color="text"
-            fontWeight="regular"
-            flexGrow={1}
-            lineHeight={1}
-            sx={{ marginY: "5px" }}
-          >
-            <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-            {topbarData?.feature3}
-          </MDTypography>
-          <MDTypography
-            variant="body2"
-            fontSize={14}
-            color="text"
-            fontWeight="regular"
-            flexGrow={1}
-            lineHeight={1}
-            sx={{ marginY: "5px" }}
-          >
-            <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-            {topbarData?.feature4}
-          </MDTypography>
-          <MDTypography
-            variant="body2"
-            fontSize={14}
-            color="text"
-            fontWeight="regular"
-            flexGrow={1}
-            lineHeight={1}
-            sx={{ marginY: "5px" }}
-          >
-            <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-            {topbarData?.feature5}
-          </MDTypography>
-          <MDTypography
-            variant="body2"
-            fontSize={14}
-            color="text"
-            fontWeight="regular"
-            flexGrow={1}
-            lineHeight={1}
-            sx={{ marginY: "5px" }}
-          >
-            <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-            {topbarData?.feature6}
-          </MDTypography>
+            <LazyLoad>
+              <RatingView
+                value={topbarRating?.overall_rating}
+                width={36}
+                height={32}
+                size={ratingStarSize}
+              />
+            </LazyLoad>
+            <MDTypography
+              variant="body2"
+              fontSize={16}
+              color="text"
+              fontWeight="bold"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{
+                width: "50px",
+              }}
+            >
+              {topbarRating?.overall_rating.toFixed(1) + " / 5"}
+            </MDTypography>
+          </MDBox>
         </MDBox>
-      </MDBox>
-      <MDBox
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          height: "100%",
-          width: "fit",
-        }}
-      >
-        <MDButton
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center"
-          variant="contained"
-          color="warning"
-          flexWrap={1}
-          href={topbarData?.account}
+        <MDBox
+          display={isFeatureShow ? "flex" : "none"}
+          flexDirection="column"
+          justifyContent="start"
+          alignItems="start"
           sx={{
-            paddingX: buttonPaddingX,
+            height: "100%",
+            width: "90%",
           }}
         >
-          <TrendingFlatIcon style={{ fill: "#ffffff" }} />
           <MDTypography
             variant="body2"
-            fontSize={14}
+            fontSize={16}
             color="text"
             fontWeight="bold"
             flexGrow={1}
             lineHeight={1}
-            sx={{ color: "#fff" }}
           >
-            Test now
+            {topbarBrokerData?.name + ": " + topbarData?.title}
           </MDTypography>
-        </MDButton>
-        <MDTypography
-          variant="body2"
-          fontSize={12}
-          color="text"
-          fontWeight="regular"
-          flexGrow={1}
-          lineHeight={1}
-          sx={{ marginTop: "10px", textAlign: "center" }}
+          <MDBox
+            display="flex"
+            flexWrap={"wrap"}
+            flex={"1"}
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              height: "100%",
+              width: "80%",
+            }}
+          >
+            <MDTypography
+              variant="body2"
+              fontSize={14}
+              color="text"
+              fontWeight="regular"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ marginY: "5px" }}
+            >
+              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+              {topbarData?.feature1}
+            </MDTypography>
+            <MDTypography
+              variant="body2"
+              fontSize={14}
+              color="text"
+              fontWeight="regular"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ marginY: "5px" }}
+            >
+              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+              {topbarData?.feature2}
+            </MDTypography>
+            <MDTypography
+              variant="body2"
+              fontSize={14}
+              color="text"
+              fontWeight="regular"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ marginY: "5px" }}
+            >
+              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+              {topbarData?.feature3}
+            </MDTypography>
+            <MDTypography
+              variant="body2"
+              fontSize={14}
+              color="text"
+              fontWeight="regular"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ marginY: "5px" }}
+            >
+              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+              {topbarData?.feature4}
+            </MDTypography>
+            <MDTypography
+              variant="body2"
+              fontSize={14}
+              color="text"
+              fontWeight="regular"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ marginY: "5px" }}
+            >
+              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+              {topbarData?.feature5}
+            </MDTypography>
+            <MDTypography
+              variant="body2"
+              fontSize={14}
+              color="text"
+              fontWeight="regular"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ marginY: "5px" }}
+            >
+              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+              {topbarData?.feature6}
+            </MDTypography>
+          </MDBox>
+        </MDBox>
+        <MDBox
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            height: "100%",
+            width: "fit",
+            paddingRight: "10px",
+          }}
         >
-          ({topbarBrokerData?.desc})
-        </MDTypography>
-      </MDBox>
-      <MDBox
-        justifyContent="start"
-        alignItems="start"
-        top={10}
-        right={Math.abs(topbarPaddingX - 30) + "px"}
-        position={"absolute"}
-        onClick={() => setShowTopbar(false)}
-      >
-        <CloseIcon sx={{ width: "25px", height: "25px" }} />
+          <MDButton
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+            variant="contained"
+            color="warning"
+            flexWrap={1}
+            href={topbarData?.account}
+            sx={{
+              paddingX: "40px",
+              paddingY: "15px",
+            }}
+          >
+            <TrendingFlatIcon style={{ fill: "#ffffff" }} />
+            <MDTypography
+              variant="body2"
+              fontSize={13}
+              color="text"
+              fontWeight="bold"
+              flexGrow={1}
+              lineHeight={1}
+              sx={{ color: "#fff" }}
+            >
+              Jetzt testen
+            </MDTypography>
+          </MDButton>
+          <MDTypography
+            variant="body2"
+            fontSize={11}
+            color="text"
+            fontWeight="regular"
+            flexGrow={1}
+            lineHeight={1}
+            sx={{ marginTop: "10px", textAlign: "center" }}
+          >
+            ({topbarBrokerData?.desc})
+          </MDTypography>
+        </MDBox>
+        <MDBox
+          justifyContent="start"
+          alignItems="start"
+          top={10}
+          right={Math.abs(topbarPaddingX - 30) + "px"}
+          position={"absolute"}
+          onClick={() => setShowTopbar(false)}
+        >
+          <CloseIcon sx={{ width: "25px", height: "25px" }} />
+        </MDBox>
       </MDBox>
     </MDBox>
   );
