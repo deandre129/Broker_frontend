@@ -248,90 +248,84 @@ const Topbar = ({ topbar, slug, topBroker }) => {
           >
             {topbarBrokerData?.name + ": " + topbarData?.title}
           </MDTypography>
-          <MDBox
-            display="flex"
-            flexWrap={"wrap"}
-            flex={"1"}
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              height: "100%",
-              width: "80%",
-            }}
-          >
-            <MDTypography
-              variant="body2"
-              fontSize={14}
-              color="text"
-              fontWeight="regular"
-              flexGrow={1}
-              lineHeight={1}
-              sx={{ marginY: "5px" }}
-            >
-              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-              {topbarData?.feature1}
-            </MDTypography>
-            <MDTypography
-              variant="body2"
-              fontSize={14}
-              color="text"
-              fontWeight="regular"
-              flexGrow={1}
-              lineHeight={1}
-              sx={{ marginY: "5px" }}
-            >
-              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-              {topbarData?.feature2}
-            </MDTypography>
-            <MDTypography
-              variant="body2"
-              fontSize={14}
-              color="text"
-              fontWeight="regular"
-              flexGrow={1}
-              lineHeight={1}
-              sx={{ marginY: "5px" }}
-            >
-              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-              {topbarData?.feature3}
-            </MDTypography>
-            <MDTypography
-              variant="body2"
-              fontSize={14}
-              color="text"
-              fontWeight="regular"
-              flexGrow={1}
-              lineHeight={1}
-              sx={{ marginY: "5px" }}
-            >
-              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-              {topbarData?.feature4}
-            </MDTypography>
-            <MDTypography
-              variant="body2"
-              fontSize={14}
-              color="text"
-              fontWeight="regular"
-              flexGrow={1}
-              lineHeight={1}
-              sx={{ marginY: "5px" }}
-            >
-              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-              {topbarData?.feature5}
-            </MDTypography>
-            <MDTypography
-              variant="body2"
-              fontSize={14}
-              color="text"
-              fontWeight="regular"
-              flexGrow={1}
-              lineHeight={1}
-              sx={{ marginY: "5px" }}
-            >
-              <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
-              {topbarData?.feature6}
-            </MDTypography>
-          </MDBox>
+          <Grid container>
+            <Grid md={6} item>
+              <MDTypography
+                variant="body2"
+                fontSize={13}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ marginY: "5px" }}
+              >
+                <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+                {topbarData?.feature1}
+              </MDTypography>
+              <MDTypography
+                variant="body2"
+                fontSize={13}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ marginY: "5px" }}
+              >
+                <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+                {topbarData?.feature2}
+              </MDTypography>
+              <MDTypography
+                variant="body2"
+                fontSize={13}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ marginY: "5px" }}
+              >
+                <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+                {topbarData?.feature3}
+              </MDTypography>
+            </Grid>
+            <Grid md={6} item>
+              <MDTypography
+                variant="body2"
+                fontSize={13}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ marginY: "5px" }}
+              >
+                <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+                {topbarData?.feature4}
+              </MDTypography>
+              <MDTypography
+                variant="body2"
+                fontSize={13}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ marginY: "5px" }}
+              >
+                <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+                {topbarData?.feature5}
+              </MDTypography>
+              <MDTypography
+                variant="body2"
+                fontSize={13}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                sx={{ marginY: "5px" }}
+              >
+                <CheckIcon style={{ color: "#FB8C00", marginRight: "5px" }} />
+                {topbarData?.feature6}
+              </MDTypography>
+            </Grid>
+          </Grid>
         </MDBox>
         <MDBox
           display="flex"
@@ -354,7 +348,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
             flexWrap={1}
             href={topbarData?.account}
             sx={{
-              paddingX: "40px",
+              paddingX: "30px",
               paddingY: "15px",
             }}
           >
