@@ -109,7 +109,7 @@ const GeneralPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={slug[0]} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} />
       )}
       <Layout
         title={title}
