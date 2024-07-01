@@ -22,13 +22,14 @@ import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Topbar = ({ topbar, slug, topBroker }) => {
-  const [showTopbar, setShowTopbar] = useState(true);
+  const [showTopbar, setShowTopbar] = useState(false);
   const [topbarData, setTopbarData] = useState(null);
   const [topbarBrokerData, setTopbarBrokerData] = useState(null);
   const [topbarLogo, setTopbarLogo] = useState(null);
   const [topbarRating, setTopbarRating] = useState(null);
   const [isTopbarTitleShow, setTopbarTitleShow] = useState(false);
   const [mobileView, setMobileView] = useState(false);
+  const [isClosed, setClosed] = useState(false);
 
   useEffect(() => {
     let index = 0;
@@ -113,7 +114,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
 
   return (
     <MDBox
-      display={showTopbar ? "flex" : "none"}
+      display={isClosed ? "none" : showTopbar ? "flex" : "none"}
       zIndex={99}
       position="fixed"
       justifyContent="center"
@@ -413,7 +414,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
         position={"absolute"}
         onClick={(e) => {
           e.stopPropagation();
-          setShowTopbar(false);
+          setClosed(true);
         }}
       >
         <CloseIcon sx={{ width: "25px", height: "25px" }} />
