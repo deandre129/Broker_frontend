@@ -160,7 +160,7 @@ const BrokerViewPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={slug} />
+        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} />
       )}
       <Layout
         title={title}

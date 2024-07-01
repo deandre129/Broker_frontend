@@ -77,7 +77,7 @@ const BlogListPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={"blog"} />
+        <Topbar topbar={topbarList} slug={"blog"} topBroker={topBroker} />
       )}
       <Layout
         title="Broker-Bewertungen Blog"

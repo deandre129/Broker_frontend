@@ -130,7 +130,11 @@ function BrokerComparePage({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={"forex-cfd-broker-vergleich"} />
+        <Topbar
+          topbar={topbarList}
+          slug={"forex-cfd-broker-vergleich"}
+          topBroker={topBroker}
+        />
       )}
       <Layout
         title={title}

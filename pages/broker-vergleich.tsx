@@ -121,7 +121,11 @@ const ComparisonPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={"broker-vergleich"} />
+        <Topbar
+          topbar={topbarList}
+          slug={"broker-vergleich"}
+          topBroker={topBrokerSidebar}
+        />
       )}
       <Layout
         title={`Broker Vergleich ${moment().year()} » 100% unabhängiger Test`}

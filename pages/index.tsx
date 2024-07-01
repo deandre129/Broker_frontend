@@ -50,7 +50,7 @@ function Index({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={""} />
+        <Topbar topbar={topbarList} slug={""} topBroker={topBroker} />
       )}
       <Layout
         title={i18n.entities.home.title}
