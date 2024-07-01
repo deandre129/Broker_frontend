@@ -13,6 +13,7 @@ const MDBox = dynamic(() => import("@/mui/components/MDBox"));
 const ScrollTop = () => {
   const [showScroll, setShowScroll] = useState(false);
   const [bottomPos, setBottomPos] = useState("8rem");
+  const [rightPos, setRightPos] = useState("6rem");
 
   const scrollTop = () => {
     window.scrollTo(0, 0);
@@ -35,11 +36,13 @@ const ScrollTop = () => {
   useEffect(() => {
     const handleBottomPosition = () => {
       if (window.innerWidth >= 1100) {
+        setRightPos("6rem");
         setBottomPos("8rem");
       } else if (window.innerWidth >= 972) {
+        setRightPos("1rem");
         setBottomPos("10rem");
       } else if (window.innerWidth >= 768) {
-        setBottomPos("12rem");
+        setBottomPos("10rem");
       } else {
         setBottomPos("9rem");
       }
@@ -60,7 +63,7 @@ const ScrollTop = () => {
       shadow="md"
       borderRadius="50%"
       position="fixed"
-      right="6rem"
+      right={rightPos}
       bottom={bottomPos}
       zIndex={99}
       color="text"
