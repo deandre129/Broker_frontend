@@ -12,25 +12,34 @@ import OverallRating from "../shared/OverallRating";
 import SendIcon from "@mui/icons-material/Send";
 import dynamic from "next/dynamic";
 import ScrollTo from "@/components/ScrollTo";
+import RatingView from "@/components/RatingView";
+import LazyLoad from "react-lazyload";
 
 function BrokerHeader({ record }) {
   const colors = lColors;
-  const [ratingSize, setRatingSize] = useState(37);
+  const [ratingSize, setRatingSize] = useState("large1");
+  const [fontSize, setFontSize] = useState(18);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const handleRatingSize = () => {
       if (window.innerWidth > 1400) {
-        setRatingSize(36);
+        setRatingSize("extra1");
       } else if (window.innerWidth > 1200) {
-        setRatingSize(36);
+        setRatingSize("extra1");
       } else if (window.innerWidth > 990) {
-        setRatingSize(26);
+        setRatingSize("extra1");
       } else if (window.innerWidth > 700) {
-        setRatingSize(46);
-      } else if (window.innerWidth > 600) {
-        setRatingSize(42);
+        setRatingSize("extra1");
+      } else if (window.innerWidth >= 600) {
+        setRatingSize("extra1");
+      } else if (window.innerWidth >= 425) {
+        setRatingSize("extra1");
+      } else if (window.innerWidth >= 375) {
+        setRatingSize("large2");
+        setFontSize(18);
       } else {
-        setRatingSize(32);
+        setRatingSize("large1");
+        setFontSize(16);
       }
     };
     window.addEventListener("resize", handleRatingSize);
@@ -126,14 +135,66 @@ function BrokerHeader({ record }) {
             justifyContent="flex-end"
             gap={1.25}
           >
-            <OverallRating
-              record={record}
-              size={"extra1"}
-              hideDescription={undefined}
-              hidePercent={undefined}
-              gap={undefined}
-              compare={undefined}
-            />
+            <MDBox sx={{ display: isMobile ? "none" : "flex", width: "100%" }}>
+              <OverallRating
+                record={record}
+                size={"extra1"}
+                hideDescription={undefined}
+                hidePercent={undefined}
+                gap={undefined}
+                compare={undefined}
+              />
+            </MDBox>
+            <MDBox
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              sx={{ display: isMobile ? "flex" : "none", width: "100%" }}
+            >
+              <MDBox
+                display={"flex"}
+                flexDirection="row"
+                alignItems="center"
+                justifyContent={"center"}
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <LazyLoad>
+                  <RatingView
+                    value={record.rating?.overall_rating}
+                    width={32}
+                    height={32}
+                    size={ratingSize}
+                  />
+                </LazyLoad>
+                <MDTypography
+                  variant="body2"
+                  fontSize={fontSize}
+                  color="text"
+                  fontWeight="bold"
+                  lineHeight={1}
+                >
+                  {record.rating?.overall_rating.toFixed(1) + " / 5"}
+                </MDTypography>
+              </MDBox>
+              <MDTypography
+                variant="body2"
+                fontSize={14}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                textAlign={"center"}
+                mt={1}
+              >
+                {i18n.entities.broker.text.rating(
+                  record.rating?.overall_rating?.toFixed(2) ?? 0,
+                  5,
+                  record.rating?.overall_reviews ?? 0,
+                )}
+              </MDTypography>
+            </MDBox>
             <MDButton
               variant="contained"
               // target="_blank"

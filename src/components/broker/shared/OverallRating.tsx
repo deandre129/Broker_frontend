@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import i18n from '@/i18n';
-import { useEffect, useState } from 'react';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import BrokerRatingPercent from './BrokerRatingPercent';
-import RatingView from '../../RatingView';
-import PropTypes from 'prop-types';
-import Image from 'next/image';
-import LazyLoad from 'react-lazyload'
+import i18n from "@/i18n";
+import { useEffect, useState } from "react";
+import MDBox from "@/mui/components/MDBox";
+import MDTypography from "@/mui/components/MDTypography";
+import BrokerRatingPercent from "./BrokerRatingPercent";
+import RatingView from "../../RatingView";
+import PropTypes from "prop-types";
+import Image from "next/image";
+import LazyLoad from "react-lazyload";
 
 function OverallRating({
   record,
@@ -34,27 +34,24 @@ function OverallRating({
         setFontSize(14);
       }
     };
-    window.addEventListener('resize', handleRatingSize);
+    window.addEventListener("resize", handleRatingSize);
     handleRatingSize();
-    return () =>
-      window.removeEventListener(
-        'resize',
-        handleRatingSize,
-      );
+    return () => window.removeEventListener("resize", handleRatingSize);
   }, []);
   return (
-    <>
+    <MDBox sx={{ width: "100%" }}>
       <MDBox
         display="flex"
+        width={"100%"}
         alignItems="center"
         flexWrap="wrap"
         flexGrow={1}
         justifyContent={
           compare
-            ? 'center'
+            ? "center"
             : {
-                xs: 'space-between',
-                lg: 'flex-end',
+                xs: "space-between",
+                lg: "flex-end",
               }
         }
         gap={1}
@@ -66,7 +63,12 @@ function OverallRating({
           />
         )}
         <LazyLoad>
-          <RatingView value={record.rating?.overall_rating} width={36} height={32} size={size}/>
+          <RatingView
+            value={record.rating?.overall_rating}
+            width={36}
+            height={32}
+            size={size}
+          />
         </LazyLoad>
       </MDBox>
       {!hideDescription && (
@@ -79,10 +81,10 @@ function OverallRating({
           lineHeight={1}
           textAlign={
             compare
-              ? 'center'
+              ? "center"
               : {
-                  xs: 'center',
-                  lg: 'right',
+                  xs: "center",
+                  lg: "right",
                 }
           }
           mt={gap}
@@ -94,14 +96,14 @@ function OverallRating({
           )}
         </MDTypography>
       )}
-    </>
+    </MDBox>
   );
 }
 
 OverallRating.defaultProps = {
   hideDescription: false,
   hidePercent: false,
-  size: 'large',
+  size: "large",
   gap: 0,
   compare: false,
 };

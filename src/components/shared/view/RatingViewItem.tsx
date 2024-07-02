@@ -1,10 +1,10 @@
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import OutOf from '../components/OutOf';
-import PropTypes from 'prop-types';
-import StyledRating from '../styles/StyledRating';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
+import MDBox from "@/mui/components/MDBox";
+import MDTypography from "@/mui/components/MDTypography";
+import OutOf from "../components/OutOf";
+import PropTypes from "prop-types";
+import StyledRating from "../styles/StyledRating";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
 
 function RatingViewItem(props) {
   const {
@@ -25,7 +25,7 @@ function RatingViewItem(props) {
   const nonFraction = Math.trunc(value);
   const fraction = Number((value - nonFraction).toFixed(2));
   const fractionPercent = fraction * 100;
-  
+
   let isShow = true;
   const getStar = (index) => {
     if (index <= nonFraction - 1) {
@@ -42,28 +42,32 @@ function RatingViewItem(props) {
   const SIZES = {
     SMALL: {
       key: "small",
-      size: 10
+      size: 10,
     },
     MEDIUM: {
       key: "medium",
-      size: 24
+      size: 24,
     },
     LARGE: {
       key: "large",
-      size: 28
+      size: 28,
     },
     LARGE1: {
       key: "large1",
       size: 32,
     },
+    LARGE2: {
+      key: "large2",
+      size: 40,
+    },
     EXTRA1: {
       key: "extra1",
-      size: 42
+      size: 42,
     },
     EXTRA2: {
       key: "extra2",
-      size: 45
-    }
+      size: 45,
+    },
   };
 
   const iconSize =
@@ -75,18 +79,23 @@ function RatingViewItem(props) {
       ? SIZES.LARGE.size
       : size === SIZES.LARGE1.key
       ? SIZES.LARGE1.size
-      :size === SIZES.EXTRA1.key
+      : size === SIZES.LARGE2.key
+      ? SIZES.LARGE2.size
+      : size === SIZES.EXTRA1.key
       ? SIZES.EXTRA1.size
       : SIZES.EXTRA2.size;
 
   const withoutUserInteraction = (index) => {
     return (
-      <Box sx={{ position: "relative", alignItems:"center", width: '100%' }} key={index}>
+      <Box
+        sx={{ position: "relative", alignItems: "center", width: "100%" }}
+        key={index}
+      >
         <Box
           sx={{
-            width: getStar(index)+'%',
+            width: getStar(index) + "%",
             overflow: "hidden",
-            position: "absolute"
+            position: "absolute",
           }}
         >
           <svg
@@ -122,7 +131,7 @@ function RatingViewItem(props) {
           />
         </svg>
       </Box>
-    )
+    );
   };
   return (
     <MDBox
@@ -133,7 +142,7 @@ function RatingViewItem(props) {
       {!hiddenLabel && (
         <MDTypography
           variant="caption"
-          color={'secondary'}
+          color={"secondary"}
           fontWeight="regular"
           lineHeight={1}
           position="absolute"
@@ -142,7 +151,7 @@ function RatingViewItem(props) {
           {label}
         </MDTypography>
       )}
-      <MDBox display="flex" alignItems="center" width='100%'>
+      <MDBox display="flex" alignItems="center" width="100%">
         {/* <StyledRating
           defaultValue={defaultValue}
           value={value}
@@ -157,7 +166,7 @@ function RatingViewItem(props) {
           readOnly
         /> */}
         {[...new Array(numberOfStar)].map((arr, index) =>
-          withoutUserInteraction(index)
+          withoutUserInteraction(index),
         )}
         {showValue && <OutOf value={value} total={count} />}
       </MDBox>
@@ -172,19 +181,19 @@ RatingViewItem.defaultProps = {
   defaultValue: 0,
   precision: 0,
   showValue: false,
-  size: 'medium',
+  size: "medium",
 };
 
 RatingViewItem.propTypes = {
   allowHalf: PropTypes.bool,
   color: PropTypes.oneOf([
     null,
-    'primary',
-    'secondary',
-    'info',
-    'success',
-    'warning',
-    'error',
+    "primary",
+    "secondary",
+    "info",
+    "success",
+    "warning",
+    "error",
   ]),
   count: PropTypes.number,
   defaultValue: PropTypes.number,
@@ -193,7 +202,7 @@ RatingViewItem.propTypes = {
   label: PropTypes.string,
   precision: PropTypes.number,
   showValue: PropTypes.bool,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
   value: PropTypes.number,
 };
 
