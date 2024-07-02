@@ -303,7 +303,7 @@ const BlogDetailPage = ({
                 </>
               )}
               <HtmlView value={record.content} />
-              <MDBox py={4}>
+              {/* <MDBox py={4}>
                 <MDTypography
                   id="list-top-4-pagination"
                   variant="body1"
@@ -527,7 +527,7 @@ const BlogDetailPage = ({
                     color: white;
                   }
                 `}</style>
-              </MDButton>
+              </MDButton> */}
             </PageContent>
             <AuthorView author={author} />
             <PageContent

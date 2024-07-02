@@ -115,7 +115,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
 
   useEffect(() => {
     const checkScrollTop = () => {
-      if (window.pageYOffset > 400) {
+      if (window.scrollY > 400) {
         setShowScroll(true);
       } else {
         setShowScroll(false);
