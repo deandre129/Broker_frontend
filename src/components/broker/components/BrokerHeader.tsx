@@ -11,10 +11,12 @@ import MDTypography from "@/mui/components/MDTypography";
 import OverallRating from "../shared/OverallRating";
 import SendIcon from "@mui/icons-material/Send";
 import dynamic from "next/dynamic";
+import ScrollTo from "@/components/ScrollTo";
 
 function BrokerHeader({ record }) {
   const colors = lColors;
   const [ratingSize, setRatingSize] = useState(37);
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const handleRatingSize = () => {
       if (window.innerWidth > 1400) {
@@ -35,6 +37,20 @@ function BrokerHeader({ record }) {
     handleRatingSize();
     return () => window.removeEventListener("resize", handleRatingSize);
   }, []);
+
+  useEffect(() => {
+    const handleMobileView = () => {
+      if (window.innerWidth > 768) {
+        setIsMobile(false);
+      } else {
+        setIsMobile(true);
+      }
+    };
+    window.addEventListener("resize", handleMobileView);
+    handleMobileView();
+    return () => window.removeEventListener("resize", handleMobileView);
+  }, []);
+
   return (
     <MDBox
       pt={2}
@@ -118,6 +134,24 @@ function BrokerHeader({ record }) {
               gap={undefined}
               compare={undefined}
             />
+            <MDButton
+              variant="contained"
+              // target="_blank"
+              // href={record.meta?.homepage}
+              fullWidth
+              sx={{
+                backgroundColor: "#fff",
+                border: "1px solid #959cB5",
+                borderRadius: "10px",
+                marginTop: "20px",
+                fontSize: "14px",
+                textTransform: "none",
+                display: isMobile ? "flex" : "none",
+              }}
+              onClick={() => ScrollTo("write-review")}
+            >
+              {i18n.entities.broker.text.shareYourExperience}
+            </MDButton>
             <MDButton
               variant="contained"
               target="_blank"
