@@ -18,7 +18,7 @@ import LazyLoad from "react-lazyload";
 function BrokerHeader({ record }) {
   const colors = lColors;
   const [ratingSize, setRatingSize] = useState("large1");
-  const [fontSize, setFontSize] = useState(18);
+  const [fontSize, setFontSize] = useState(24);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const handleRatingSize = () => {
@@ -36,10 +36,10 @@ function BrokerHeader({ record }) {
         setRatingSize("extra1");
       } else if (window.innerWidth >= 375) {
         setRatingSize("large2");
-        setFontSize(18);
+        setFontSize(22);
       } else {
         setRatingSize("large1");
-        setFontSize(16);
+        setFontSize(18);
       }
     };
     window.addEventListener("resize", handleRatingSize);
@@ -160,14 +160,12 @@ function BrokerHeader({ record }) {
                   width: "100%",
                 }}
               >
-                <LazyLoad>
-                  <RatingView
-                    value={record.rating?.overall_rating}
-                    width={32}
-                    height={32}
-                    size={ratingSize}
-                  />
-                </LazyLoad>
+                <RatingView
+                  value={record.rating?.overall_rating}
+                  width={32}
+                  height={32}
+                  size={ratingSize}
+                />
                 <MDTypography
                   variant="body2"
                   fontSize={fontSize}
@@ -188,17 +186,11 @@ function BrokerHeader({ record }) {
                 textAlign={"center"}
                 mt={1}
               >
-                {i18n.entities.broker.text.rating(
-                  record.rating?.overall_rating?.toFixed(2) ?? 0,
-                  5,
-                  record.rating?.overall_reviews ?? 0,
-                )}
+                {record.rating?.overall_reviews ?? 0} Bewertungen von Tradern
               </MDTypography>
             </MDBox>
             <MDButton
               variant="contained"
-              // target="_blank"
-              // href={record.meta?.homepage}
               fullWidth
               sx={{
                 backgroundColor: "#fff",
