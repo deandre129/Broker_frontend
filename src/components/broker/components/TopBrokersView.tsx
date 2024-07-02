@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import { Grid } from '@mui/material';
-import Link from 'next/link';
-import CircleNumber from '../../shared/CircleNumber';
-import ImageView from '../../ImageView';
-import MaterialLink from '@mui/material/Link';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-import PropTypes from 'prop-types';
-import RatingView from '../../RatingView';
-import Image from 'next/image';
-import LazyLoad from 'react-lazyload'
+import { Grid } from "@mui/material";
+import Link from "next/link";
+import CircleNumber from "../../shared/CircleNumber";
+import ImageView from "../../ImageView";
+import MaterialLink from "@mui/material/Link";
+import MDBox from "@/mui/components/MDBox";
+import MDTypography from "@/mui/components/MDTypography";
+import PropTypes from "prop-types";
+import RatingView from "../../RatingView";
+import Image from "next/image";
+import LazyLoad from "react-lazyload";
 
 function TopBrokersView({ topBrokers }) {
   return (
@@ -21,7 +21,7 @@ function TopBrokersView({ topBrokers }) {
             justifyContent="flex-start"
             alignItems="center"
             sx={{
-              '& > * + *': {
+              "& > * + *": {
                 ml: 2,
               },
             }}
@@ -34,7 +34,7 @@ function TopBrokersView({ topBrokers }) {
               flexWrap="wrap"
               alignItems="center"
               sx={{
-                '& > * + *': {
+                "& > * + *": {
                   ml: {
                     xs: 0,
                     md: 2,
@@ -43,8 +43,8 @@ function TopBrokersView({ topBrokers }) {
                 },
               }}
             >
-              <MDBox 
-                display={"flex"} 
+              <MDBox
+                display={"flex"}
                 flexGrow={1}
                 flexDirection="column"
                 flexWrap="wrap"
@@ -57,19 +57,15 @@ function TopBrokersView({ topBrokers }) {
                   target="_blank"
                 >
                   <ImageView
-                    value={
-                      row.broker_image_broker_detail_logo
-                    }
+                    value={row.broker_image_broker_detail_logo}
                     alt={row.name}
                     sx={{
-                      height: '70px',
-                      objectFit: 'contain',
+                      height: "70px",
+                      objectFit: "contain",
                     }}
                   />
                 </MaterialLink>
-                <div className='text-desc'>
-                  {row.desc}
-                </div>
+                <div className="text-desc">{row.desc}</div>
                 <style jsx>{`
                   .text-desc {
                     color: #939393;
@@ -81,32 +77,31 @@ function TopBrokersView({ topBrokers }) {
                     line-height: 1;
                     text-align: center;
                     margin-top: 8px;
-                    font-family: "Roboto","Helvetica","Arial",sans-serif;
+                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
                     max-width: 320px;
                   }
                 `}</style>
               </MDBox>
-              
+
               <ImageView
-                value={
-                  row.broker_image_broker_regulation_image
-                }
+                value={row.broker_image_broker_regulation_image}
                 alt={row.name}
                 sx={{
                   display: {
-                    xs: 'none',
-                    md: 'block',
+                    xs: "none",
+                    md: "block",
                   },
-                  height: '60px',
-                  objectFit: 'contain',
+                  height: "60px",
+                  objectFit: "contain",
                   ml: 2,
                 }}
               />
               <MDBox
                 display="flex"
                 justifyContent="center"
-                alignItems='center'
+                alignItems="center"
                 flexDirection="column"
+                sx={{ width: "100%" }}
                 // sx={{
                 //   '& > * + *': {
                 //     mt: 1,
@@ -114,7 +109,12 @@ function TopBrokersView({ topBrokers }) {
                 // }}
               >
                 <LazyLoad>
-                  <RatingView value={row.rating?.overall_rating} width={36} height={32} size={"extra2"}/>
+                  <RatingView
+                    value={row.rating?.overall_rating}
+                    width={36}
+                    height={32}
+                    size={"extra2"}
+                  />
                 </LazyLoad>
                 <MDTypography
                   variant="button"
@@ -122,9 +122,9 @@ function TopBrokersView({ topBrokers }) {
                   fontWeight="regular"
                   mt={1}
                   lineHeight={1}
-                  alignItems='center'
+                  alignItems="center"
                   display="flex"
-                  justifyContent={'center'}
+                  justifyContent={"center"}
                 >
                   <MaterialLink
                     component={Link}
