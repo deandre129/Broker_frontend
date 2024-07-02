@@ -101,7 +101,6 @@ function TopBrokersView({ topBrokers }) {
                 justifyContent="center"
                 alignItems="center"
                 flexDirection="column"
-                sx={{ width: "100%" }}
                 // sx={{
                 //   '& > * + *': {
                 //     mt: 1,
