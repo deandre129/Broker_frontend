@@ -18,7 +18,7 @@ import LazyLoad from "react-lazyload";
 function BrokerHeader({ record }) {
   const colors = lColors;
   const [ratingSize, setRatingSize] = useState("large1");
-  const [fontSize, setFontSize] = useState(24);
+  const [fontSize, setFontSize] = useState(28);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const handleRatingSize = () => {
@@ -155,16 +155,17 @@ function BrokerHeader({ record }) {
               >
                 <RatingView
                   value={record.rating?.overall_rating}
-                  width={36}
-                  height={36}
-                  size={"extra1"}
+                  width={32}
+                  height={32}
+                  size={"extra2"}
                 />
                 <MDTypography
                   variant="body2"
-                  fontSize={{ lg: 20, xl: 28 }}
+                  fontSize={{ xs: 28, lg: 24, xl: 28 }}
                   color="text"
                   fontWeight="bold"
                   lineHeight={1}
+                  marginLeft={{ xs: 2, lg: 1, xl: 2 }}
                 >
                   {record.rating?.overall_rating.toFixed(1) + "/5"}
                 </MDTypography>
