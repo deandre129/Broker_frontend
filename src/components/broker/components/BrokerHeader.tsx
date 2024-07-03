@@ -135,15 +135,53 @@ function BrokerHeader({ record }) {
             justifyContent="flex-end"
             gap={1.25}
           >
-            <MDBox sx={{ display: isMobile ? "none" : "flex", width: "100%" }}>
-              <OverallRating
-                record={record}
-                size={"extra1"}
-                hideDescription={undefined}
-                hidePercent={undefined}
-                gap={undefined}
-                compare={undefined}
-              />
+            <MDBox
+              sx={{
+                display: isMobile ? "none" : "flex",
+                width: "100%",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <MDBox
+                display={"flex"}
+                flexDirection="row"
+                alignItems="center"
+                justifyContent={"center"}
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <RatingView
+                  value={record.rating?.overall_rating}
+                  width={36}
+                  height={36}
+                  size={"extra1"}
+                />
+                <MDTypography
+                  variant="body2"
+                  fontSize={{ lg: 20, xl: 28 }}
+                  color="text"
+                  fontWeight="bold"
+                  lineHeight={1}
+                >
+                  {record.rating?.overall_rating.toFixed(1) + "/5"}
+                </MDTypography>
+              </MDBox>
+              <MDBox padding={"5px"} sx={{ border: "2px solid #3d71e8" }}>
+                <MDTypography
+                  variant="body2"
+                  fontSize={16}
+                  color="text"
+                  fontWeight="regular"
+                  flexGrow={1}
+                  lineHeight={1}
+                  textAlign={"center"}
+                >
+                  {record.rating?.overall_reviews ?? 0} Bewertungen von Tradern
+                </MDTypography>
+              </MDBox>
             </MDBox>
             <MDBox
               flexDirection={"column"}

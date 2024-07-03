@@ -249,7 +249,10 @@ const BrokerViewPage = ({
                       </TabPanel>
                     </MDBox>
                   )}
-                  <BrokerHomepageUrls record={record} />
+                  <BrokerHomepageUrls
+                    record={record}
+                    showShareExperience={true}
+                  />
                 </>
               )}
             </PageContent>
@@ -259,7 +262,12 @@ const BrokerViewPage = ({
                   <BrokerPostPage
                     brokerId={record.id}
                     name={record.name}
-                    middle={<BrokerHomepageUrls record={record} />}
+                    middle={
+                      <BrokerHomepageUrls
+                        record={record}
+                        showShareExperience={false}
+                      />
+                    }
                     topBrokers={topBroker}
                     brokerPostList={brokerPostList}
                     slug={slug}

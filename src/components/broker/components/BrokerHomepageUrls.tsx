@@ -1,12 +1,12 @@
-import { Grid } from '@mui/material';
-import i18n from '@/i18n';
-import MDButton from '@/mui/components/MDButton';
-import PropTypes from 'prop-types';
-import SendIcon from '@mui/icons-material/Send';
-import MDBox from '@/mui/components/MDBox';
-import MDTypography from '@/mui/components/MDTypography';
-
-function BrokerHomepageUrls({ record }) {
+import { Grid } from "@mui/material";
+import i18n from "@/i18n";
+import MDButton from "@/mui/components/MDButton";
+import PropTypes from "prop-types";
+import SendIcon from "@mui/icons-material/Send";
+import MDBox from "@/mui/components/MDBox";
+import MDTypography from "@/mui/components/MDTypography";
+import ScrollTo from "@/components/ScrollTo";
+function BrokerHomepageUrls({ record, showShareExperience }) {
   return (
     <>
       <Grid spacing={2} container pt={3}>
@@ -17,10 +17,10 @@ function BrokerHomepageUrls({ record }) {
               href={record.meta?.homepage}
               target="_blank"
               color="warning"
-              startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
+              startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
               fullWidth
             >
-              <div className='white-color'>
+              <div className="white-color">
                 {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
               </div>
             </MDButton>
@@ -29,50 +29,63 @@ function BrokerHomepageUrls({ record }) {
           <>
             <Grid md={6} xs={12} item>
               <MDBox
-               display={"flex"} 
-               flexGrow={1}
-               flexDirection="column"
-               flexWrap="wrap"
-               alignItems="center">
+                display={"flex"}
+                flexGrow={1}
+                flexDirection="column"
+                flexWrap="wrap"
+                alignItems="center"
+              >
                 <MDButton
                   variant="contained"
                   href={record.meta?.homepage}
                   target="_blank"
                   color="warning"
-                  startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
+                  startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
                   fullWidth
                 >
-                  <div className='white-color'>
-                    {i18n.entities.broker.text.nowTo(record.name,).toUpperCase()}
+                  <div className="white-color">
+                    {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
                   </div>
                 </MDButton>
-                <div className='text-desc'>
-                  {record.desc}
-                </div>
+                <div className="text-desc">{record.desc}</div>
               </MDBox>
             </Grid>
             <Grid md={6} xs={12} item>
               <MDBox
-               display={"flex"} 
-               flexGrow={1}
-               flexDirection="column"
-               flexWrap="wrap"
-               alignItems="center">
-                <MDButton
-                  variant="contained"
-                  target="_blank"
-                  href={record.meta?.demo_url}
-                  color="info"
-                  startIcon={<SendIcon style={{fill: '#ffffff'}}/>}
-                  fullWidth
-                >
-                  <div className='white-color'>
-                    {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
-                  </div>
-                </MDButton>
-                <div className='text-desc'>
-                  {record.desc}
-                </div>
+                display={"flex"}
+                flexGrow={1}
+                flexDirection="column"
+                flexWrap="wrap"
+                alignItems="center"
+              >
+                {showShareExperience ? (
+                  <MDButton
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #959cB5",
+                      textTransform: "none",
+                    }}
+                    onClick={() => ScrollTo("write-review")}
+                  >
+                    {i18n.entities.broker.text.shareYourExperience}
+                  </MDButton>
+                ) : (
+                  <MDButton
+                    variant="contained"
+                    target="_blank"
+                    href={record.meta?.demo_url}
+                    color="info"
+                    startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
+                    fullWidth
+                  >
+                    <div className="white-color">
+                      {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
+                    </div>
+                  </MDButton>
+                )}
+                <div className="text-desc">{record.desc}</div>
               </MDBox>
             </Grid>
           </>
@@ -88,8 +101,9 @@ function BrokerHomepageUrls({ record }) {
             line-height: 1;
             margin-top: 8px;
             text-align: center;
-            font-family: "Roboto","Helvetica","Arial",sans-serif;
-          },
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+          }
+          ,
           .white-color {
             color: white;
           }
