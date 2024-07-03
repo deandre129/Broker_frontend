@@ -170,19 +170,18 @@ function BrokerHeader({ record }) {
                   {record.rating?.overall_rating.toFixed(1) + "/5"}
                 </MDTypography>
               </MDBox>
-              <MDBox padding={"5px"} sx={{ border: "2px solid #3d71e8" }}>
-                <MDTypography
-                  variant="body2"
-                  fontSize={16}
-                  color="text"
-                  fontWeight="regular"
-                  flexGrow={1}
-                  lineHeight={1}
-                  textAlign={"center"}
-                >
-                  {record.rating?.overall_reviews ?? 0} Bewertungen von Tradern
-                </MDTypography>
-              </MDBox>
+              <MDTypography
+                variant="body2"
+                fontSize={16}
+                color="text"
+                fontWeight="regular"
+                flexGrow={1}
+                lineHeight={1}
+                textAlign={"center"}
+                mt={"5px"}
+              >
+                {record.rating?.overall_reviews ?? 0} Bewertungen von Tradern
+              </MDTypography>
             </MDBox>
             <MDBox
               flexDirection={"column"}
