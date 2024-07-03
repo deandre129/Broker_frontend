@@ -30,8 +30,7 @@ function TopBrokersView({ topBrokers }) {
             <MDBox
               display="flex"
               flexGrow={1}
-              flexDirection="row"
-              flexWrap="wrap"
+              flexDirection={{ xs: "column", md: "row" }}
               alignItems="center"
               sx={{
                 "& > * + *": {
@@ -82,14 +81,13 @@ function TopBrokersView({ topBrokers }) {
                   }
                 `}</style>
               </MDBox>
-
               <ImageView
                 value={row.broker_image_broker_regulation_image}
                 alt={row.name}
                 sx={{
                   display: {
                     xs: "none",
-                    md: "block",
+                    lg: "block",
                   },
                   height: "60px",
                   objectFit: "contain",
@@ -101,11 +99,6 @@ function TopBrokersView({ topBrokers }) {
                 justifyContent="center"
                 alignItems="center"
                 flexDirection="column"
-                // sx={{
-                //   '& > * + *': {
-                //     mt: 1,
-                //   },
-                // }}
               >
                 <LazyLoad>
                   <RatingView
