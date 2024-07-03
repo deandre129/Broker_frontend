@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
 import i18n from "@/i18n";
 import MDButton from "@/mui/components/MDButton";
 import PropTypes from "prop-types";
@@ -7,6 +8,21 @@ import MDBox from "@/mui/components/MDBox";
 import MDTypography from "@/mui/components/MDTypography";
 import ScrollTo from "@/components/ScrollTo";
 function BrokerHomepageUrls({ record, showShareExperience }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleMobileView = () => {
+      if (window.innerWidth > 768) {
+        setIsMobile(false);
+      } else {
+        setIsMobile(true);
+      }
+    };
+    window.addEventListener("resize", handleMobileView);
+    handleMobileView();
+    return () => window.removeEventListener("resize", handleMobileView);
+  }, []);
+
   return (
     <>
       <Grid spacing={2} container pt={3}>
@@ -58,33 +74,34 @@ function BrokerHomepageUrls({ record, showShareExperience }) {
                 flexWrap="wrap"
                 alignItems="center"
               >
-                {showShareExperience ? (
-                  <MDButton
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #959cB5",
-                      textTransform: "none",
-                    }}
-                    onClick={() => ScrollTo("write-review")}
-                  >
-                    {i18n.entities.broker.text.shareYourExperience}
-                  </MDButton>
-                ) : (
-                  <MDButton
-                    variant="contained"
-                    target="_blank"
-                    href={record.meta?.demo_url}
-                    color="info"
-                    startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
-                    fullWidth
-                  >
-                    <div className="white-color">
-                      {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
-                    </div>
-                  </MDButton>
-                )}
+                <MDButton
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    display: showShareExperience && !isMobile ? "flex" : "none",
+                    backgroundColor: "#fff",
+                    border: "1px solid #959cB5",
+                    textTransform: "none",
+                  }}
+                  onClick={() => ScrollTo("write-review")}
+                >
+                  {i18n.entities.broker.text.shareYourExperience}
+                </MDButton>
+                <MDButton
+                  variant="contained"
+                  target="_blank"
+                  href={record.meta?.demo_url}
+                  color="info"
+                  startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
+                  fullWidth
+                  sx={{
+                    display: isMobile || !showShareExperience ? "flex" : "none",
+                  }}
+                >
+                  <div className="white-color">
+                    {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
+                  </div>
+                </MDButton>
                 <div className="text-desc">{record.desc}</div>
               </MDBox>
             </Grid>
