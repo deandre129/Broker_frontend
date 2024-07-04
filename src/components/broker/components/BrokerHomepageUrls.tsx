@@ -74,35 +74,39 @@ function BrokerHomepageUrls({ record, showShareExperience }) {
                 flexWrap="wrap"
                 alignItems="center"
               >
-                <MDButton
-                  variant="contained"
-                  fullWidth
-                  sx={{
-                    display: showShareExperience && !isMobile ? "flex" : "none",
-                    backgroundColor: "#fff",
-                    border: "1px solid #959cB5",
-                    textTransform: "none",
-                  }}
-                  onClick={() => ScrollTo("write-review")}
-                >
-                  {i18n.entities.broker.text.shareYourExperience}
-                </MDButton>
-                <MDButton
-                  variant="contained"
-                  target="_blank"
-                  href={record.meta?.demo_url}
-                  color="info"
-                  startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
-                  fullWidth
-                  sx={{
-                    display: isMobile || !showShareExperience ? "flex" : "none",
-                  }}
-                >
-                  <div className="white-color">
-                    {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
-                  </div>
-                </MDButton>
-                <div className="text-desc">{record.desc}</div>
+                {showShareExperience && !isMobile && (
+                  <MDButton
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      display:
+                        showShareExperience && !isMobile ? "flex" : "none",
+                      backgroundColor: "#fff",
+                      border: "1px solid #959cB5",
+                      textTransform: "none",
+                    }}
+                    onClick={() => ScrollTo("write-review")}
+                  >
+                    {i18n.entities.broker.text.shareYourExperience}
+                  </MDButton>
+                )}
+                {(isMobile || !showShareExperience) && (
+                  <>
+                    <MDButton
+                      variant="contained"
+                      target="_blank"
+                      href={record.meta?.demo_url}
+                      color="info"
+                      startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
+                      fullWidth
+                    >
+                      <div className="white-color">
+                        {i18n.entities.broker.text.freeDemoAccount.toUpperCase()}
+                      </div>
+                    </MDButton>
+                    <div className="text-desc">{record.desc}</div>
+                  </>
+                )}
               </MDBox>
             </Grid>
           </>
