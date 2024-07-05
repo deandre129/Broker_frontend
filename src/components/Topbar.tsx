@@ -436,7 +436,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
                     lineHeight={1}
                     sx={{ color: "#fff" }}
                   >
-                    <TrendingFlatIcon style={{ fill: "#ffffff" }} />
+                    <SendIcon style={{ fill: "#ffffff", marginRight: "8px" }} />
                     Jetzt testen!
                   </MDTypography>
                 </MDButton>
