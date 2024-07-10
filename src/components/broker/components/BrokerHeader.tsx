@@ -106,9 +106,42 @@ function BrokerHeader({ record }) {
           }),
         }}
       />
-      <MDTypography variant="h1" mb={2}>
-        {`${record.name} Erfahrungen » Test & Kundenbewertungen`}
-      </MDTypography>
+      <MDBox display={{ xs: "none", md: "flex" }}>
+        <MDTypography
+          mb={2}
+          sx={{
+            fontSize: { md: "18px", xl: "24px" },
+            fontWeight: "700",
+          }}
+        >
+          {`${record.name} Erfahrungen » Test & Kundenbewertungen`}
+        </MDTypography>
+      </MDBox>
+      <MDBox
+        display={{ xs: "flex", md: "none" }}
+        flexDirection={"column"}
+        justifyContent={"flex-start"}
+      >
+        <MDTypography
+          mb={2}
+          sx={{
+            fontSize: { xs: "22px", sm: "26px" },
+            fontWeight: "700",
+            margin: 0,
+          }}
+        >
+          {`${record.name} Erfahrungen » `}
+        </MDTypography>
+        <MDTypography
+          mb={2}
+          sx={{
+            fontSize: { xs: "22px", sm: "26px" },
+            fontWeight: "700",
+          }}
+        >
+          Test & Kundenbewertungen
+        </MDTypography>
+      </MDBox>
       <Grid spacing={3} alignItems="stretch" container>
         <Grid lg={6} xs={12} item>
           <MaterialLink href={record.meta?.homepage} target="_blank">
@@ -167,7 +200,7 @@ function BrokerHeader({ record }) {
                   lineHeight={1}
                   marginLeft={{ xs: 2, lg: 1, xl: 2 }}
                 >
-                  {record.rating?.overall_rating.toFixed(1) + "/5"}
+                  {record.rating?.overall_rating.toFixed(1) ?? 0 + "/5"}
                 </MDTypography>
               </MDBox>
               <MDTypography
@@ -211,7 +244,7 @@ function BrokerHeader({ record }) {
                   fontWeight="bold"
                   lineHeight={1}
                 >
-                  {record.rating?.overall_rating.toFixed(1) + " / 5"}
+                  {record.rating?.overall_rating.toFixed(1) ?? 0 + " / 5"}
                 </MDTypography>
               </MDBox>
               <MDTypography
