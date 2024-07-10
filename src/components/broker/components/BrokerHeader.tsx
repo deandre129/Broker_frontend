@@ -107,7 +107,7 @@ function BrokerHeader({ record }) {
         }}
       />
       <MDTypography variant="h1" mb={2}>
-        {`${record.name} Erfahrungen und Test`}
+        {`${record.name} Erfahrungen » Test & Kundenbewertungen`}
       </MDTypography>
       <Grid spacing={3} alignItems="stretch" container>
         <Grid lg={6} xs={12} item>

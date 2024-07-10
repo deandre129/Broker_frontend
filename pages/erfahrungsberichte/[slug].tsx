@@ -126,7 +126,7 @@ const BrokerViewPage = ({
     );
     title = `${
       record.name
-    } Erfahrungen ${moment().year()} » Ehrlicher Test & Kundenmeinungen`;
+    } Erfahrungen ${moment().year()} » Test & Kundenmeinungen`;
     description = record.is_broker
       ? `${record.name} Erfahrungen » Fazit von Tradern: ${stars.join(
           "",
