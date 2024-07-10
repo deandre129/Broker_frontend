@@ -110,7 +110,7 @@ function BrokerHeader({ record }) {
         <MDTypography
           mb={2}
           sx={{
-            fontSize: { md: "18px", xl: "24px" },
+            fontSize: { md: "20px", xl: "28px" },
             fontWeight: "700",
           }}
         >
