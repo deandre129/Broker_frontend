@@ -116,7 +116,6 @@ const BrokerViewPage = ({
   let keywords = ["erfahrungen", "bewertungen", "test"];
   let description = null;
 
-  console.log(record);
   if (record) {
     keywords.unshift(record.name);
     const stars = [];
