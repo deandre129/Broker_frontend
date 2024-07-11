@@ -116,6 +116,7 @@ const BrokerViewPage = ({
   let keywords = ["erfahrungen", "bewertungen", "test"];
   let description = null;
 
+  console.log(record);
   if (record) {
     keywords.unshift(record.name);
     const stars = [];
@@ -124,9 +125,9 @@ const BrokerViewPage = ({
       i < Number((record.rating?.overall_rating ?? 0).toFixed(0));
       i++, stars.push("✪")
     );
-    title = `${
-      record.name
-    } Erfahrungen ${moment().year()} » Test & Kundenmeinungen`;
+    title = `${record.name} Erfahrungen ${moment().year()} » ${
+      record.page_title !== "" ? record.page_title : "Test & Kundenmeinungen"
+    }`;
     description = record.is_broker
       ? `${record.name} Erfahrungen » Fazit von Tradern: ${stars.join(
           "",
