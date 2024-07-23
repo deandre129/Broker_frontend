@@ -278,6 +278,9 @@ const BrokerViewPage = ({
                   <PageContent>
                     <MDBox fontSize="1rem">
                       <HtmlView value={record.creteria?.body} />
+                      {Boolean(record.creteria.body2) && (
+                        <HtmlView value={record.creteria?.body2} />
+                      )}
                     </MDBox>
                   </PageContent>
                 )}
