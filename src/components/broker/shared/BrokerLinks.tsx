@@ -36,10 +36,13 @@ function BrokerLinks({ record }) {
         target="_blank"
         href={record.meta?.homepage}
         color="warning"
-        startIcon={<SendIcon style={{ fill: "#ffffff" }} />}
         fullWidth
       >
-        <div className="white-color">
+        <div
+          className="white-color"
+          style={{ display: "flex", alignItems: "center", gap: "10px" }}
+        >
+          <SendIcon style={{ fill: "#ffffff" }} />
           {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
         </div>
       </MDButton>
@@ -47,6 +50,9 @@ function BrokerLinks({ record }) {
       <style jsx>{`
         .white-color {
           color: white;
+          font-size: 1rem;
+          font-weight: 700;
+          font-family: "Roboto", "Helvetica", "Arial", sans-serif;
         }
         ,
         .text-desc {
