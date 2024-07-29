@@ -8,7 +8,7 @@ import MDTypography from "@/mui/components/MDTypography";
 
 function BrokerLinks({ record }) {
   return (
-    <MDBox display="flex" flexDirection="column" gap={2}>
+    <MDBox display="flex" flexDirection="column" gap={1}>
       {/* <MDButton
         variant="contained"
         href={record.meta?.demo_url}
@@ -43,9 +43,22 @@ function BrokerLinks({ record }) {
           {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
         </div>
       </MDButton>
+      <div className="text-desc">{record.desc}</div>
       <style jsx>{`
         .white-color {
           color: white;
+        }
+        ,
+        .text-desc {
+          color: #939393;
+          margin-right: auto;
+          margin-left: auto;
+          text-transform: none;
+          font-weight: 400;
+          font-size: 0.625rem;
+          line-height: 1;
+          text-align: center;
+          font-family: "Roboto", "Helvetica", "Arial", sans-serif;
         }
       `}</style>
     </MDBox>
