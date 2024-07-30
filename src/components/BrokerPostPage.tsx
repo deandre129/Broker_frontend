@@ -248,6 +248,25 @@ const BrokerPostPage = (props) => {
     "align",
   ];
 
+  const [editorMarginBottom, setEditorMarginBottom] = useState("50px");
+
+  useEffect(() => {
+    const handleMobileView = () => {
+      if (window.innerWidth >= 1200) {
+        setEditorMarginBottom("50px");
+      } else if (window.innerWidth >= 992) {
+        setEditorMarginBottom("80px");
+      } else if (window.innerWidth >= 768) {
+        setEditorMarginBottom("50px");
+      } else {
+        setEditorMarginBottom("80px");
+      }
+    };
+    window.addEventListener("resize", handleMobileView);
+    handleMobileView();
+    return () => window.removeEventListener("resize", handleMobileView);
+  }, []);
+
   return (
     <>
       <MDTypography id="list-top-4-pagination" variant="h2" pb={3}>
@@ -562,13 +581,15 @@ const BrokerPostPage = (props) => {
                   }}
                 /> */}
                 <QuillEditor
-                  style={{ height: "300px", marginBottom: "50px" }}
+                  style={{
+                    height: "300px",
+                    marginBottom: editorMarginBottom,
+                  }}
                   theme="snow"
                   value={review}
                   formats={formats}
                   modules={modules}
                   onChange={(value) => {
-                    console.log(value);
                     setReview(value);
                   }}
                 />
