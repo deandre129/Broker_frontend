@@ -133,7 +133,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
       sx={{ width: "100%" }}
     >
       {showTopbar && (
-        <MDBox position={"relative"}>
+        <MDBox position={"relative"} sx={{ width: "100%" }}>
           {height !== null && (
             <MDBox
               display={"flex"}
@@ -175,7 +175,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
                 height: "fit",
               }}
             >
-              <div ref={topbarContainer}>
+              <div ref={topbarContainer} style={{ width: "100%" }}>
                 <MaterialLink
                   href={topbarData?.account}
                   target="_blank"
@@ -401,8 +401,9 @@ const Topbar = ({ topbar, slug, topBroker }) => {
                         alignItems="center"
                         sx={{
                           height: "100%",
-                          width: "fit",
-                          paddingX: "10px",
+                          width: mobileView ? "fit" : "25%",
+                          paddingRight: mobileView ? "0px" : "10px",
+                          minWidth: "250px",
                         }}
                       >
                         <MDButton
@@ -412,6 +413,7 @@ const Topbar = ({ topbar, slug, topBroker }) => {
                           sx={{
                             width: mobileView ? "fit" : "100%",
                             paddingY: "15px",
+                            paddingX: "50px",
                           }}
                           onClick={(e) => {
                             e.stopPropagation();
