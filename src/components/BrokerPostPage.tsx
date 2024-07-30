@@ -24,9 +24,9 @@ import StyledRating from "./shared/styles/StyledRating";
 import dynamic from "next/dynamic";
 import LazyLoad from "react-lazyload";
 import Spinner from "@/components/shared/Spinner";
-import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+const QuillEditor = dynamic(import("react-quill"), { ssr: false });
 const Image = dynamic(() => import("next/image"), {});
 const MDBox = dynamic(() => import("@/mui/components/MDBox"), {});
 const MDButton = dynamic(() => import("@/mui/components/MDButton"), {});

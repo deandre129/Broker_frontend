@@ -180,8 +180,8 @@ export async function getStaticProps({ params }) {
     url += "/" + slug[i];
   }
 
-  let page: any;
-  let pageType: any;
+  let page: any = null;
+  let pageType: any = null;
 
   const [categoryRes, generalPageRes, articleRes] = await Promise.all([
     authAxios.post(`${config.backendUrl}/category`, { url }),
@@ -200,7 +200,7 @@ export async function getStaticProps({ params }) {
     pageType = "article";
   }
 
-  let downloadUrl;
+  let downloadUrl = "";
   if (page?.navigation) {
     downloadUrl = page.navigation?.link + ".pdf";
   } else if (page && page?.link !== "") {
@@ -245,7 +245,7 @@ export async function getStaticProps({ params }) {
   const allBroker = allBrokerRes.data;
   const downloadPdf = downloadPdfRes.data;
   const topbarList = baseRes.data.topbarList;
-  let brokerRes;
+  let brokerRes = null;
   let broker = null;
   if (page && pageType == "article") {
     const url = page?.broker.name_normalized;
@@ -279,72 +279,62 @@ export async function getStaticProps({ params }) {
 }
 
 // export async function getServerSideProps(context) {
-//   const { query } = context
+//   const { query } = context;
 //   const { slug } = query;
-//   let url ="";
-//   for(let i=0; slug[i] ;i++){
-//     url+="/"+slug[i];
+//   let url = "";
+//   for (let i = 0; slug[i]; i++) {
+//     url += "/" + slug[i];
 //   }
 
-//   let page: any;
-//   let pageType : any;
+//   let page: any = null;
+//   let pageType: any = null;
 
-//   const [
-//     categoryRes,
-//     generalPageRes,
-//     articleRes,
-//     ] = await Promise.all([
-//       authAxios.post(`${config.backendUrl}/category`,{url}),
-//       authAxios.post(`${config.backendUrl}/general-page`,{url}),
-//       authAxios.post(`${config.backendUrl}/broker-article`,{url})
-//   ])
+//   const [categoryRes, generalPageRes, articleRes] = await Promise.all([
+//     authAxios.post(`${config.backendUrl}/category`, { url }),
+//     authAxios.post(`${config.backendUrl}/general-page`, { url }),
+//     authAxios.post(`${config.backendUrl}/broker-article`, { url }),
+//   ]);
 
-//   if(categoryRes.data){
+//   if (categoryRes.data) {
 //     page = categoryRes.data;
 //     pageType = "category";
-//   }
-//   else if(generalPageRes.data){
+//   } else if (generalPageRes.data) {
 //     page = generalPageRes.data;
 //     pageType = "page";
-//   }
-//   else if(articleRes.data){
+//   } else if (articleRes.data) {
 //     page = articleRes.data;
 //     pageType = "article";
 //   }
 
-//   let downloadUrl;
-//   if(page?.navigation) {
-//     downloadUrl = page.navigation?.link + '.pdf';
-//   } else if(page && page.link !== '') {
-//     downloadUrl = page.link  + '.pdf';
+//   let downloadUrl = "";
+//   if (page?.navigation) {
+//     downloadUrl = page.navigation?.link + ".pdf";
+//   } else if (page && page.link !== "") {
+//     downloadUrl = page.link + ".pdf";
 //   } else {
 //     downloadUrl = "";
 //   }
 
-//   const sortField = query.field ? query.field : 'name';
+//   const sortField = query.field ? query.field : "name";
 //   const sortOrder = query.orderBy ? query.orderBy : "asc";
 
 //   const filter = {
 //     activated: query.activated ? query.activated : true,
-//     category: page.id? page.id : 0
-//   }
+//     category: page?.id ? page?.id : 0,
+//   };
 
 //   const params = {
 //     filter: filter,
-//     orderBy: sortField+"_"+sortOrder
-//   }
+//     orderBy: sortField + "_" + sortOrder,
+//   };
 
-//   const [
-//     baseRes,
-//     allBrokerRes,
-//     downloadPdfRes,
-//     topbarListRes,
-//     ] = await Promise.all([
-//     axios.get(`${config.backendUrl}/base`),
-//     axios.get(`${config.backendUrl}/broker`, {params}),
-//     authAxios.post(`/general-page`, {url:downloadUrl}),
-//     axios.get(`${config.backendUrl}/topbarList`),
-//   ])
+//   const [baseRes, allBrokerRes, downloadPdfRes, topbarListRes] =
+//     await Promise.all([
+//       axios.get(`${config.backendUrl}/base`),
+//       axios.get(`${config.backendUrl}/broker`, { params }),
+//       authAxios.post(`/general-page`, { url: downloadUrl }),
+//       axios.get(`${config.backendUrl}/topbarList`),
+//     ]);
 //   const topBroker = baseRes.data.brokerTop;
 //   const category = baseRes.data.categorySidebar;
 //   const mostRead = baseRes.data.mostRead;
@@ -359,15 +349,35 @@ export async function getStaticProps({ params }) {
 //   const downloadPdf = downloadPdfRes.data;
 //   const topbarList = topbarListRes.data;
 
-//   let brokerRes;
+//   let brokerRes = null;
 //   let broker = null;
-//   if(page && pageType == 'article') {
+//   if (page && pageType == "article") {
 //     const url = page?.broker.name_normalized;
 //     brokerRes = await axios.post(`${config.backendUrl}/broker`, { url });
 //     broker = brokerRes.data;
 //   }
 
-//   return { props: { broker, topbarList, downloadPdf, allBroker, slug, pageType, author, page, topBroker, category, mostRead, featuredBrokers, forexSchool, forexStrategy, promotion, navigation, categoryFooter } };
-// };
+//   return {
+//     props: {
+//       broker,
+//       topbarList,
+//       downloadPdf,
+//       allBroker,
+//       slug,
+//       pageType,
+//       author,
+//       page,
+//       topBroker,
+//       category,
+//       mostRead,
+//       featuredBrokers,
+//       forexSchool,
+//       forexStrategy,
+//       promotion,
+//       navigation,
+//       categoryFooter,
+//     },
+//   };
+// }
 
 export default GeneralPage;
