@@ -4,7 +4,7 @@
 import { DEFAULT_MOMENT_FORMAT_DATE_ONLY } from "@/config/common";
 import { Alert, Grid, Snackbar, TextField } from "@mui/material";
 import i18n from "@/i18n";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 // import MDBox from '@/mui/components/MDBox';
 // import MDButton from '@/mui/components/MDButton';
 // import MDTypography from '@/mui/components/MDTypography';
@@ -24,6 +24,8 @@ import StyledRating from "./shared/styles/StyledRating";
 import dynamic from "next/dynamic";
 import LazyLoad from "react-lazyload";
 import Spinner from "@/components/shared/Spinner";
+import QuillEditor from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Image = dynamic(() => import("next/image"), {});
 const MDBox = dynamic(() => import("@/mui/components/MDBox"), {});
@@ -210,6 +212,38 @@ const BrokerPostPage = (props) => {
     // rows = brokerPostData.rows;
     // count = brokerPostData.count;
   };
+
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [2, 3, 4, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ color: [] }],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" },
+        ],
+      ],
+    },
+    clipboard: {
+      matchVisual: true,
+    },
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "color",
+  ];
 
   return (
     <>
@@ -506,7 +540,7 @@ const BrokerPostPage = (props) => {
                 {i18n.common.review} *
               </MDTypography>
               <MDBox pt={0} position="relative">
-                <CKEditor
+                {/* <CKEditor
                   initData={review}
                   config={ckeditorConfig}
                   onChange={(evt) => {
@@ -522,6 +556,17 @@ const BrokerPostPage = (props) => {
                       );
                     }
                     setReview(data);
+                  }}
+                /> */}
+                <QuillEditor
+                  style={{ height: "300px", marginBottom: "50px" }}
+                  theme="snow"
+                  value={review}
+                  formats={formats}
+                  modules={modules}
+                  onChange={(value) => {
+                    console.log(value);
+                    setReview(value);
                   }}
                 />
                 {errorReview != "" && (

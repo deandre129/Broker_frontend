@@ -70,6 +70,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-images-viewer": "^1.7.1",
     "react-lazyload": "^3.2.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^7.2.2",
     "react-select": "^5.7.2",
     "react-table": "^7.8.0",
