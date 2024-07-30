@@ -565,16 +565,18 @@ const BrokerPostPage = (props) => {
             </Grid>
           </Grid>
         </LazyLoad>
-        <MDButton
-          variant="gradient"
-          color={"info"}
-          type="button"
-          onClick={onSubmit}
-          startIcon={<SaveIcon />}
-          size="small"
-        >
-          Erfahrungsbericht speichern
-        </MDButton>
+        <MDBox display="flex" justifyContent="center" width="100%">
+          <MDButton
+            variant="gradient"
+            color={"info"}
+            type="button"
+            onClick={onSubmit}
+            startIcon={<SaveIcon />}
+            size="small"
+          >
+            Erfahrungsbericht speichern
+          </MDButton>
+        </MDBox>
         <Snackbar
           open={open}
           autoHideDuration={3000}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Icon } from "@mui/material";
 import { Grid } from "@mui/material";
 import lightColors from "@/mui/assets/theme/base/colors";
@@ -24,7 +24,7 @@ const KeyboardArrowUpIcon = dynamic(
 );
 
 const Topbar = ({ topbar, slug, topBroker }) => {
-  const [showTopbar, setShowTopbar] = useState(false);
+  const topbarContainer = useRef(null);
   const [topbarData, setTopbarData] = useState(null);
   const [topbarBrokerData, setTopbarBrokerData] = useState(null);
   const [topbarLogo, setTopbarLogo] = useState(null);
@@ -33,7 +33,8 @@ const Topbar = ({ topbar, slug, topBroker }) => {
   const [isClosed, setClosed] = useState(false);
   const [ratingStarSize, setRatingStarSize] = useState("large");
   const [topbarPaddingX, setTopbarPaddingX] = useState(100);
-  const [showScroll, setShowScroll] = useState(false);
+  const [showTopbar, setShowTopbar] = useState(false);
+  const [height, setHeight] = useState(null);
 
   useEffect(() => {
     let index = 0;
@@ -57,6 +58,9 @@ const Topbar = ({ topbar, slug, topBroker }) => {
 
   useEffect(() => {
     const handleMobileResponsive = () => {
+      if (topbarContainer.current) {
+        setHeight(topbarContainer.current.clientHeight);
+      }
       if (window.innerWidth > 1400) {
         setRatingStarSize("large");
         setTopbarPaddingX(100);
@@ -114,18 +118,10 @@ const Topbar = ({ topbar, slug, topBroker }) => {
   };
 
   useEffect(() => {
-    const checkScrollTop = () => {
-      if (window.scrollY > 400) {
-        setShowScroll(true);
-      } else {
-        setShowScroll(false);
-      }
-    };
-
-    window.addEventListener("scroll", checkScrollTop);
-
-    return () => window.removeEventListener("scroll", checkScrollTop);
-  }, []);
+    if (showTopbar && topbarContainer.current) {
+      setHeight(topbarContainer.current.clientHeight);
+    }
+  }, [showTopbar, topbarContainer.current]);
 
   return (
     <MDBox
@@ -136,338 +132,343 @@ const Topbar = ({ topbar, slug, topBroker }) => {
       bottom="0rem"
       sx={{ width: "100%" }}
     >
-      <MDBox
-        display={"flex"}
-        sx={{ width: "100%" }}
-        justifyContent={"flex-end"}
-        alignItems={"flex-end"}
-        paddingRight={mobileView ? "10px" : "75px"}
-        marginBottom={isClosed ? "30px" : "15px"}
-      >
-        <MDBox
-          display={showScroll ? "flex" : "none"}
-          justifyContent="center"
-          alignItems="center"
-          width="3.25rem"
-          height="3.25rem"
-          bgColor={lightColors.white.main}
-          shadow="md"
-          borderRadius="50%"
-          color="text"
-          sx={{
-            cursor: "pointer",
-          }}
-          onClick={scrollTop}
-        >
-          <KeyboardArrowUpIcon fontSize="medium" color="inherit">
-            keyboard_arrow_up
-          </KeyboardArrowUpIcon>
-        </MDBox>
-      </MDBox>
-
-      <MDBox
-        display={isClosed ? "none" : showTopbar ? "flex" : "none"}
-        justifyContent="center"
-        alignItems="center"
-        position={"relative"}
-        bgColor={
-          topbarData?.backgroundColor === "white1"
-            ? lightColors.white.main
-            : topbarData?.backgroundColor
-        }
-        shadow="sm"
-        sx={{
-          width: "100%",
-          height: "fit",
-        }}
-      >
-        <MaterialLink
-          href={topbarData?.account}
-          target="_blank"
-          sx={{ width: "100%" }}
-        >
-          <MDBox
-            display={"flex"}
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            sx={{
-              width: "100%",
-              height: "100%",
-              paddingY: "10px",
-              paddingX: topbarPaddingX + "px",
-            }}
-          >
-            <MDBox
-              display={mobileView ? "flex" : "none"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              sx={{ width: "100%", marginBottom: "10px" }}
-            >
-              <MDTypography
-                variant="body2"
-                fontSize={16}
-                color="text"
-                fontWeight="bold"
-                flexGrow={1}
-                lineHeight={1}
-              >
-                {topbarData?.title}
-              </MDTypography>
-            </MDBox>
+      {showTopbar && (
+        <MDBox position={"relative"}>
+          {height !== null && (
             <MDBox
               display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              flexDirection={"row"}
-              sx={{ width: "100%", height: "100%" }}
+              position={"absolute"}
+              justifyContent="center"
+              alignItems="center"
+              width="3.25rem"
+              height="3.25rem"
+              bgColor={lightColors.white.main}
+              shadow="md"
+              borderRadius="50%"
+              color="text"
+              sx={{
+                cursor: "pointer",
+              }}
+              onClick={scrollTop}
+              bottom={isClosed ? "30px" : height + 15 + "px"}
+              right={mobileView ? "10px" : "75px"}
             >
-              <MDBox
-                display="flex"
-                width={{ xs: "60%", md: "30%" }}
-                flexDirection="column"
-                justifyContent="start"
-                alignItems="center"
-                sx={{
-                  height: "100%",
-                }}
-              >
-                <CardMedia
-                  component={"img"}
-                  src={`https://broker-bewertungen.de/api/file/download?privateUrl=${topbarLogo?.privateUrl}`}
-                  alt={topbarData?.name}
-                  title={topbarData?.name}
-                  loading="lazy"
-                  sx={{
-                    margin: 0,
-                    borderRadius: 0,
-                    maxWidth: "100%",
-                    height: "60px",
-                    width: "auto",
-                    loading: "lazy",
-                    objectFit: "contain",
-                  }}
-                />
-                <MDBox
-                  flexDirection="row"
-                  display="flex"
-                  alignItems="center"
-                  flexGrow={1}
-                  gap={{
-                    xs: 1,
-                    md: "5px",
-                    lg: "5px",
-                    xl: "2px",
-                  }}
-                  sx={{
-                    marginTop: "5px",
-                  }}
+              <KeyboardArrowUpIcon fontSize="medium" color="inherit">
+                keyboard_arrow_up
+              </KeyboardArrowUpIcon>
+            </MDBox>
+          )}
+          {!isClosed && (
+            <MDBox
+              display={"flex"}
+              justifyContent="center"
+              alignItems="center"
+              position={"relative"}
+              bgColor={
+                topbarData?.backgroundColor === "white1"
+                  ? lightColors.white.main
+                  : topbarData?.backgroundColor
+              }
+              shadow="sm"
+              sx={{
+                width: "100%",
+                height: "fit",
+              }}
+            >
+              <div ref={topbarContainer}>
+                <MaterialLink
+                  href={topbarData?.account}
+                  target="_blank"
+                  sx={{ width: "100%" }}
                 >
-                  <LazyLoad>
-                    <RatingView
-                      value={topbarRating?.overall_rating}
-                      width={36}
-                      height={32}
-                      size={ratingStarSize}
-                    />
-                  </LazyLoad>
-                  <MDTypography
-                    display={mobileView ? "none" : "flex"}
-                    variant="body2"
-                    fontSize={16}
-                    color="text"
-                    fontWeight="bold"
-                    flexGrow={1}
-                    lineHeight={1}
+                  <MDBox
+                    display={"flex"}
+                    justifyContent="center"
+                    alignItems="center"
+                    flexDirection="column"
                     sx={{
-                      width: "50px",
+                      width: "100%",
+                      height: "100%",
+                      paddingY: "10px",
+                      paddingX: topbarPaddingX + "px",
                     }}
                   >
-                    {topbarRating?.overall_rating.toFixed(1) + " / 5"}
-                  </MDTypography>
-                </MDBox>
-              </MDBox>
-              <MDBox
-                display={mobileView ? "none" : "flex"}
-                flexDirection="column"
-                justifyContent="start"
-                alignItems="start"
-                sx={{
-                  height: "100%",
-                  width: "80%",
-                  paddingX: "5px",
-                }}
-              >
-                <MDTypography
-                  variant="body2"
-                  fontSize={18}
-                  color="text"
-                  fontWeight="bold"
-                  flexGrow={1}
-                  lineHeight={1}
-                >
-                  {topbarData?.title}
-                </MDTypography>
-                <Grid container>
-                  <Grid md={6} item>
-                    <MDTypography
-                      variant="body2"
-                      fontSize={14}
-                      color="text"
-                      fontWeight="regular"
-                      flexGrow={1}
-                      lineHeight={1}
-                      sx={{ marginY: "5px" }}
+                    <MDBox
+                      display={mobileView ? "flex" : "none"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      sx={{ width: "100%", marginBottom: "10px" }}
                     >
-                      <CheckIcon
-                        style={{ color: "#FB8C00", marginRight: "5px" }}
-                      />
-                      {topbarData?.feature1}
-                    </MDTypography>
-                    <MDTypography
-                      variant="body2"
-                      fontSize={14}
-                      color="text"
-                      fontWeight="regular"
-                      flexGrow={1}
-                      lineHeight={1}
-                      sx={{ marginY: "5px" }}
+                      <MDTypography
+                        variant="body2"
+                        fontSize={16}
+                        color="text"
+                        fontWeight="bold"
+                        flexGrow={1}
+                        lineHeight={1}
+                      >
+                        {topbarData?.title}
+                      </MDTypography>
+                    </MDBox>
+                    <MDBox
+                      display={"flex"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      flexDirection={"row"}
+                      sx={{ width: "100%", height: "100%" }}
                     >
-                      <CheckIcon
-                        style={{ color: "#FB8C00", marginRight: "5px" }}
-                      />
-                      {topbarData?.feature2}
-                    </MDTypography>
-                    <MDTypography
-                      variant="body2"
-                      fontSize={14}
-                      color="text"
-                      fontWeight="regular"
-                      flexGrow={1}
-                      lineHeight={1}
-                      sx={{ marginY: "5px" }}
-                    >
-                      <CheckIcon
-                        style={{ color: "#FB8C00", marginRight: "5px" }}
-                      />
-                      {topbarData?.feature3}
-                    </MDTypography>
-                  </Grid>
-                  <Grid md={6} item>
-                    <MDTypography
-                      variant="body2"
-                      fontSize={14}
-                      color="text"
-                      fontWeight="regular"
-                      flexGrow={1}
-                      lineHeight={1}
-                      sx={{ marginY: "5px" }}
-                    >
-                      <CheckIcon
-                        style={{ color: "#FB8C00", marginRight: "5px" }}
-                      />
-                      {topbarData?.feature4}
-                    </MDTypography>
-                    <MDTypography
-                      variant="body2"
-                      fontSize={14}
-                      color="text"
-                      fontWeight="regular"
-                      flexGrow={1}
-                      lineHeight={1}
-                      sx={{ marginY: "5px" }}
-                    >
-                      <CheckIcon
-                        style={{ color: "#FB8C00", marginRight: "5px" }}
-                      />
-                      {topbarData?.feature5}
-                    </MDTypography>
-                    <MDTypography
-                      variant="body2"
-                      fontSize={14}
-                      color="text"
-                      fontWeight="regular"
-                      flexGrow={1}
-                      lineHeight={1}
-                      sx={{ marginY: "5px" }}
-                    >
-                      <CheckIcon
-                        style={{ color: "#FB8C00", marginRight: "5px" }}
-                      />
-                      {topbarData?.feature6}
-                    </MDTypography>
-                  </Grid>
-                </Grid>
-              </MDBox>
-              <MDBox
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                sx={{
-                  height: "100%",
-                  width: "fit",
-                  paddingX: "10px",
-                }}
-              >
-                <MDButton
-                  variant="contained"
-                  color="warning"
-                  flexWrap={1}
-                  sx={{
-                    width: mobileView ? "fit" : "100%",
-                    paddingY: "15px",
-                  }}
+                      <MDBox
+                        display="flex"
+                        width={{ xs: "60%", md: "30%" }}
+                        flexDirection="column"
+                        justifyContent="start"
+                        alignItems="center"
+                        sx={{
+                          height: "100%",
+                        }}
+                      >
+                        <CardMedia
+                          component={"img"}
+                          src={`https://broker-bewertungen.de/api/file/download?privateUrl=${topbarLogo?.privateUrl}`}
+                          alt={topbarData?.name}
+                          title={topbarData?.name}
+                          loading="lazy"
+                          sx={{
+                            margin: 0,
+                            borderRadius: 0,
+                            maxWidth: "100%",
+                            height: "60px",
+                            width: "auto",
+                            loading: "lazy",
+                            objectFit: "contain",
+                          }}
+                        />
+                        <MDBox
+                          flexDirection="row"
+                          display="flex"
+                          alignItems="center"
+                          flexGrow={1}
+                          gap={{
+                            xs: 1,
+                            md: "5px",
+                            lg: "5px",
+                            xl: "2px",
+                          }}
+                          sx={{
+                            marginTop: "5px",
+                          }}
+                        >
+                          <LazyLoad>
+                            <RatingView
+                              value={topbarRating?.overall_rating}
+                              width={36}
+                              height={32}
+                              size={ratingStarSize}
+                            />
+                          </LazyLoad>
+                          <MDTypography
+                            display={mobileView ? "none" : "flex"}
+                            variant="body2"
+                            fontSize={16}
+                            color="text"
+                            fontWeight="bold"
+                            flexGrow={1}
+                            lineHeight={1}
+                            sx={{
+                              width: "50px",
+                            }}
+                          >
+                            {topbarRating?.overall_rating.toFixed(1) + " / 5"}
+                          </MDTypography>
+                        </MDBox>
+                      </MDBox>
+                      <MDBox
+                        display={mobileView ? "none" : "flex"}
+                        flexDirection="column"
+                        justifyContent="start"
+                        alignItems="start"
+                        sx={{
+                          height: "100%",
+                          width: "80%",
+                          paddingX: "5px",
+                        }}
+                      >
+                        <MDTypography
+                          variant="body2"
+                          fontSize={18}
+                          color="text"
+                          fontWeight="bold"
+                          flexGrow={1}
+                          lineHeight={1}
+                        >
+                          {topbarData?.title}
+                        </MDTypography>
+                        <Grid container>
+                          <Grid md={6} item>
+                            <MDTypography
+                              variant="body2"
+                              fontSize={14}
+                              color="text"
+                              fontWeight="regular"
+                              flexGrow={1}
+                              lineHeight={1}
+                              sx={{ marginY: "5px" }}
+                            >
+                              <CheckIcon
+                                style={{ color: "#FB8C00", marginRight: "5px" }}
+                              />
+                              {topbarData?.feature1}
+                            </MDTypography>
+                            <MDTypography
+                              variant="body2"
+                              fontSize={14}
+                              color="text"
+                              fontWeight="regular"
+                              flexGrow={1}
+                              lineHeight={1}
+                              sx={{ marginY: "5px" }}
+                            >
+                              <CheckIcon
+                                style={{ color: "#FB8C00", marginRight: "5px" }}
+                              />
+                              {topbarData?.feature2}
+                            </MDTypography>
+                            <MDTypography
+                              variant="body2"
+                              fontSize={14}
+                              color="text"
+                              fontWeight="regular"
+                              flexGrow={1}
+                              lineHeight={1}
+                              sx={{ marginY: "5px" }}
+                            >
+                              <CheckIcon
+                                style={{ color: "#FB8C00", marginRight: "5px" }}
+                              />
+                              {topbarData?.feature3}
+                            </MDTypography>
+                          </Grid>
+                          <Grid md={6} item>
+                            <MDTypography
+                              variant="body2"
+                              fontSize={14}
+                              color="text"
+                              fontWeight="regular"
+                              flexGrow={1}
+                              lineHeight={1}
+                              sx={{ marginY: "5px" }}
+                            >
+                              <CheckIcon
+                                style={{ color: "#FB8C00", marginRight: "5px" }}
+                              />
+                              {topbarData?.feature4}
+                            </MDTypography>
+                            <MDTypography
+                              variant="body2"
+                              fontSize={14}
+                              color="text"
+                              fontWeight="regular"
+                              flexGrow={1}
+                              lineHeight={1}
+                              sx={{ marginY: "5px" }}
+                            >
+                              <CheckIcon
+                                style={{ color: "#FB8C00", marginRight: "5px" }}
+                              />
+                              {topbarData?.feature5}
+                            </MDTypography>
+                            <MDTypography
+                              variant="body2"
+                              fontSize={14}
+                              color="text"
+                              fontWeight="regular"
+                              flexGrow={1}
+                              lineHeight={1}
+                              sx={{ marginY: "5px" }}
+                            >
+                              <CheckIcon
+                                style={{ color: "#FB8C00", marginRight: "5px" }}
+                              />
+                              {topbarData?.feature6}
+                            </MDTypography>
+                          </Grid>
+                        </Grid>
+                      </MDBox>
+                      <MDBox
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{
+                          height: "100%",
+                          width: "fit",
+                          paddingX: "10px",
+                        }}
+                      >
+                        <MDButton
+                          variant="contained"
+                          color="warning"
+                          flexWrap={1}
+                          sx={{
+                            width: mobileView ? "fit" : "100%",
+                            paddingY: "15px",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open = topbarData?.account;
+                          }}
+                        >
+                          <MDTypography
+                            display="flex"
+                            flexDirection="row"
+                            alignItems="center"
+                            justifyContent="center"
+                            variant="body2"
+                            fontSize={18}
+                            color="text"
+                            fontWeight="bold"
+                            flexGrow={1}
+                            lineHeight={1}
+                            sx={{ color: "#fff" }}
+                          >
+                            <SendIcon
+                              style={{ fill: "#ffffff", marginRight: "8px" }}
+                            />
+                            Jetzt testen!
+                          </MDTypography>
+                        </MDButton>
+                        <MDTypography
+                          variant="body2"
+                          fontSize={12}
+                          color="text"
+                          fontWeight="regular"
+                          flexGrow={1}
+                          lineHeight={1}
+                          sx={{ marginTop: "10px", textAlign: "center" }}
+                        >
+                          ({topbarBrokerData?.desc})
+                        </MDTypography>
+                      </MDBox>
+                    </MDBox>
+                  </MDBox>
+                </MaterialLink>
+                <MDBox
+                  justifyContent="start"
+                  alignItems="start"
+                  top={10}
+                  right={Math.abs(topbarPaddingX - 20) + "px"}
+                  position={"absolute"}
                   onClick={(e) => {
-                    e.stopPropagation();
-                    window.open = topbarData?.account;
+                    setClosed(true);
                   }}
                 >
-                  <MDTypography
-                    display="flex"
-                    flexDirection="row"
-                    alignItems="center"
-                    justifyContent="center"
-                    variant="body2"
-                    fontSize={18}
-                    color="text"
-                    fontWeight="bold"
-                    flexGrow={1}
-                    lineHeight={1}
-                    sx={{ color: "#fff" }}
-                  >
-                    <SendIcon style={{ fill: "#ffffff", marginRight: "8px" }} />
-                    Jetzt testen!
-                  </MDTypography>
-                </MDButton>
-                <MDTypography
-                  variant="body2"
-                  fontSize={12}
-                  color="text"
-                  fontWeight="regular"
-                  flexGrow={1}
-                  lineHeight={1}
-                  sx={{ marginTop: "10px", textAlign: "center" }}
-                >
-                  ({topbarBrokerData?.desc})
-                </MDTypography>
-              </MDBox>
+                  <CloseIcon sx={{ width: "25px", height: "25px" }} />
+                </MDBox>
+              </div>
             </MDBox>
-          </MDBox>
-        </MaterialLink>
-        <MDBox
-          justifyContent="start"
-          alignItems="start"
-          top={10}
-          right={Math.abs(topbarPaddingX - 20) + "px"}
-          position={"absolute"}
-          onClick={(e) => {
-            setClosed(true);
-          }}
-        >
-          <CloseIcon sx={{ width: "25px", height: "25px" }} />
+          )}
         </MDBox>
-      </MDBox>
+      )}
     </MDBox>
   );
 };
