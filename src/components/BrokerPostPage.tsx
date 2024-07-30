@@ -218,7 +218,8 @@ const BrokerPostPage = (props) => {
       container: [
         [{ header: [2, 3, 4, false] }],
         ["bold", "italic", "underline", "strike", "blockquote"],
-        [{ color: [] }],
+        [{ color: [] }, { background: [] }],
+        [{ align: [] }],
         [
           { list: "ordered" },
           { list: "bullet" },
@@ -243,6 +244,8 @@ const BrokerPostPage = (props) => {
     "bullet",
     "indent",
     "color",
+    "background",
+    "align",
   ];
 
   return (
