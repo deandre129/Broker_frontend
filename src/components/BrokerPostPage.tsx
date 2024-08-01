@@ -155,7 +155,7 @@ const BrokerPostPage = (props) => {
           });
           setName("");
           setEmail("");
-          editor.setData("");
+          // editor.setData("");
           setEditor(null);
           setReview("");
           setRating(0);
