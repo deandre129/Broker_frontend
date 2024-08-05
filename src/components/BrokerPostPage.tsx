@@ -216,7 +216,6 @@ const BrokerPostPage = (props) => {
   const modules = {
     toolbar: {
       container: [
-        [{ header: [2, 3, 4, false] }],
         ["bold", "italic", "underline", "strike", "blockquote"],
         [{ color: [] }, { background: [] }],
         [{ align: [] }],
@@ -234,7 +233,6 @@ const BrokerPostPage = (props) => {
   };
 
   const formats = [
-    "header",
     "bold",
     "italic",
     "underline",
