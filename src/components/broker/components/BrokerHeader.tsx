@@ -285,10 +285,10 @@ function BrokerHeader({ record }) {
               fullWidth
             >
               <div className="white-color">
-                {i18n.entities.broker.text.nowTo(record.name).toUpperCase()}
+                {i18n.entities.broker.text.nowTo(record?.name).toUpperCase()}
               </div>
             </MDButton>
-            <div className="text-desc">{record.desc}</div>
+            <div className="text-desc">{record?.desc ?? ''}</div>
           </MDBox>
         </Grid>
       </Grid>
