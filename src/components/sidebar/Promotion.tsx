@@ -1,24 +1,21 @@
-import { Card, CardHeader, Grid } from '@mui/material';
-import ImageView from '../ImageView';
-import MaterialLink from '@mui/material/Link';
-import dynamic from 'next/dynamic';
+import { Card, CardHeader, Grid } from "@mui/material";
+import ImageView from "../ImageView";
+import MaterialLink from "@mui/material/Link";
+import dynamic from "next/dynamic";
 // import MDBox from '@/mui/components/MDBox';
 // import MDTypography from '@/mui/components/MDTypography';
 
-const MDBox = dynamic(() => import('@/mui/components/MDBox'));
-const MDTypography = dynamic(() => import('@/mui/components/MDTypography'));
+const MDBox = dynamic(() => import("@/mui/components/MDBox"));
+const MDTypography = dynamic(() => import("@/mui/components/MDTypography"));
 
-function Promotion({promotion}) {
+function Promotion({ promotion }) {
+  console.log(promotion);
   return (
     <Grid xs={12} item>
       <Card>
         <CardHeader
           title={
-            <MDTypography
-              variant="body1"
-              fontWeight="bold"
-              lineHeight={1.35}
-            >
+            <MDTypography variant="body1" fontWeight="bold" lineHeight={1.35}>
               Sponsoren
             </MDTypography>
           }
@@ -28,17 +25,33 @@ function Promotion({promotion}) {
           <Grid spacing={2} container>
             {promotion.rows.map((row, idx) => (
               <Grid key={idx} xs={12} item>
-                <MaterialLink
-                  href={row.link}
-                  target="_blank"
-                >
-                  <ImageView
-                    value={row.promotion_image}
-                    sx={{
-                      width: '100%',
-                    }}
-                  />
-                </MaterialLink>
+                <MDBox>
+                  <MaterialLink href={row.link} target="_blank">
+                    <ImageView
+                      value={row.promotion_image}
+                      sx={{
+                        width: "100%",
+                      }}
+                    />
+                  </MaterialLink>
+                  <MDTypography
+                    variant="body2"
+                    fontWeight="regular"
+                    textAlign="center"
+                    lineHeight={1}
+                    color={"info"}
+                    mx="auto"
+                    mt={1}
+                  >
+                    <MaterialLink
+                      href={row.url}
+                      target="_blank"
+                      underline="hover"
+                    >
+                      {row.linktext}
+                    </MaterialLink>
+                  </MDTypography>
+                </MDBox>
               </Grid>
             ))}
           </Grid>
