@@ -22,7 +22,7 @@ function TopBrokers({ topBroker }) {
         <CardHeader
           title={
             <MDTypography variant="body1" fontWeight="bold" lineHeight={1.35}>
-              Von Tradern am besten bewertet
+              Von Anleger am besten bewertet
             </MDTypography>
           }
           sx={{ pb: 1, px: 3, pt: 2 }}

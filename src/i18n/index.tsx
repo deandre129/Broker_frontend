@@ -423,7 +423,7 @@ const i18n = {
         "Mit bereits über 10.000 Erfahrungsberichten & Bewertungen von Tradern sind wir das größte deutschsprachige Vergleichsportal für Online Broker und Trading Services - seit 2009!",
       description:
         "Wir sind selbst Trader und wissen wie schwer es ist einen guten Broker für den Handel von Forex, CFDs, Aktien, Futures oder Binären Optionen zu finden.Deshalb haben wir diese Seite ins Leben gerufen und alle Informationen zu den bekanntesten Brokern übersichtlich für unsere Besucher zusammengefasst.",
-      top_brokers: "Von Tradern am besten bewertete Broker",
+      top_brokers: "Von Anleger am besten bewertete Broker",
       top_brokers_description:
         "Zusätzlich zu Handelsplattform, Spreads und Co. finden Sie in unserem Broker Vergleich auch Erfahrungsberichte von Tradern zu fast jedem Anbieter, um ihnen die Suche nach dem richtigen Anbieter etwas zu erleichtern und die guten Broker von den mittelmäßigen zu unterscheiden.",
       forex_broker: "Forex Broker Vergleich",
