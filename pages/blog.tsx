@@ -46,6 +46,7 @@ const BlogListPage = ({
   promotion,
   navigation,
   categoryFooter,
+  excludingURLs
 }) => {
   const router = useRouter();
   const [rows, setRows] = useState(blog.rows);
@@ -77,7 +78,7 @@ const BlogListPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={"blog"} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={"blog"} topBroker={topBroker} excludingURLs={excludingURLs}/>
       )}
       <Layout
         title="Broker-Bewertungen Blog"
@@ -183,6 +184,7 @@ export async function getStaticProps() {
   const brokerComparable = baseRes.data.brokerComparable;
   const topbarList = baseRes.data.topbarList;
   const blog = blogRes.data;
+  const excludingURLs = baseRes.data.excludingURLs;
 
   return {
     props: {
@@ -199,6 +201,7 @@ export async function getStaticProps() {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
     revalidate: 10,
   };

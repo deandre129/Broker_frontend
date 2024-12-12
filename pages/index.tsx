@@ -46,11 +46,12 @@ function Index({
   categoryFooter,
   author,
   topbarList,
+  excludingURLs
 }) {
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={""} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={""} topBroker={topBroker} excludingURLs={excludingURLs}/>
       )}
       <Layout
         title={i18n.entities.home.title}
@@ -624,6 +625,7 @@ export const getStaticProps = async () => {
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs;
 
   return {
     props: {
@@ -639,6 +641,7 @@ export const getStaticProps = async () => {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
     revalidate: 10,
   };

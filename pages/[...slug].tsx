@@ -45,6 +45,7 @@ const GeneralPage = ({
   promotion,
   navigation,
   categoryFooter,
+  excludingURLs
 }) => {
   const router = useRouter();
 
@@ -109,7 +110,7 @@ const GeneralPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} excludingURLs={excludingURLs}/>
       )}
       <Layout
         title={title}
@@ -245,6 +246,7 @@ export async function getStaticProps({ params }) {
   const allBroker = allBrokerRes.data;
   const downloadPdf = downloadPdfRes.data;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs;
   let brokerRes = null;
   let broker = null;
   if (page && pageType == "article") {
@@ -273,6 +275,7 @@ export async function getStaticProps({ params }) {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
     revalidate: 10,
   };

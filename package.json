@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env REACT_APP_ENVIRONMENT=localhost next dev",
+    "dev": "cross-env REACT_APP_ENVIRONMENT=localhost next dev -p 8000",
     "build": "next build",
     "build-stats": "cross-env ANALYZE=true npm run build",
     "export": "next export",

@@ -9,7 +9,6 @@ const MDBox = dynamic(() => import("@/mui/components/MDBox"));
 const MDTypography = dynamic(() => import("@/mui/components/MDTypography"));
 
 function Promotion({ promotion }) {
-  console.log(promotion);
   return (
     <Grid xs={12} item>
       <Card>
@@ -45,7 +44,6 @@ function Promotion({ promotion }) {
                   >
                     <MaterialLink
                       href={row.url}
-                      target="_blank"
                       underline="hover"
                     >
                       {row.linktext}

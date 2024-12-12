@@ -40,6 +40,7 @@ function Contact({
   promotion,
   navigation,
   categoryFooter,
+  excludingURLs
 }) {
   const router = useRouter();
 
@@ -165,7 +166,7 @@ function Contact({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={"kontakt"} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={"kontakt"} topBroker={topBroker} excludingURLs={excludingURLs}/>
       )}
       <Layout
         noIndex
@@ -405,6 +406,7 @@ export async function getStaticProps() {
   const author = baseRes.data.author;
   const brokerComparable = baseRes.data.brokerComparable;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs;
 
   return {
     props: {
@@ -420,6 +422,7 @@ export async function getStaticProps() {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
     revalidate: 10,
   };

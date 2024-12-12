@@ -18,12 +18,14 @@ import LazyLoad from "react-lazyload";
 import CheckIcon from "@mui/icons-material/Check";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from 'next/router'
+import config from "@/config";
 
 const KeyboardArrowUpIcon = dynamic(
   () => import("@mui/icons-material/KeyboardArrowUp"),
 );
 
-const Topbar = ({ topbar, slug, topBroker }) => {
+const Topbar = ({ topbar, slug, topBroker, excludingURLs }) => {
   const topbarContainer = useRef(null);
   const [topbarData, setTopbarData] = useState(null);
   const [topbarBrokerData, setTopbarBrokerData] = useState(null);
@@ -35,26 +37,47 @@ const Topbar = ({ topbar, slug, topBroker }) => {
   const [topbarPaddingX, setTopbarPaddingX] = useState(100);
   const [showTopbar, setShowTopbar] = useState(false);
   const [height, setHeight] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
+    let projectURL = config.frontendUrl.protocol + "://" + config.frontendUrl.host;
+    
     let index = 0;
     for (let i = 0; i < topbar.count; i++) {
-      if (slug.includes(topbar.rows[i].broker.name_normalized)) {
-        index = i;
+      if (excludingURLs?.rows?.length > 0) {
+        for (const excludingURL of excludingURLs.rows) {
+          let url = projectURL + router.asPath;
+          if (excludingURL.name === topbar.rows[i].data.name && excludingURL.url === url) {
+            setClosed(true);
+            index = -1;
+            break;
+          }
+        }
+      }
+
+      if (index !== -1) {
+        if (slug?.includes(topbar.rows[i].broker.name_normalized)) {
+          index = i;
+          break;
+        } else if (
+          topbar.rows[i].broker.name_normalized === 
+          topBroker?.rows?.[0]?.name_normalized
+        ) {
+          index = i;
+        }
+      } else {
         break;
-      } else if (
-        topbar.rows[i].broker.name_normalized ===
-        topBroker.rows[0].name_normalized
-      ) {
-        index = i;
       }
     }
-    setTopbarData(topbar.rows[index].data);
-    setTopbarLogo(topbar.rows[index].detailLogo);
-    setTopbarRating(topbar.rows[index].rating);
-    setTopbarBrokerData(topbar.rows[index].broker);
-    setClosed(false);
-  }, [slug]);
+
+    if (index !== -1) {
+      setTopbarData(topbar.rows[index].data);
+      setTopbarLogo(topbar.rows[index].detailLogo); 
+      setTopbarRating(topbar.rows[index].rating);
+      setTopbarBrokerData(topbar.rows[index].broker);
+      setClosed(false);
+    }
+  }, [slug, topbar, topBroker, excludingURLs]);
 
   useEffect(() => {
     const handleMobileResponsive = () => {

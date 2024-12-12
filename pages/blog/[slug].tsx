@@ -61,6 +61,7 @@ const BlogDetailPage = ({
   promotion,
   navigation,
   categoryFooter,
+  excludingURLs
 }) => {
   const router = useRouter();
   const record = blog;
@@ -241,7 +242,7 @@ const BlogDetailPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} excludingURLs={excludingURLs}/>
       )}
       <Layout
         title={record?.name}
@@ -601,6 +602,7 @@ export async function getStaticProps({ params }) {
   const brokerComparable = baseRes.data.brokerComparable;
   const blog = blogRes.data;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs;
   const commentListRes = await axios.get(`${config.backendUrl}/comment-list`, {
     params: {
       filter: {
@@ -634,6 +636,7 @@ export async function getStaticProps({ params }) {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
     revalidate: 10,
   };

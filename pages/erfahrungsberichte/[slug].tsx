@@ -99,6 +99,7 @@ const BrokerViewPage = ({
   promotion,
   navigation,
   categoryFooter,
+  excludingURLs
 }) => {
   const router = useRouter();
   const record = page;
@@ -160,7 +161,7 @@ const BrokerViewPage = ({
   return (
     <>
       {topbarList && topbarList.count > 0 && (
-        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} />
+        <Topbar topbar={topbarList} slug={slug} topBroker={topBroker} excludingURLs={excludingURLs}/>
       )}
       <Layout
         title={title}
@@ -352,6 +353,7 @@ export async function getStaticProps({ params }) {
   const author = baseRes.data.author;
   const brokerComparable = allBrokerRes.data;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs
 
   const brokerPostListRes = await axios.get(
     `${config.backendUrl}/brokerPost-list`,
@@ -387,6 +389,7 @@ export async function getStaticProps({ params }) {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
     revalidate: 10,
   };

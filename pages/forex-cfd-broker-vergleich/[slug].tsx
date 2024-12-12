@@ -80,6 +80,7 @@ function BrokerComparePage({
   promotion,
   navigation,
   categoryFooter,
+  excludingURLs
 }) {
   const router = useRouter();
 
@@ -135,6 +136,7 @@ function BrokerComparePage({
           topbar={topbarList}
           slug={"forex-cfd-broker-vergleich"}
           topBroker={topBroker}
+          excludingURLs={excludingURLs}
         />
       )}
       <Layout
@@ -337,6 +339,7 @@ export async function getServerSideProps(context) {
   const brokerComparable = baseRes.data.brokerComparable;
   const allBroker = allBrokerRes.data;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs;
 
   const recordAReq = slug.slice(0, index);
   const recordBReq = slug.slice(index + 8, slug.length);
@@ -365,6 +368,7 @@ export async function getServerSideProps(context) {
       promotion,
       navigation,
       categoryFooter,
+      excludingURLs
     },
   };
 }

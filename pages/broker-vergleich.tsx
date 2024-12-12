@@ -71,6 +71,7 @@ const ComparisonPage = ({
   promotionSidebar,
   navigationSidebar,
   categoryFooterSidebar,
+  excludingURLs
 }) => {
   const router = useRouter();
 
@@ -125,6 +126,7 @@ const ComparisonPage = ({
           topbar={topbarList}
           slug={"broker-vergleich"}
           topBroker={topBrokerSidebar}
+          excludingURLs={excludingURLs}
         />
       )}
       <Layout
@@ -362,6 +364,7 @@ export async function getStaticProps() {
   const brokerComparable = baseRes.data.brokerComparable;
   //const allBroker = allBrokerRes.data;
   const topbarList = baseRes.data.topbarList;
+  const excludingURLs = baseRes.data.excludingURLs;
 
   let category;
   if (!categoryRes) {
@@ -402,6 +405,7 @@ export async function getStaticProps() {
       navigationSidebar,
       categoryFooterSidebar,
       category,
+      excludingURLs
     },
     revalidate: 10,
   };
